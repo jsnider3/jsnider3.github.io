@@ -7,6 +7,37 @@
     <atom:link href="http://jsnider3.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Book Review: More Ocaml: Algorithms, Methods, and Diversions</title>
+        <description>&lt;p&gt;My first attempt to learn OCaml was back in January, it largely took the
+form of “write code and then ask Google why it doesn’t work.” You can
+see the results of that process at 
+&lt;a href=&quot;https://github.com/jsnider3/newbie_OCaml&quot;&gt;https://github.com/jsnider3/newbie_OCaml&lt;/a&gt;.  &lt;/p&gt;
+
+&lt;p&gt;This wasn’t the fastest process and instilled in me a deep rage at
+OCaml for repeatedly failing to be Haskell. I decided to be more 
+disciplined with my second attempt to learn OCaml and ordered a dead-tree
+copy of “More OCaml”.  &lt;/p&gt;
+
+&lt;p&gt;The book starts off assuming the reader knows how to program,
+just like it’s advertised, and shoves all the details of writing a 
+working OCaml into the preface. The first chapter is all about
+learning to appreciate the power of &lt;code&gt;fold&lt;/code&gt; in functional programming and
+the second chapter is showing how to implement lazy lists in OCaml, just 
+in case those snooty Haskellers think their language is more powerful.&lt;/p&gt;
+
+&lt;p&gt;Moving on through the book, experienced programmers learn how to …, 
+…, and … in OCaml and eventually create a thing to make pdfs 
+(my implementation of this is &lt;a href=&quot;https://jsnider.github.io/404.html&quot;&gt;https://jsnider.github.io/404.html&lt;/a&gt;.  &lt;/p&gt;
+
+&lt;p&gt;It’s definitely a good book for experienced programmers wishing to learn
+OCaml to work through.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 04 Apr 2015 08:00:00 -0400</pubDate>
+        <link>http://jsnider3.github.io/update/ocaml/books/2015/04/04/more-ocaml-book/</link>
+        <guid isPermaLink="true">http://jsnider3.github.io/update/ocaml/books/2015/04/04/more-ocaml-book/</guid>
+      </item>
+    
+      <item>
         <title>What does the title mean anyway?</title>
         <description>&lt;p&gt;There’s a short answer and a long answer to that question.
 The short answer is that &lt;code&gt;(\x -&amp;gt; &quot;Blog&quot;)&lt;/code&gt; defines an anonymous function

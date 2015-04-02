@@ -2,6 +2,7 @@
 layout: post
 title:  "What does the title mean anyway?"
 date:   2015-03-29 01:17:54
+comments: True
 categories: update haskell
 ---
 
