@@ -4,8 +4,15 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+I'm a computer scientist, a true believer in the 
+glory of the technocracy, and a George Mason MS CS student.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+My interests as a computer scientist are machine 
+learning, AI, computer vision, comparative programming 
+languages, and compilers/interpreters.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+I can be reached either through the email at the bottom
+of the page, my [LinkedIn](https://www.linkedin.com/pub/josh-snider/5a/482/6ba) page, or leaving a comment.
+
+Outside of computer science, I enjoy biking and karaoke. 
+Further information is not available here.
