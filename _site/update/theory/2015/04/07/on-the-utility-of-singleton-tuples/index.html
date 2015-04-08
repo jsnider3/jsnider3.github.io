@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>(\x -> "Blog")</title>
+    <title>On the Utility of Singleton Tuples</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="An attempt at a blog by someone who thinks Haskell is cool.">
-    <link rel="canonical" href="http://jsnider3.github.io/">
+    <link rel="canonical" href="http://jsnider3.github.io/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/main.css">
@@ -64,28 +64,51 @@
 
     <div class="page-content">
       <div class="wrap">
-      <div class="home">
+      <div class="post">
 
-  <h1>Posts</h1>
+  <header class="post-header">
+    <h1>On the Utility of Singleton Tuples</h1>
+    <p class="meta">Apr 7, 2015</p>
+  </header>
 
-  <ul class="posts">
-    
-      <li>
-        <span class="post-date">Apr 7, 2015</span>
-        <a class="post-link" href="/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/">On the Utility of Singleton Tuples</a>
-      </li>
-    
-      <li>
-        <span class="post-date">Mar 28, 2015</span>
-        <a class="post-link" href="/update/haskell/2015/03/28/what-does-the-title-mean-anyway/">What does the title mean anyway?</a>
-      </li>
-    
-  </ul>
+  <article class="post-content">
+  <p>Formally, a tuple is an ordered list of elements. As a type, its elements 
+may have arbitrary type, but its length is fixed. Many programming 
+languages (and almost all functional programming languages) have 
+them, while others prefer the programmer create structs or objects instead.</p>
 
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+<p>Most tuples used in code have between two and four elements. It’s a 
+huge pain to read and maintain code with extra-large tuples and 
+anything that needs to be that large starts to accumulate helper 
+methods which would be useful to wrap up in a class/module/namespace.</p>
+
+<p>The tuple containing zero elements is formally known as the unit type. 
+In code, it sees uses as a dummy argument to functions (OCaml), as a 
+placeholder for the empty list (Lisp), and as a representation of 
+<code>Void</code> (Swift).</p>
+
+<p>The tuple containing a single element is known as a singleton. Despite 
+having a strong mathematical foundation, very few languages make the 
+distinction between a singleton of a type and the type itself. In all 
+the languages I know of where tuples are created by putting parentheses 
+around a comma-seperated list trying to create a singleton tuple will 
+result in the parentheses being ignored. C# makes the distinction through 
+it’s <code>Tuple&lt;T1&gt;</code> class and Python allows you to make a single tuple 
+through adding a comma (i.e. <code>(5,)</code>).</p>
+
+<p>The most likely reason for the reluctance of language designers to include 
+the singleton tuple, is the lack of scenarios where it would come in 
+handy. It’s certainly convenient if you’re a type theorist, but other than 
+that the only case where it might be useful is in Python where tuples are 
+constant; if you absolutely positively needed a variable in Python to be a 
+constant you could wrap it as a tuple.</p>
+
+<p>If you know scenarios where a singleton tuple would be useful, you should 
+leave a comment below.  </p>
+
+  </article>
 
 </div>
-
       </div>
     </div>
 

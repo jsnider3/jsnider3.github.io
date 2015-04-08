@@ -7,34 +7,44 @@
     <atom:link href="http://jsnider3.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Book Review: More Ocaml: Algorithms, Methods, and Diversions</title>
-        <description>&lt;p&gt;My first attempt to learn OCaml was back in January, it largely took the
-form of “write code and then ask Google why it doesn’t work.” You can
-see the results of that process at 
-&lt;a href=&quot;https://github.com/jsnider3/newbie_OCaml&quot;&gt;https://github.com/jsnider3/newbie_OCaml&lt;/a&gt;.  &lt;/p&gt;
+        <title>On the Utility of Singleton Tuples</title>
+        <description>&lt;p&gt;Formally, a tuple is an ordered list of elements. As a type, its elements 
+may have arbitrary type, but its length is fixed. Many programming 
+languages (and almost all functional programming languages) have 
+them, while others prefer the programmer create structs or objects instead.&lt;/p&gt;
 
-&lt;p&gt;This wasn’t the fastest process and instilled in me a deep rage at
-OCaml for repeatedly failing to be Haskell. I decided to be more 
-disciplined with my second attempt to learn OCaml and ordered a dead-tree
-copy of “More OCaml”.  &lt;/p&gt;
+&lt;p&gt;Most tuples used in code have between two and four elements. It’s a 
+huge pain to read and maintain code with extra-large tuples and 
+anything that needs to be that large starts to accumulate helper 
+methods which would be useful to wrap up in a class/module/namespace.&lt;/p&gt;
 
-&lt;p&gt;The book starts off assuming the reader knows how to program,
-just like it’s advertised, and shoves all the details of writing a 
-working OCaml into the preface. The first chapter is all about
-learning to appreciate the power of &lt;code&gt;fold&lt;/code&gt; in functional programming and
-the second chapter is showing how to implement lazy lists in OCaml, just 
-in case those snooty Haskellers think their language is more powerful.&lt;/p&gt;
+&lt;p&gt;The tuple containing zero elements is formally known as the unit type. 
+In code, it sees uses as a dummy argument to functions (OCaml), as a 
+placeholder for the empty list (Lisp), and as a representation of 
+&lt;code&gt;Void&lt;/code&gt; (Swift).&lt;/p&gt;
 
-&lt;p&gt;Moving on through the book, experienced programmers learn how to …, 
-…, and … in OCaml and eventually create a thing to make pdfs 
-(my implementation of this is &lt;a href=&quot;https://jsnider.github.io/404.html&quot;&gt;https://jsnider.github.io/404.html&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;The tuple containing a single element is known as a singleton. Despite 
+having a strong mathematical foundation, very few languages make the 
+distinction between a singleton of a type and the type itself. In all 
+the languages I know of where tuples are created by putting parentheses 
+around a comma-seperated list trying to create a singleton tuple will 
+result in the parentheses being ignored. C# makes the distinction through 
+it’s &lt;code&gt;Tuple&amp;lt;T1&amp;gt;&lt;/code&gt; class and Python allows you to make a single tuple 
+through adding a comma (i.e. &lt;code&gt;(5,)&lt;/code&gt;).&lt;/p&gt;
 
-&lt;p&gt;It’s definitely a good book for experienced programmers wishing to learn
-OCaml to work through.&lt;/p&gt;
+&lt;p&gt;The most likely reason for the reluctance of language designers to include 
+the singleton tuple, is the lack of scenarios where it would come in 
+handy. It’s certainly convenient if you’re a type theorist, but other than 
+that the only case where it might be useful is in Python where tuples are 
+constant; if you absolutely positively needed a variable in Python to be a 
+constant you could wrap it as a tuple.&lt;/p&gt;
+
+&lt;p&gt;If you know scenarios where a singleton tuple would be useful, you should 
+leave a comment below.  &lt;/p&gt;
 </description>
-        <pubDate>Sat, 04 Apr 2015 08:00:00 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/ocaml/books/2015/04/04/more-ocaml-book/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/ocaml/books/2015/04/04/more-ocaml-book/</guid>
+        <pubDate>Tue, 07 Apr 2015 08:00:00 -0400</pubDate>
+        <link>http://jsnider3.github.io/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</link>
+        <guid isPermaLink="true">http://jsnider3.github.io/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</guid>
       </item>
     
       <item>
