@@ -2,6 +2,7 @@
 layout: post
 title:  "On the Utility of Singleton Tuples"
 date:   2015-04-07 12:00:00
+comments: True
 categories: update theory
 ---
 Formally, a tuple is an ordered list of elements. As a type, its elements 
