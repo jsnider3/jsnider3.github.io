@@ -7,6 +7,26 @@
     <atom:link href="http://jsnider3.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Introducing Honey Badger</title>
+        <description>&lt;p&gt;I made a programming language called Honey Badger about a month ago.
+You can read about it at its &lt;a href=&quot;project page&quot;&gt;HoneyBadger&lt;/a&gt; or at
+the &lt;a href=&quot;repo&quot;&gt;https://github.com/jsnider3/HoneyBadger&lt;/a&gt;, but I’d like to
+take a moment to talk about my motivations for doing it.&lt;/p&gt;
+
+&lt;p&gt;A good chunk of my motivation was to be able to point to the reference
+implementation whenever someone asks for proof that I know OCaml. The
+rest of my motivation was to be able to say that I’ve done an entire
+programming language from conception, to specification, to implementation
+all by myself, I’ve done parts of languages before but not the entire thing.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 29 May 2015 08:00:00 -0400</pubDate>
+        <link>http://jsnider3.github.io/update/honeybadger/2015/05/29/introducing-honey-badger/</link>
+        <guid isPermaLink="true">http://jsnider3.github.io/update/honeybadger/2015/05/29/introducing-honey-badger/</guid>
+      </item>
+    
+      <item>
         <title>Book Review: More Ocaml: Algorithms, Methods, and Diversions</title>
         <description>&lt;p&gt;My first attempt to learn OCaml was back in January, it largely took the
 form of “write code and then ask Google why it doesn’t work.” You can
