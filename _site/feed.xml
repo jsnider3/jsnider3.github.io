@@ -9,12 +9,13 @@
       <item>
         <title>Introducing Honey Badger</title>
         <description>&lt;p&gt;I made a programming language called Honey Badger about a month ago.
-You can read about it at its &lt;a href=&quot;project page&quot;&gt;HoneyBadger&lt;/a&gt; or at
-the &lt;a href=&quot;repo&quot;&gt;https://github.com/jsnider3/HoneyBadger&lt;/a&gt;, but I’d like to
+You can read about it at its &lt;a href=&quot;https://jsnider3.github.io/HoneyBadger&quot;&gt;project page&lt;/a&gt; or at
+the &lt;a href=&quot;https://github.com/jsnider3/HoneyBadger&quot;&gt;repo&lt;/a&gt;, but I’d like to
 take a moment to talk about my motivations for doing it.&lt;/p&gt;
 
 &lt;p&gt;A good chunk of my motivation was to be able to point to the reference
-implementation whenever someone asks for proof that I know OCaml. The
+implementation whenever someone asks for proof that I know OCaml (a
+situation which will only occur if I basically prompt them to). The
 rest of my motivation was to be able to say that I’ve done an entire
 programming language from conception, to specification, to implementation
 all by myself, I’ve done parts of languages before but not the entire thing.&lt;/p&gt;
