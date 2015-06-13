@@ -35,13 +35,27 @@ would have held me back to copy ideas from it.&lt;/p&gt;
 test-driven development, with a Travis build running as quickly as
 possible. I copied the test cases from my old IA32 compiler project and
 iterating from simplest to most complex wrote the code needed to make them
-pass. There was a five-step cycle for adding a feature:&lt;br /&gt;
-1. Parse the test source code correctly.&lt;br /&gt;
-2. Generate valid jasmin code.&lt;br /&gt;
-3. Improve the code generation until the java verifier would accept it.&lt;br /&gt;
-4. Continue editing until the output from running the code was correct.&lt;br /&gt;
-5. Nod approvingly and move on to the next test case.&lt;br /&gt;
-This development cycle allowed me to keep the build running while still
+pass. There was a five-step cycle for adding a feature:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parse the test source code correctly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generate valid jasmin code.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improve the code generation until the java verifier would accept it.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Continue editing until the output from running the code was correct.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nod approvingly and move on to the next test case.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This development cycle allowed me to keep the build running while still
 verifying that I was making forward progress without regression.&lt;/p&gt;
 
 &lt;p&gt;Obviously, the project had challenges which I worked to overcome. Starting

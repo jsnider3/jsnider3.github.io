@@ -33,12 +33,18 @@ While building the compiler, I used a development methodology similar to
 test-driven development, with a Travis build running as quickly as
 possible. I copied the test cases from my old IA32 compiler project and
 iterating from simplest to most complex wrote the code needed to make them
-pass. There was a five-step cycle for adding a feature:  
-1. Parse the test source code correctly.  
-2. Generate valid jasmin code.  
-3. Improve the code generation until the java verifier would accept it.  
-4. Continue editing until the output from running the code was correct.  
-5. Nod approvingly and move on to the next test case.  
+pass. There was a five-step cycle for adding a feature:
+
+1. Parse the test source code correctly.
+
+2. Generate valid jasmin code.
+
+3. Improve the code generation until the java verifier would accept it.
+
+4. Continue editing until the output from running the code was correct.
+
+5. Nod approvingly and move on to the next test case.
+
 This development cycle allowed me to keep the build running while still
 verifying that I was making forward progress without regression.
 
