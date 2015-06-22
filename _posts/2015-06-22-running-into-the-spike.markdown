@@ -16,8 +16,9 @@ I had a couple motivations for learning web development which can be
 separated cleanly into an actual desire to make
 [this code](https://jsnider3.github.io/GitHubBOC) and inspiration
 I’ve received from the wider community. First among my intrinsic
-motivations, is an actual desire to have this project so I can use it
-myself. I tried asking [Stack Exchange](http://webapps.stackexchange.com/q/75027/),
+motivations, is an actual desire to have a tool to show the language breakdown
+among all of my GitHub repos, so I can use it myself. I tried asking
+[Stack Exchange](http://webapps.stackexchange.com/q/75027/),
 if they knew someone who already did it a couple months ago, but none of
 the similar work out there met my needs so I did it myself. Second, I
 feel I’ve reached the point in my career as a computer scientist where my
