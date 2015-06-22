@@ -6,6 +6,16 @@ comments: True
 categories: update opinion web-development
 ---
 
+#### Intro
+
+I recently made a project to list the languages a GitHub user has in
+all of their repositories. You can find it at
+[https://jsnider3.github.io/GitHubBOC](https://jsnider3.github.io/GitHubBOC).
+This is just the thoughts I wrote down while making it organized in
+a moderately presentable way. 
+
+#### Motivations
+
 I’ve never been more intimidated in my life than when I try to learn
 something and don’t know where to start. I’ve felt this feeling when
 learning a programming language completely different than one I already
@@ -47,6 +57,8 @@ project before New York. I swear that I will not rest until I get a star
 on my JavaScript GitHub repos, because after all worthless internet points
 are the most valuable thing in the universe.
 
+#### Obstacles
+
 Like all software projects, this one faced setbacks and delays. I
 originally started working on a node.js app and got everything but the
 pretty pictures done before finding out that you can’t run server-side
@@ -71,6 +83,8 @@ it, this would overcome the throttling issues and we’d be able to show them
 their own repos (instead of mine) by default which would be better. I had
 some difficulty catching the errors that we receive when we’re being
 throttled, but I choose to blame that on inadequate documentation.
+
+#### Conclusions
 
 From my previous experience as a teaching assistant, I don’t have a very
 good opinion of people who want to look at working code while writing their

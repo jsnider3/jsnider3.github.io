@@ -8,7 +8,17 @@
     
       <item>
         <title>Running into the Spike: A Retrospective</title>
-        <description>&lt;p&gt;I’ve never been more intimidated in my life than when I try to learn
+        <description>&lt;h4 id=&quot;intro&quot;&gt;Intro&lt;/h4&gt;
+
+&lt;p&gt;I recently made a project to list the languages a GitHub user has in
+all of their repositories. You can find it at
+&lt;a href=&quot;https://jsnider3.github.io/GitHubBOC&quot;&gt;https://jsnider3.github.io/GitHubBOC&lt;/a&gt;.
+This is just the thoughts I wrote down while making it organized in
+a moderately presentable way. &lt;/p&gt;
+
+&lt;h4 id=&quot;motivations&quot;&gt;Motivations&lt;/h4&gt;
+
+&lt;p&gt;I’ve never been more intimidated in my life than when I try to learn
 something and don’t know where to start. I’ve felt this feeling when
 learning a programming language completely different than one I already
 know, when trying to study quantitative finance, and whenever I try to
@@ -49,6 +59,8 @@ project before New York. I swear that I will not rest until I get a star
 on my JavaScript GitHub repos, because after all worthless internet points
 are the most valuable thing in the universe.&lt;/p&gt;
 
+&lt;h4 id=&quot;obstacles&quot;&gt;Obstacles&lt;/h4&gt;
+
 &lt;p&gt;Like all software projects, this one faced setbacks and delays. I
 originally started working on a node.js app and got everything but the
 pretty pictures done before finding out that you can’t run server-side
@@ -73,6 +85,8 @@ it, this would overcome the throttling issues and we’d be able to show them
 their own repos (instead of mine) by default which would be better. I had
 some difficulty catching the errors that we receive when we’re being
 throttled, but I choose to blame that on inadequate documentation.&lt;/p&gt;
+
+&lt;h4 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h4&gt;
 
 &lt;p&gt;From my previous experience as a teaching assistant, I don’t have a very
 good opinion of people who want to look at working code while writing their
