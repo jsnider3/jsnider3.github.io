@@ -3,8 +3,8 @@
   <channel>
     <title>(\x -&gt; &quot;Blog&quot;)</title>
     <description>An attempt at a blog by someone who thinks Haskell is cool.</description>
-    <link>http://jsnider3.github.io/</link>
-    <atom:link href="http://jsnider3.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://www.joshuasnider.com/</link>
+    <atom:link href="http://www.joshuasnider.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
         <title>Recursion and You</title>
@@ -95,8 +95,8 @@ is needed anymore.&lt;/p&gt;
 
 </description>
         <pubDate>Mon, 29 Jun 2015 08:00:00 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/stack/recursion/2015/06/29/recursion-and-you/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/stack/recursion/2015/06/29/recursion-and-you/</guid>
+        <link>http://www.joshuasnider.com/update/stack/recursion/2015/06/29/recursion-and-you/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/stack/recursion/2015/06/29/recursion-and-you/</guid>
       </item>
     
       <item>
@@ -105,7 +105,7 @@ is needed anymore.&lt;/p&gt;
 
 &lt;p&gt;I recently made a project to list the languages a GitHub user has in
 all of their repositories. You can find it at
-&lt;a href=&quot;https://jsnider3.github.io/GitHubBOC&quot;&gt;https://jsnider3.github.io/GitHubBOC&lt;/a&gt;.
+&lt;a href=&quot;https://joshuasnider3.com/GitHubBOC&quot;&gt;https://www.joshuasnider.com/GitHubBOC&lt;/a&gt;.
 This is just the thoughts I wrote down while making it organized in
 a moderately presentable way. &lt;/p&gt;
 
@@ -119,7 +119,7 @@ learn web or mobile development.&lt;/p&gt;
 
 &lt;p&gt;I had a couple motivations for learning web development which can be
 separated cleanly into an actual desire to make
-&lt;a href=&quot;https://jsnider3.github.io/GitHubBOC&quot;&gt;this code&lt;/a&gt; and inspiration
+&lt;a href=&quot;https://joshuasnider.com/GitHubBOC&quot;&gt;this code&lt;/a&gt; and inspiration
 I’ve received from the wider community. First among my intrinsic
 motivations, is an actual desire to have a tool to show the language breakdown
 among all of my GitHub repos, so I can use it myself. I tried asking
@@ -218,8 +218,8 @@ especially in fact, if it’s not programming and just tackle it now,
 immediately, and head on. Especially, if it’s commenting on this post.&lt;/p&gt;
 </description>
         <pubDate>Mon, 22 Jun 2015 08:00:00 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/opinion/web-development/2015/06/22/running-into-the-spike/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/opinion/web-development/2015/06/22/running-into-the-spike/</guid>
+        <link>http://www.joshuasnider.com/update/opinion/web-development/2015/06/22/running-into-the-spike/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/opinion/web-development/2015/06/22/running-into-the-spike/</guid>
       </item>
     
       <item>
@@ -324,14 +324,14 @@ back to the community. Thanks for reading.&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 11 Jun 2015 08:00:00 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</guid>
+        <link>http://www.joshuasnider.com/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</guid>
       </item>
     
       <item>
         <title>Introducing Honey Badger</title>
         <description>&lt;p&gt;I made a programming language called Honey Badger about a month ago.
-You can read about it at its &lt;a href=&quot;https://jsnider3.github.io/HoneyBadger&quot;&gt;project page&lt;/a&gt; or at
+You can read about it at its &lt;a href=&quot;https://www.joshuasnider.com/HoneyBadger&quot;&gt;project page&lt;/a&gt; or at
 the &lt;a href=&quot;https://github.com/jsnider3/HoneyBadger&quot;&gt;repo&lt;/a&gt;, but I’d like to
 take a moment to talk about my motivations for doing it.&lt;/p&gt;
 
@@ -345,8 +345,8 @@ all by myself, I’ve done parts of languages before but not the entire thing.&l
 &lt;p&gt;Thanks for reading.&lt;/p&gt;
 </description>
         <pubDate>Fri, 29 May 2015 08:00:00 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/honeybadger/2015/05/29/introducing-honey-badger/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/honeybadger/2015/05/29/introducing-honey-badger/</guid>
+        <link>http://www.joshuasnider.com/update/honeybadger/2015/05/29/introducing-honey-badger/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/honeybadger/2015/05/29/introducing-honey-badger/</guid>
       </item>
     
       <item>
@@ -378,8 +378,8 @@ definitely a good book for experienced programmers wishing to learn
 OCaml to work through.&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Apr 2015 08:00:00 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/ocaml/books/2015/04/18/more-ocaml-book/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/ocaml/books/2015/04/18/more-ocaml-book/</guid>
+        <link>http://www.joshuasnider.com/update/ocaml/books/2015/04/18/more-ocaml-book/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/ocaml/books/2015/04/18/more-ocaml-book/</guid>
       </item>
     
       <item>
@@ -419,8 +419,8 @@ constant you could wrap it as a tuple.&lt;/p&gt;
 leave a comment below.  &lt;/p&gt;
 </description>
         <pubDate>Tue, 07 Apr 2015 08:00:00 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</guid>
+        <link>http://www.joshuasnider.com/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</guid>
       </item>
     
       <item>
@@ -440,8 +440,8 @@ a strange feature. Calling &lt;code&gt;foo&lt;/code&gt; with  an &lt;code&gt;a&l
 &lt;code&gt;foo undefined&lt;/code&gt; or &lt;code&gt;foo (error &quot;DIE!&quot;)&lt;/code&gt; will run perfectly fine.&lt;/p&gt;
 </description>
         <pubDate>Sat, 28 Mar 2015 21:17:54 -0400</pubDate>
-        <link>http://jsnider3.github.io/update/haskell/2015/03/28/what-does-the-title-mean-anyway/</link>
-        <guid isPermaLink="true">http://jsnider3.github.io/update/haskell/2015/03/28/what-does-the-title-mean-anyway/</guid>
+        <link>http://www.joshuasnider.com/update/haskell/2015/03/28/what-does-the-title-mean-anyway/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/haskell/2015/03/28/what-does-the-title-mean-anyway/</guid>
       </item>
     
   </channel>

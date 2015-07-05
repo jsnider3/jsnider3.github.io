@@ -7,7 +7,7 @@ categories: update honeybadger
 ---
 
 I made a programming language called Honey Badger about a month ago.
-You can read about it at its [project page](https://jsnider3.github.io/HoneyBadger) or at
+You can read about it at its [project page](https://www.joshuasnider.com/HoneyBadger) or at
 the [repo](https://github.com/jsnider3/HoneyBadger), but I'd like to
 take a moment to talk about my motivations for doing it.
 

@@ -10,7 +10,7 @@ categories: update opinion web-development
 
 I recently made a project to list the languages a GitHub user has in
 all of their repositories. You can find it at
-[https://jsnider3.github.io/GitHubBOC](https://jsnider3.github.io/GitHubBOC).
+[https://www.joshuasnider.com/GitHubBOC](https://joshuasnider3.com/GitHubBOC).
 This is just the thoughts I wrote down while making it organized in
 a moderately presentable way. 
 
@@ -24,7 +24,7 @@ learn web or mobile development.
 
 I had a couple motivations for learning web development which can be
 separated cleanly into an actual desire to make
-[this code](https://jsnider3.github.io/GitHubBOC) and inspiration
+[this code](https://joshuasnider.com/GitHubBOC) and inspiration
 I’ve received from the wider community. First among my intrinsic
 motivations, is an actual desire to have a tool to show the language breakdown
 among all of my GitHub repos, so I can use it myself. I tried asking
