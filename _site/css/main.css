@@ -403,3 +403,29 @@ a:visited { color: #205caa; }
     margin: 0 0 15px; }
 
 }
+
+/* Scrolling tables.*/
+table.tableSection {
+  display: table;
+  width: 100%;
+  text-align: left;
+}
+table.tableSection thead, table.tableSection tbody {
+  float: left;
+  width: 100%;
+  text-align: left;
+}
+table.tableSection tbody {
+  overflow: auto;
+  height: 450px;
+  text-align: left;
+}
+table.tableSection tr {
+  width: 100%;
+  display: table;
+  text-align: left;
+}
+table.tableSection th, table.tableSection td {
+  width: 33%;
+  text-align: left;
+}
