@@ -19,7 +19,10 @@
       <div class="trigger">
         <a class="page-link" href="{{ site.baseurl }}/"> Home </a>
         {% for page in site.pages %}
-          {% if page.url != "/404.html" %}
+          {% if page.title == "Home" %}
+            <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+          {% endif %}
+          {% if page.title == "About" %}
             <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
           {% endif %}
         {% endfor %}
