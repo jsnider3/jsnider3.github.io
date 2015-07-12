@@ -7,14 +7,14 @@ layout: default
   <h1>Posts</h1>
 
   <ul class="posts">
-    <li>
-      <span class="post-date">Jul 8, 2015</span>
-      <a class="post-link" href="/QuisCustodiet/">The Most Influential Works, According to TvTropes</a>
-    </li>
     {% for post in site.posts %}
       <li>
         <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        {% if post.customlink %}
+          <a class="post-link" href="{{ post.customlink | prepend: site.baseurl}}">{{ post.title }}</a>
+        {% else %}
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>
