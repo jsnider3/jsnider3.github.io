@@ -7,6 +7,165 @@
     <atom:link href="http://www.joshuasnider.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Unbeatable Tic Tac Toe</title>
+        <description>&lt;h4 id=&quot;intro&quot;&gt;Intro&lt;/h4&gt;
+
+&lt;p&gt;I’m not a fan of mobile games that allow you to bribe your way to victory,
+even though they are as reliable a business model as advertising is for
+websites. I wanted to learn Android programming and making a parody of this
+type of game seemed like a decent scope for a “My First Android” kind of
+project. Thus, I set out to create a game of tic-tac-toe where the AI plays
+ perfectly (and is therefore unbeatable) unless you pay 99 cents in which
+case it plays randomly and can be beaten 99.4792%&lt;sup&gt;1&lt;/sup&gt; of the time.&lt;/p&gt;
+
+&lt;h4 id=&quot;design-overview&quot;&gt;Design overview&lt;/h4&gt;
+
+&lt;p&gt;I needed four classes for this a &lt;code&gt;TicTacToeBoard&lt;/code&gt; which stored a game state,
+calculated the computer’s moves, and provided a variety of library
+functions, a &lt;code&gt;MainActivity&lt;/code&gt; which showed the actual tic tac toe board and
+had a drop down menu, an &lt;code&gt;AboutPage&lt;/code&gt; which was an activity that showed some
+info about me, and a &lt;code&gt;ScorePage&lt;/code&gt; which was an activity that displayed the
+user’s cumulative wins, losses, and draws.&lt;/p&gt;
+
+&lt;p&gt;When the app needed to save &lt;code&gt;MainActivity&lt;/code&gt;’s state it did so by writing the
+board out as 10 strings, 9 to represent the text in each space and one to
+say which person had just moved, we then had two strings to say the
+computer and player’s chars.&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;In our long-term storage, we currently have flags to keep track of whether
+we have ever played before and whether the game is currently in easy
+mode&lt;sup&gt;3&lt;/sup&gt;, we then store integers for the user’s number of wins,
+losses, and draws.&lt;sup&gt;4&lt;/sup&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;challenges-encountered&quot;&gt;Challenges encountered&lt;/h4&gt;
+
+&lt;p&gt;Making my first Android app was a quick journey, but one beset by challenges.
+Most of them were due to me not yet knowing how to do Android programming,
+but one or two may have been actually difficult. &lt;/p&gt;
+
+&lt;p&gt;There were three bugs that troubled me long enough for me to have made a
+ticket for them. First, when I was trying to set the &lt;code&gt;MainActivity&lt;/code&gt; as an
+&lt;code&gt;onClickListener&lt;/code&gt; for the nine buttons it would crash. The fix for this was
+to call &lt;code&gt;setContentView&lt;/code&gt; before trying to register for those events. Second,
+rotating &lt;code&gt;MainActivity&lt;/code&gt;’s screen would make the tic-tac-toe board disappear.
+I fixed this at first by fixing the orientation of &lt;code&gt;MainActivity&lt;/code&gt;. I then
+fixed it properly by making &lt;code&gt;TicTacToeBoard&lt;/code&gt; implement &lt;code&gt;Parcelable&lt;/code&gt; and overriding
+&lt;code&gt;onSaveInstanceState&lt;/code&gt; and &lt;code&gt;onRestoreInstanceState&lt;/code&gt;. This solution had a bug
+where pressing the Verizon button on my phone would cause it to crash,
+this was just a dumb mistake in my parceling code. Third, it wouldn’t
+preserve anything when I switched screens or logged in or out. This was
+solved by setting &lt;code&gt;android:launchMode=&quot;singleTop&quot;&lt;/code&gt; in the manifest.&lt;sup&gt;5&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;Something I struggled with generally, but that isn’t technically a bug was
+in app billing. There’s a good tutorial &lt;a href=&quot;http://developer.android.com/google/play/billing/billing_integrate.html&quot;&gt;here&lt;/a&gt;
+which was helpful at the end after I tried everything else. Testing my in-app
+billing was also kinda hard, since Google doesn’t allow developers to buy
+things from themselves&lt;sup&gt;6&lt;/sup&gt;. What you’re supposed to do is have a
+spare device with a test account installed on it. Since I currently only
+own one phone, I just reached out to a friend, Kunal, who does mobile
+programming and got them to be a beta tester for me. He also helped by
+telling me the “best” way to fix some of the bugs I encountered in the
+previous paragraph.&lt;/p&gt;
+
+&lt;h4 id=&quot;future-work&quot;&gt;Future work&lt;/h4&gt;
+
+&lt;p&gt;There were a lot of possible enhancements that I would or should put in a
+more commercial app, but which I decided were out-of-scope for this. I should
+have used a namespace for my product ID, I went with &lt;code&gt;&quot;sku_easy_mode&quot;&lt;/code&gt; because
+I saw an example somewhere using SKUs. They may have meant it in a different
+way. I could have used a licensing scheme to validate that the app was
+installed from the official channel, but I wasn’t convinced this would
+benefit me and I ran into time constraints before getting back around to it.
+I could have made some popups to talk with the user, but I felt that toasts
+were sufficient for my purposes. I could have had an Unbeatable TicTacToe logo
+show up, which would change into a Beatable TicTacToe logo when easy mode
+was enabled. &lt;/p&gt;
+
+&lt;p&gt;I might want to take the current app and just make it look prettier. The about
+page could have separate text boxes for the links with thumbnail images next to
+them, the score page could have big text boxes for the actual score and then a
+message at the bottom making a snarky comment about the user either being bad
+at the game (if they lose a lot), being just as smart as a computer (if they
+mostly draw), or wasting money on tic-tac-toe (if they win a couple times with
+easy mode), the main activity could have stylized text boxes to make the
+tic-tac-toe board prettier and it could resize to fill the screen. I also have
+an idea for a much more serious game than tic-tac-toe, but as a firm believer
+that ideas are worthless and execution is everything I’ll wait to announce it
+until I actually have an alpha.&lt;sup&gt;7&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;One thing I really want on Android is a music player that preserves your spot
+when you pause and come back later. The default music player on my Samsung
+doesn’t do that, but if you download a long audio file, say a podcast, as an
+mp3 and try to listen to it in pieces it’s critical that you can find the
+spot you left off easily. I’m going to look around for pre-existing work
+before I do this though.&lt;/p&gt;
+
+&lt;h4 id=&quot;lessons-learned&quot;&gt;Lessons Learned&lt;/h4&gt;
+
+&lt;p&gt;I needed to get a Google Play Developer account and a Google Pay Merchant
+account in order to publish this app. I’m on the very edge of getting my own
+LLC and officially becoming a business, but I’ll most likely delay that
+until I have separate business income. &lt;/p&gt;
+
+&lt;p&gt;I also learned to use a more modern IDE, most of my programming is done in
+gvim, but all of the Android tutorials I read wanted me to use Android Studio
+and my desire to be a rebel just wasn’t strong enough. This worked well for
+me, autocompletion was a nice feature and so was being able to run an app by
+clicking a button. Looking back, this project is a lot like life. I could
+have done it a lot better, but I stand by the work I did.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is an exact number. I know this because Jane Street had a puzzle
+to find this number in &lt;a href=&quot;https://www.janestreet.com/puzzles/solutions/may-2015-solution/&quot;&gt;May&lt;/a&gt;.
+I have a programmatic solution &lt;a href=&quot;https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml&quot;&gt;here&lt;/a&gt;, 
+but this can also be calculated by hand.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Some of that data is redundant. For example, if we know the player’s
+symbol, we can find the computer’s symbol, if we have the game board
+we can determine if X just moved by seeing if there are more X’s than O’s.
+The minimum number of bits needed to store the TicTacToeBoard is 16. One
+bit tracks whether the player is X or O, we then need &lt;code&gt;log2(3)&lt;/code&gt; bits to store
+whether each of the nine spots is an X, O, or free. &lt;code&gt;log2(3) * 9+1 = 15.2646625065&lt;/code&gt;
+bits, which rounds up to 16. My choice to store redundant data is solely
+because I believe that programmer time and the risk of bugs that naturally
+comes with more complex code is more expensive than disk space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tracking whether the game is currently in “easy mode” should probably be
+stored in a &lt;code&gt;Bundle&lt;/code&gt; by &lt;code&gt;onSaveInstanceState&lt;/code&gt; not in our &lt;code&gt;SharedPreferences&lt;/code&gt;.
+This will change in the next update.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Of course, this means that if someone plays more than two billion times.
+Parts of their score may start to wrap around to negative two billion. If
+you plan on playing this game that much, please let me know and I will
+fix this issue.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I essentially had
+&lt;a href=&quot;http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity&quot;&gt;this&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As explained in don smolen’s answer
+&lt;a href=&quot;http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Somewhat relevant reading is &lt;a href=&quot;http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/&quot;&gt;here&lt;/a&gt;. &lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Mon, 17 Aug 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/android/gaming/2015/08/17/tictactoe/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/android/gaming/2015/08/17/tictactoe/</guid>
+      </item>
+    
+      <item>
         <title>Esovectors</title>
         <description>&lt;p&gt;In practical terms, resizable arrays (implemented by &lt;code&gt;std::vector&lt;/code&gt; in
 C++)&lt;sup&gt;1&lt;/sup&gt; are a very good data structure and in most respects compare
