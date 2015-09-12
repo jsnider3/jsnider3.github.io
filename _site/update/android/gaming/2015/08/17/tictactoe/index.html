@@ -109,11 +109,11 @@ user’s cumulative wins, losses, and draws.</p>
 <p>When the app needed to save <code>MainActivity</code>’s state it did so by writing the
 board out as 10 strings, 9 to represent the text in each space and one to
 say which person had just moved, we then had two strings to say the
-computer and player’s chars.<sup>2</sup></p>
+computer and player’s chars,<sup>2</sup> and a flag to track whether
+we were in easy mode or not.<sup>3</sup></p>
 
-<p>In our long-term storage, we currently have flags to keep track of whether
-we have ever played before and whether the game is currently in easy
-mode<sup>3</sup>, we then store integers for the user’s number of wins,
+<p>In our long-term storage, we currently have a flag to keep track of whether
+we have ever played before and integers for the user’s number of wins,
 losses, and draws.<sup>4</sup></p>
 
 <h4 id="challenges-encountered">Challenges encountered</h4>
@@ -216,9 +216,10 @@ because I believe that programmer time and the risk of bugs that naturally
 comes with more complex code is more expensive than disk space.</p>
   </li>
   <li>
-    <p>Tracking whether the game is currently in “easy mode” should probably be
-stored in a <code>Bundle</code> by <code>onSaveInstanceState</code> not in our <code>SharedPreferences</code>.
-This will change in the next update.</p>
+    <p>Tracking whether the game is currently in “easy mode” was originally
+done using <code>SharedPreferences</code>, but was refactored to be stored in
+a <code>Bundle</code> by <code>onSaveInstanceState</code> in version 1.3.2. I then used
+my Orwellian editor powers to change this blog post accordingly.</p>
   </li>
   <li>
     <p>Of course, this means that if someone plays more than two billion times.
