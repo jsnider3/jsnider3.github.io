@@ -7,6 +7,19 @@
     <atom:link href="http://www.joshuasnider.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Suggest a Post</title>
+        <description>&lt;p&gt;Now, you can request my opinion on a topic by clicking the
+link in the footer. This will
+create an issue on GitHub, which I will be sure to respond to and
+if necessary write a longer post about. I got the idea for this from
+my friend Sean’s &lt;a href=&quot;www.seanallred.com&quot;&gt;blog&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 14 Sep 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/2015/09/14/suggest-posts/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/2015/09/14/suggest-posts/</guid>
+      </item>
+    
+      <item>
         <title>Unbeatable Tic Tac Toe</title>
         <description>&lt;p&gt;&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.joshuasnider.tictactoe&quot;&gt;
   &lt;img alt=&quot;Get it on Google Play&quot; src=&quot;https://developer.android.com/images/brand/en_generic_rgb_wo_45.png&quot; /&gt;
@@ -690,27 +703,6 @@ leave a comment below.  &lt;/p&gt;
         <pubDate>Tue, 07 Apr 2015 08:00:00 -0400</pubDate>
         <link>http://www.joshuasnider.com/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</link>
         <guid isPermaLink="true">http://www.joshuasnider.com/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</guid>
-      </item>
-    
-      <item>
-        <title>What does the title mean anyway?</title>
-        <description>&lt;p&gt;There’s a short answer and a long answer to that question.
-The short answer is that &lt;code&gt;(\x -&amp;gt; &quot;Blog&quot;)&lt;/code&gt; defines an anonymous function
-in Haskell that takes a simple argument of arbitrary type, ignores it, 
-and returns “Blog”.&lt;/p&gt;
-
-&lt;p&gt;The long way to define this function would be as:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;
-&lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Blog&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;For those unfamiliar with Haskell’s lazy evaluation, this function has
-a strange feature. Calling &lt;code&gt;foo&lt;/code&gt; with  an &lt;code&gt;a&lt;/code&gt; designed to crash, such as
-&lt;code&gt;foo undefined&lt;/code&gt; or &lt;code&gt;foo (error &quot;DIE!&quot;)&lt;/code&gt; will run perfectly fine.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 28 Mar 2015 21:17:54 -0400</pubDate>
-        <link>http://www.joshuasnider.com/update/haskell/2015/03/28/what-does-the-title-mean-anyway/</link>
-        <guid isPermaLink="true">http://www.joshuasnider.com/update/haskell/2015/03/28/what-does-the-title-mean-anyway/</guid>
       </item>
     
   </channel>
