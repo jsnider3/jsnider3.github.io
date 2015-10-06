@@ -1,0 +1,188 @@
+---
+layout: post
+title:  "Barriers to Learning C"
+date:   2015-10-05 12:00:00
+comments: True
+categories: update
+---
+
+I recently had the good fortune of talking to a graduate of a local web
+developer bootcamp<sup>1</sup> who was interested in learning C. The
+syntax of C should be familiar to anyone who knows Java, but the real
+barriers are semantic. In my opinion, there are two main barriers for
+people to learning C, the difference between a pointer to a value and a
+value and the difference between memory on the stack and memory on the heap.
+I’m going to address a few errors in those areas, before suggesting a
+project that would be useful for testing yourself.
+
+The basic idea<sup>2</sup> of a pointer is that it’s a location in memory,
+where a value is stored. and changes are seen by everyone instantly. In
+contrast, a value is passed around entirely by people making local copies
+of it which aren’t shared and can be updated without affecting far off
+corners of the program. A value can be converted to a pointer with the
+ampersand, as in `&value`. A pointer can be converted to a value with a \*,
+as in `*ptr`. Although, be careful `*ptr = value` is assigning to the ptr’s
+shared state. (MORE EXPLANATION?)
+
+Consider this file containing a main and two slightly different methods
+
+{% highlight c %}
+#include <stdio.h>
+int add_five(int *source) {
+	*source += 5;
+	return *source;
+}
+
+int plus_five(int num) {
+	num += 5;
+	return num;
+}
+
+int main() {
+	int val = 5;
+	int result = plus_five(val);
+	printf("val is now %d. result is %d.\n", val, result);
+ 	result = add_five(&val);
+	printf("val is now %d. result is %d.\n", val, result); 
+}
+{% endhighlight %}
+
+The result of compiling and executing this on my computer<sup>3</sup> is:
+
+{% highlight text %}
+val is now 5. result is 10.
+val is now 10. result is 10.
+{% endhighlight %}
+
+Why? `plus_five` works by taking a value adding five to it and returning the
+result. `add_five` works by taking a pointer to a number, adding five to
+what’s stored at that location, and returning what’s stored there.
+
+The other barrier is the difference between memory on the stack and memory
+on the heap. As a rule of thumb, malloc<sup>4</sup> is on the heap and
+everything else, from plain ints to char[]’s, is on the stack. The
+practical difference is that memory on the heap has to be cleaned up by
+calling free when you’re done with it and memory on the stack is cleaned
+up whenever the method or block that needed it is over, regardless of
+whether you’re actually done with it.
+Consider this other file containing a main and two test methods. It
+allocates two arrays, one on the stack and one on the heap, fills them both
+in with the numbers 0 through 9, and then prints them out.
+
+{% highlight c %}
+#include <stdio.h>
+#include <stdlib.h>
+int* heap_alloc() {
+	return (int*)malloc(sizeof(int)*10);
+}
+
+int* stack_alloc() {
+	int stuff[10];
+	return &stuff[0];
+}
+
+int main() {
+	int *stack = stack_alloc();
+	int *heap = heap_alloc();
+	for (int x = 0; x< 10; x++) {
+		stack[x] = x;
+		heap[x] = x;
+	}
+	for (int x = 0; x < 10; x++) {
+		printf("stack: %d heap: %d\n", stack[x], heap[x]);
+	}
+	free(heap);
+}
+{% endhighlight %}
+
+A naive perspective would expect them to have the same output. However,
+running it on my machine<sup>5</sup> with `gcc test.c -std=c99 && a.out`
+gives me the output:
+
+{% highlight text %}
+stack: 0 heap: 0
+stack: 0 heap: 1
+stack: 0 heap: 2
+stack: 0 heap: 3
+stack: 4196252 heap: 4
+stack: 0 heap: 5
+stack: -954667288 heap: 6
+stack: 50 heap: 7
+stack: 1 heap: 8
+stack: 0 heap: 9
+{% endhighlight %}
+
+So, why are they different? The first method, heap_alloc, is completely
+valid and it’s sometimes useful to have a small method that takes a few
+arguments, mallocs a struct, and initializes the struct based on the
+supplied values.<sup>6</sup> The second method, however, should never be
+used and gcc will give you a  "function returns address of local variable"
+warning when you compile it. Here’s what happens under the hood: 40-80
+bytes of memory are allocated for the stuff array on the stack, you take
+the address of the beginning of that array, the method ends, and the stack
+space is automatically reclaimed by the system. The system is then free to
+hand it off to the next person who wants it and since they’re free to edit
+that memory in whatever way they want they do.
+
+Consider walking through a linked list. In Java, you would just take a
+java.util.LinkedList and walk it in a for-each loop like
+`for (String elem : myList)`. In Python, you’d probably have to make your
+own linked list class and implement an `__iter__` function to walk through
+it. In C however, we need to make a "struct" which is just a block of
+values and then create a separate function to walk it. Something like:
+
+{% highlight c %}
+struct list_node
+{
+  int num;
+  struct list_node *next;
+}
+
+int list_print(struct list_node *start) {
+	while (start != null) {
+		printf("%d\n", start->num);
+		start = start->next;
+	}
+}
+{% endhighlight %}
+
+A little project I would suggest is to implement a simulation of
+first-fit<sup>7</sup> memory allocation. Consider the following API
+`void* my_malloc(int size)`: Walk through the list of free spaces, when you
+  find a spot that can fit a block of the requested size allocate the block
+  and adjust the list accordingly, return NULL and leave the state unchanged
+  if you can’t.
+`int my_free(void *block)`: Given a pointer to a block, check if it’s
+  something’s you’ve allocated before. If it’s one you’ve allocated, move
+  it back to the list of free blocks and return zero. If it’s one you
+  haven’t allocated, do nothing and return one.
+`void print_state()`: Print the current status of the free blocks in
+  whatever way allows you to check your work.
+
+Think of what test cases you would want, work out those test cases by hand,
+write code to solve the problem (note that I suggested this after working
+them out by hand, that was intentional), and debug it with gdb until your
+code’s output matches what you did by hand. At this point you should know
+what the different thought processes needed for C programming are. If
+you’ve gotten this far, there’s one question I’d like you to consider.
+Suppose someone wants to allocate a block that’s bigger than any free space,
+but smaller than the sum amount of free space, what prevents us from moving
+the allocated blocks into one giant block so that all the free blocks are
+in one giant block and allocating from there?<sup>8</sup>
+
+Footnotes:
+
+1.  General Assembly and John Master to be specific.
+2.  Extremely dumbed down, of course.
+3.  And in any compliant implementation of C.
+4.  sbrk is another way to get memory from the heap and is what malloc
+    uses internally. You shouldn’t use it unless you have really good
+    reasons to.
+5.  I encourage you in the strongest possible terms to run these programs
+    on your own computer instead of just taking my word. Unlike the
+    previous example, this behavior can vary between machines.
+6.  This is basically a poor man’s constructor.
+7.  First-fit is a largely arbitrary choice. Best-fit and worst-fit are
+    also good choices.
+8.  This is done by compacting garbage collectors in higher level
+    languages. Why can’t we do it here?

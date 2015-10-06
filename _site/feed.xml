@@ -7,6 +7,187 @@
     <atom:link href="http://www.joshuasnider.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Barriers to Learning C</title>
+        <description>&lt;p&gt;I recently had the good fortune of talking to a graduate of a local web
+developer bootcamp&lt;sup&gt;1&lt;/sup&gt; who was interested in learning C. The
+syntax of C should be familiar to anyone who knows Java, but the real
+barriers are semantic. In my opinion, there are two main barriers for
+people to learning C, the difference between a pointer to a value and a
+value and the difference between memory on the stack and memory on the heap.
+I’m going to address a few errors in those areas, before suggesting a
+project that would be useful for testing yourself.&lt;/p&gt;
+
+&lt;p&gt;The basic idea&lt;sup&gt;2&lt;/sup&gt; of a pointer is that it’s a location in memory,
+where a value is stored and changes are seen by everyone instantly. In
+contrast, a value is passed around entirely by people making local copies
+of it which aren’t shared and can be updated without affecting far off
+corners of the program. A value can be converted to a pointer with the
+ampersand, as in &lt;code&gt;&amp;amp;value&lt;/code&gt;. A pointer can be converted to a value with a *,
+as in &lt;code&gt;*ptr&lt;/code&gt;. Although, be careful &lt;code&gt;*ptr = value&lt;/code&gt; is assigning to the ptr’s
+shared state. (MORE EXPLANATION?)&lt;/p&gt;
+
+&lt;p&gt;Consider this file containing a main and two slightly different methods&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;plus_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plus_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;val is now %d. result is %d.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+ 	&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;val is now %d. result is %d.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The result of compiling and executing this on my computer&lt;sup&gt;3&lt;/sup&gt; is:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;val is now 5. result is 10.
+val is now 10. result is 10.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Why? &lt;code&gt;plus_five&lt;/code&gt; works by taking a value adding five to it and returning the
+result. &lt;code&gt;add_five&lt;/code&gt; works by taking a pointer to a number, adding five to
+what’s stored at that location, and returning what’s stored there.
+(MORE EXPLANATION?)&lt;/p&gt;
+
+&lt;p&gt;The other barrier is the difference between memory on the stack and memory
+on the heap. As a rule of thumb, malloc&lt;sup&gt;4&lt;/sup&gt; is on the heap and
+everything else, from plain ints to char[]’s, is on the stack. The
+practical difference is that memory on the heap has to be cleaned up by
+calling free when you’re done with it and memory on the stack is cleaned
+up whenever the method or block that needed it is over, regardless of
+whether you’re actually done with it.
+Consider this other file containing a main and two test methods. It
+allocates two arrays, one on the stack and one on the heap, fills them both
+in with the numbers 0 through 9, and then prints them out.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdlib.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;heap_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;stack_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stuff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stuff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heap_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stack: %d heap: %d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;free&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;A naive perspective would expect them to have the same output. However,
+running it on my machine&lt;sup&gt;5&lt;/sup&gt; with &lt;code&gt;gcc test.c -std=c99 &amp;amp;&amp;amp; a.out&lt;/code&gt;
+gives me the output:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;stack: 0 heap: 0
+stack: 0 heap: 1
+stack: 0 heap: 2
+stack: 0 heap: 3
+stack: 4196252 heap: 4
+stack: 0 heap: 5
+stack: -954667288 heap: 6
+stack: 50 heap: 7
+stack: 1 heap: 8
+stack: 0 heap: 9&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;So, why are they different? The first method, heap_alloc, is completely
+valid and it’s sometimes useful to have a small method that takes a few
+arguments, mallocs a struct, and initializes the struct based on the
+supplied values.&lt;sup&gt;6&lt;/sup&gt; The second method, however, should never be
+used and gcc will give you a  “function returns address of local variable”
+warning when you compile it. Here’s what happens under the hood: 40-80
+bytes of memory are allocated for the stuff array on the stack, you take
+the address of the beginning of that array, the method ends, and the stack
+space is automatically reclaimed by the system. The system is then free to
+hand it off to the next person who wants it and since they’re free to edit
+that memory in whatever way they want they do.&lt;/p&gt;
+
+&lt;p&gt;Consider walking through a linked list. In Java, you would just take a
+java.util.LinkedList and walk it in a for-each loop like
+&lt;code&gt;for (String elem : myList)&lt;/code&gt;. In Python, you’d probably have to make your
+own linked list class and implement an &lt;code&gt;__iter__&lt;/code&gt; function to walk through
+it. In C however, we need to make a “struct” which is just a block of
+values and then create a separate function to walk it. Something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_node&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;A little project I would suggest is to implement a simulation of
+first-fit&lt;sup&gt;7&lt;/sup&gt; memory allocation. Consider the following API
+&lt;code&gt;void* my_malloc(int size)&lt;/code&gt;: Walk through the list of free spaces, when you
+  find a spot that can fit a block of the requested size allocate the block
+  and adjust the list accordingly, return NULL and leave the state unchanged
+  if you can’t.
+&lt;code&gt;int my_free(void *block)&lt;/code&gt;: Given a pointer to a block, check if it’s
+  something’s you’ve allocated before. If it’s one you’ve allocated, move
+  it back to the list of free blocks and return zero. If it’s one you
+  haven’t allocated, do nothing and return one.
+&lt;code&gt;void print_state()&lt;/code&gt;: Print the current status of the free blocks in
+  whatever way allows you to check your work.&lt;/p&gt;
+
+&lt;p&gt;Think of what test cases you would want, work out those test cases by hand,
+write code to solve the problem (note that I suggested this after working
+them out by hand, that was intentional), and debug it with gdb until your
+code’s output matches what you did by hand. At this point you should know
+what the different thought processes needed for C programming are. If
+you’ve gotten this far, there’s one question I’d like you to consider.
+Suppose someone wants to allocate a block that’s bigger than any free space,
+but smaller than the sum amount of free space, what prevents us from moving
+the allocated blocks into one giant block so that all the free blocks are
+in one giant block and allocating from there?&lt;sup&gt;8&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;Footnotes:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;General Assembly and John Master to be specific.&lt;/li&gt;
+  &lt;li&gt;Extremely dumbed down, of course.&lt;/li&gt;
+  &lt;li&gt;And in any compliant implementation of C.&lt;/li&gt;
+  &lt;li&gt;sbrk is another way to get memory from the heap and is what malloc
+uses internally. You shouldn’t use it unless you have really good
+reasons to.&lt;/li&gt;
+  &lt;li&gt;I encourage you in the strongest possible terms to run these programs
+on your own computer instead of just taking my word. Unlike the
+previous example, this behavior can vary between machines.&lt;/li&gt;
+  &lt;li&gt;This is basically a poor man’s constructor.&lt;/li&gt;
+  &lt;li&gt;First-fit is a largely arbitrary choice. Best-fit and worst-fit are
+also good choices.&lt;/li&gt;
+  &lt;li&gt;This is done by compacting garbage collectors in higher level
+languages. Why can’t we do it here?&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Mon, 05 Oct 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/2015/10/05/c-intro/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/2015/10/05/c-intro/</guid>
+      </item>
+    
+      <item>
         <title>Suggest a Post</title>
         <description>&lt;p&gt;Now, you can request my opinion on a topic by clicking the
 link in the footer. This will
@@ -662,47 +843,6 @@ OCaml to work through.&lt;/p&gt;
         <pubDate>Sat, 18 Apr 2015 08:00:00 -0400</pubDate>
         <link>http://www.joshuasnider.com/update/ocaml/books/2015/04/18/more-ocaml-book/</link>
         <guid isPermaLink="true">http://www.joshuasnider.com/update/ocaml/books/2015/04/18/more-ocaml-book/</guid>
-      </item>
-    
-      <item>
-        <title>On the Utility of Singleton Tuples</title>
-        <description>&lt;p&gt;Formally, a tuple is an ordered list of elements. As a type, its elements 
-may have arbitrary type, but its length is fixed. Many programming 
-languages (and almost all functional programming languages) have 
-them, while others prefer the programmer create structs or objects instead.&lt;/p&gt;
-
-&lt;p&gt;Most tuples used in code have between two and four elements. It’s a 
-huge pain to read and maintain code with extra-large tuples and 
-anything that needs to be that large starts to accumulate helper 
-methods which would be useful to wrap up in a class/module/namespace.&lt;/p&gt;
-
-&lt;p&gt;The tuple containing zero elements is formally known as the unit type. 
-In code, it sees uses as a dummy argument to functions (OCaml), as a 
-placeholder for the empty list (Lisp), and as a representation of 
-&lt;code&gt;Void&lt;/code&gt; (Swift).&lt;/p&gt;
-
-&lt;p&gt;The tuple containing a single element is known as a singleton. Despite 
-having a strong mathematical foundation, very few languages make the 
-distinction between a singleton of a type and the type itself. In all 
-the languages I know of where tuples are created by putting parentheses 
-around a comma-seperated list trying to create a singleton tuple will 
-result in the parentheses being ignored. C# makes the distinction through 
-it’s &lt;code&gt;Tuple&amp;lt;T1&amp;gt;&lt;/code&gt; class and Python allows you to make a single tuple 
-through adding a comma (i.e. &lt;code&gt;(5,)&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;The most likely reason for the reluctance of language designers to include 
-the singleton tuple, is the lack of scenarios where it would come in 
-handy. It’s certainly convenient if you’re a type theorist, but other than 
-that the only case where it might be useful is in Python where tuples are 
-constant; if you absolutely positively needed a variable in Python to be a 
-constant you could wrap it as a tuple.&lt;/p&gt;
-
-&lt;p&gt;If you know scenarios where a singleton tuple would be useful, you should 
-leave a comment below.  &lt;/p&gt;
-</description>
-        <pubDate>Tue, 07 Apr 2015 08:00:00 -0400</pubDate>
-        <link>http://www.joshuasnider.com/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</link>
-        <guid isPermaLink="true">http://www.joshuasnider.com/update/theory/2015/04/07/on-the-utility-of-singleton-tuples/</guid>
       </item>
     
   </channel>
