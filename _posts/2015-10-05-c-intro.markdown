@@ -16,13 +16,19 @@ I’m going to address a few errors in those areas, before suggesting a
 project that would be useful for testing yourself.
 
 The basic idea<sup>2</sup> of a pointer is that it’s a location in memory,
-where a value is stored. and changes are seen by everyone instantly. In
-contrast, a value is passed around entirely by people making local copies
+where a value is stored and that we can give others access to our local
+values by passing around pointers to them. This implies that every value in
+the system must be assigned a location in memory where it is stored.
+We can also choose to pass around a copy of our value instead for
+simplicity and to prevent others from editing our values without our
+permission. contrast, a value is passed around entirely by people making local copies
 of it which aren’t shared and can be updated without affecting far off
-corners of the program. A value can be converted to a pointer with the
-ampersand, as in `&value`. A pointer can be converted to a value with a \*,
-as in `*ptr`. Although, be careful `*ptr = value` is assigning to the ptr’s
-shared state. (MORE EXPLANATION?)
+corners of the program.
+
+A quick note on syntax before I give an example. A value can be converted
+to a pointer with the ampersand, as in `&value`. A pointer can be converted
+to a value with a \*, as in `*ptr` and you can assign to the underlying
+value of a pointer with `*ptr = value`.
 
 Consider this file containing a main and two slightly different methods
 

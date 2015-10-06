@@ -18,13 +18,19 @@ I’m going to address a few errors in those areas, before suggesting a
 project that would be useful for testing yourself.&lt;/p&gt;
 
 &lt;p&gt;The basic idea&lt;sup&gt;2&lt;/sup&gt; of a pointer is that it’s a location in memory,
-where a value is stored and changes are seen by everyone instantly. In
-contrast, a value is passed around entirely by people making local copies
+where a value is stored and that we can give others access to our local
+values by passing around pointers to them. This implies that every value in
+the system must be assigned a location in memory where it is stored.
+We can also choose to pass around a copy of our value instead for
+simplicity and to prevent others from editing our values without our
+permission. contrast, a value is passed around entirely by people making local copies
 of it which aren’t shared and can be updated without affecting far off
-corners of the program. A value can be converted to a pointer with the
-ampersand, as in &lt;code&gt;&amp;amp;value&lt;/code&gt;. A pointer can be converted to a value with a *,
-as in &lt;code&gt;*ptr&lt;/code&gt;. Although, be careful &lt;code&gt;*ptr = value&lt;/code&gt; is assigning to the ptr’s
-shared state. (MORE EXPLANATION?)&lt;/p&gt;
+corners of the program.&lt;/p&gt;
+
+&lt;p&gt;A quick note on syntax before I give an example. A value can be converted
+to a pointer with the ampersand, as in &lt;code&gt;&amp;amp;value&lt;/code&gt;. A pointer can be converted
+to a value with a *, as in &lt;code&gt;*ptr&lt;/code&gt; and you can assign to the underlying
+value of a pointer with &lt;code&gt;*ptr = value&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Consider this file containing a main and two slightly different methods&lt;/p&gt;
 
@@ -54,8 +60,7 @@ val is now 10. result is 10.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Why? &lt;code&gt;plus_five&lt;/code&gt; works by taking a value adding five to it and returning the
 result. &lt;code&gt;add_five&lt;/code&gt; works by taking a pointer to a number, adding five to
-what’s stored at that location, and returning what’s stored there.
-(MORE EXPLANATION?)&lt;/p&gt;
+what’s stored at that location, and returning what’s stored there.&lt;/p&gt;
 
 &lt;p&gt;The other barrier is the difference between memory on the stack and memory
 on the heap. As a rule of thumb, malloc&lt;sup&gt;4&lt;/sup&gt; is on the heap and
