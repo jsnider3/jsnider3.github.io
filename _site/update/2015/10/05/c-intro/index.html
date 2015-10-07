@@ -83,7 +83,9 @@
   </header>
 
   <article class="post-content">
-  <p>I recently had the good fortune of talking to a graduate of a local web
+  <p>Updated: 2015-10-06</p>
+
+<p>I recently had the good fortune of talking to a graduate of a local web
 developer bootcamp<sup>1</sup> who was interested in learning C. The
 syntax of C should be familiar to anyone who knows Java, but the real
 barriers are semantic. In my opinion, there are two main barriers for
@@ -213,24 +215,33 @@ values and then create a separate function to walk it. Something like:</p>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">list_print</span><span class="p">(</span><span class="k">struct</span> <span class="n">list_node</span> <span class="o">*</span><span class="n">start</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">while</span> <span class="p">(</span><span class="n">start</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">start</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
 		<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
 		<span class="n">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></div>
 
 <p>A little project I would suggest is to implement a simulation of
-first-fit<sup>7</sup> memory allocation. Consider the following API
-<code>void* my_malloc(int size)</code>: Walk through the list of free spaces, when you
-  find a spot that can fit a block of the requested size allocate the block
-  and adjust the list accordingly, return NULL and leave the state unchanged
-  if you can’t.
-<code>int my_free(void *block)</code>: Given a pointer to a block, check if it’s
-  something’s you’ve allocated before. If it’s one you’ve allocated, move
-  it back to the list of free blocks and return zero. If it’s one you
-  haven’t allocated, do nothing and return one.
-<code>void print_state()</code>: Print the current status of the free blocks in
-  whatever way allows you to check your work.</p>
+first-fit<sup>7</sup> memory allocation. Consider the following API</p>
+
+<ul>
+  <li>
+    <p><code>void* my_malloc(int size)</code>: Walk through the list of free spaces, when you
+find a spot that can fit a block of the requested size allocate the block
+and adjust the list accordingly, return NULL and leave the state unchanged
+if you can’t.</p>
+  </li>
+  <li>
+    <p><code>int my_free(void *block)</code>: Given a pointer to a block, check if it’s
+something’s you’ve allocated before. If it’s one you’ve allocated, move
+it back to the list of free blocks and return zero. If it’s one you
+haven’t allocated, do nothing and return one.</p>
+  </li>
+  <li>
+    <p><code>void print_state()</code>: Print the current status of the free blocks in
+whatever way allows you to check your work.</p>
+  </li>
+</ul>
 
 <p>Think of what test cases you would want, work out those test cases by hand,
 write code to solve the problem (note that I suggested this after working

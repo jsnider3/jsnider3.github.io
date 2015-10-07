@@ -8,7 +8,9 @@
     
       <item>
         <title>Barriers to Learning C</title>
-        <description>&lt;p&gt;I recently had the good fortune of talking to a graduate of a local web
+        <description>&lt;p&gt;Updated: 2015-10-06&lt;/p&gt;
+
+&lt;p&gt;I recently had the good fortune of talking to a graduate of a local web
 developer bootcamp&lt;sup&gt;1&lt;/sup&gt; who was interested in learning C. The
 syntax of C should be familiar to anyone who knows Java, but the real
 barriers are semantic. In my opinion, there are two main barriers for
@@ -138,24 +140,33 @@ values and then create a separate function to walk it. Something like:&lt;/p&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 		&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 		&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;A little project I would suggest is to implement a simulation of
-first-fit&lt;sup&gt;7&lt;/sup&gt; memory allocation. Consider the following API
-&lt;code&gt;void* my_malloc(int size)&lt;/code&gt;: Walk through the list of free spaces, when you
-  find a spot that can fit a block of the requested size allocate the block
-  and adjust the list accordingly, return NULL and leave the state unchanged
-  if you can’t.
-&lt;code&gt;int my_free(void *block)&lt;/code&gt;: Given a pointer to a block, check if it’s
-  something’s you’ve allocated before. If it’s one you’ve allocated, move
-  it back to the list of free blocks and return zero. If it’s one you
-  haven’t allocated, do nothing and return one.
-&lt;code&gt;void print_state()&lt;/code&gt;: Print the current status of the free blocks in
-  whatever way allows you to check your work.&lt;/p&gt;
+first-fit&lt;sup&gt;7&lt;/sup&gt; memory allocation. Consider the following API&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;void* my_malloc(int size)&lt;/code&gt;: Walk through the list of free spaces, when you
+find a spot that can fit a block of the requested size allocate the block
+and adjust the list accordingly, return NULL and leave the state unchanged
+if you can’t.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;int my_free(void *block)&lt;/code&gt;: Given a pointer to a block, check if it’s
+something’s you’ve allocated before. If it’s one you’ve allocated, move
+it back to the list of free blocks and return zero. If it’s one you
+haven’t allocated, do nothing and return one.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;void print_state()&lt;/code&gt;: Print the current status of the free blocks in
+whatever way allows you to check your work.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Think of what test cases you would want, work out those test cases by hand,
 write code to solve the problem (note that I suggested this after working

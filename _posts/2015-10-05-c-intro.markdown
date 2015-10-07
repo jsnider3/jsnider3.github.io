@@ -6,6 +6,8 @@ comments: True
 categories: update
 ---
 
+Updated: 2015-10-06
+
 I recently had the good fortune of talking to a graduate of a local web
 developer bootcamp<sup>1</sup> who was interested in learning C. The
 syntax of C should be familiar to anyone who knows Java, but the real
@@ -145,7 +147,7 @@ struct list_node
 }
 
 int list_print(struct list_node *start) {
-	while (start != null) {
+	while (start != NULL) {
 		printf("%d\n", start->num);
 		start = start->next;
 	}
@@ -154,15 +156,18 @@ int list_print(struct list_node *start) {
 
 A little project I would suggest is to implement a simulation of
 first-fit<sup>7</sup> memory allocation. Consider the following API
-`void* my_malloc(int size)`: Walk through the list of free spaces, when you
+
+* `void* my_malloc(int size)`: Walk through the list of free spaces, when you
   find a spot that can fit a block of the requested size allocate the block
   and adjust the list accordingly, return NULL and leave the state unchanged
   if you can’t.
-`int my_free(void *block)`: Given a pointer to a block, check if it’s
+
+* `int my_free(void *block)`: Given a pointer to a block, check if it’s
   something’s you’ve allocated before. If it’s one you’ve allocated, move
   it back to the list of free blocks and return zero. If it’s one you
   haven’t allocated, do nothing and return one.
-`void print_state()`: Print the current status of the free blocks in
+
+* `void print_state()`: Print the current status of the free blocks in
   whatever way allows you to check your work.
 
 Think of what test cases you would want, work out those test cases by hand,
