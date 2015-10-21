@@ -1,21 +1,794 @@
----
-layout: none
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml" />
-    {% for post in site.posts limit:10 %}
+    <title>(\x -&gt; &quot;Blog&quot;)</title>
+    <description>An attempt at a blog by someone who thinks Haskell is cool.</description>
+    <link>http://www.joshuasnider.com/</link>
+    <atom:link href="http://www.joshuasnider.com/feed.xml" rel="self" type="application/rss+xml" />
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
+        <title>Barriers to Learning C</title>
+        <description>&lt;p&gt;Updated: 2015-10-06&lt;/p&gt;
+
+&lt;p&gt;I recently had the good fortune of talking to a graduate of a local web
+developer bootcamp&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; who was interested in learning C. The
+syntax of C should be familiar to anyone who knows Java, but the real
+barriers are semantic. In my opinion, there are two main barriers for
+people to learning C, the difference between a pointer to a value and a
+value and the difference between memory on the stack and memory on the heap.
+I’m going to address a few errors in those areas, before suggesting a
+project that would be useful for testing yourself.&lt;/p&gt;
+
+&lt;p&gt;The basic idea&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; of a pointer is that it’s a location in memory,
+where a value is stored and that we can give others access to our local
+values by passing around pointers to them. This implies that every value in
+the system must be assigned a location in memory where it is stored.
+We can also choose to pass around a copy of our value instead for
+simplicity and to prevent others from editing our values without our
+permission. contrast, a value is passed around entirely by people making local copies
+of it which aren’t shared and can be updated without affecting far off
+corners of the program.&lt;/p&gt;
+
+&lt;p&gt;A quick note on syntax before I give an example. A value can be converted
+to a pointer with the ampersand, as in &lt;code&gt;&amp;amp;value&lt;/code&gt;. A pointer can be converted
+to a value with a *, as in &lt;code&gt;*ptr&lt;/code&gt; and you can assign to the underlying
+value of a pointer with &lt;code&gt;*ptr = value&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Consider this file containing a main and two slightly different methods&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;plus_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plus_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;val is now %d. result is %d.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+ 	&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add_five&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;val is now %d. result is %d.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The result of compiling and executing this on my computer&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; is:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;val is now 5. result is 10.
+val is now 10. result is 10.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Why? &lt;code&gt;plus_five&lt;/code&gt; works by taking a value adding five to it and returning the
+result. &lt;code&gt;add_five&lt;/code&gt; works by taking a pointer to a number, adding five to
+what’s stored at that location, and returning what’s stored there.&lt;/p&gt;
+
+&lt;p&gt;The other barrier is the difference between memory on the stack and memory
+on the heap. As a rule of thumb, malloc&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; is on the heap and
+everything else, from plain ints to char[]’s, is on the stack. The
+practical difference is that memory on the heap has to be cleaned up by
+calling free when you’re done with it and memory on the stack is cleaned
+up whenever the method or block that needed it is over, regardless of
+whether you’re actually done with it.
+Consider this other file containing a main and two test methods. It
+allocates two arrays, one on the stack and one on the heap, fills them both
+in with the numbers 0 through 9, and then prints them out.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdlib.h&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;heap_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;stack_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stuff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stuff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heap_alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stack: %d heap: %d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;free&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;A naive perspective would expect them to have the same output. However,
+running it on my machine&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt; with &lt;code&gt;gcc test.c -std=c99 &amp;amp;&amp;amp; a.out&lt;/code&gt;
+gives me the output:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;stack: 0 heap: 0
+stack: 0 heap: 1
+stack: 0 heap: 2
+stack: 0 heap: 3
+stack: 4196252 heap: 4
+stack: 0 heap: 5
+stack: -954667288 heap: 6
+stack: 50 heap: 7
+stack: 1 heap: 8
+stack: 0 heap: 9&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;So, why are they different? The first method, heap_alloc, is completely
+valid and it’s sometimes useful to have a small method that takes a few
+arguments, mallocs a struct, and initializes the struct based on the
+supplied values.&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt; The second method, however, should never be
+used and gcc will give you a  “function returns address of local variable”
+warning when you compile it. Here’s what happens under the hood: 40-80
+bytes of memory are allocated for the stuff array on the stack, you take
+the address of the beginning of that array, the method ends, and the stack
+space is automatically reclaimed by the system. The system is then free to
+hand it off to the next person who wants it and since they’re free to edit
+that memory in whatever way they want they do.&lt;/p&gt;
+
+&lt;p&gt;Consider walking through a linked list. In Java, you would just take a
+java.util.LinkedList and walk it in a for-each loop like
+&lt;code&gt;for (String elem : myList)&lt;/code&gt;. In Python, you’d probably have to make your
+own linked list class and implement an &lt;code&gt;__iter__&lt;/code&gt; function to walk through
+it. In C however, we need to make a “struct” which is just a block of
+values and then create a separate function to walk it. Something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_node&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;A little project I would suggest is to implement a simulation of
+first-fit&lt;sup id=&quot;fnref:7&quot;&gt;&lt;a href=&quot;#fn:7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt; memory allocation. Consider the following API&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;void* my_malloc(int size)&lt;/code&gt;: Walk through the list of free spaces, when you
+find a spot that can fit a block of the requested size allocate the block
+and adjust the list accordingly, return NULL and leave the state unchanged
+if you can’t.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;int my_free(void *block)&lt;/code&gt;: Given a pointer to a block, check if it’s
+something’s you’ve allocated before. If it’s one you’ve allocated, move
+it back to the list of free blocks and return zero. If it’s one you
+haven’t allocated, do nothing and return one.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;void print_state()&lt;/code&gt;: Print the current status of the free blocks in
+whatever way allows you to check your work.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Think of what test cases you would want, work out those test cases by hand,
+write code to solve the problem (note that I suggested this after working
+them out by hand, that was intentional), and debug it with gdb until your
+code’s output matches what you did by hand. At this point you should know
+what the different thought processes needed for C programming are. If
+you’ve gotten this far, there’s one question I’d like you to consider.
+Suppose someone wants to allocate a block that’s bigger than any free space,
+but smaller than the sum amount of free space, what prevents us from moving
+the allocated blocks into one giant block so that all the free blocks are
+in one giant block and allocating from there?&lt;sup id=&quot;fnref:8&quot;&gt;&lt;a href=&quot;#fn:8&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+	&lt;ol&gt;
+		&lt;li id=&quot;fn:1&quot;&gt;General Assembly and John Master to be specific. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;Extremely dumbed down, of course. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;And in any compliant implementation of C. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;sbrk is another way to get memory from the heap and is what malloc uses internally. You shouldn’t use it unless you have really good reasons to. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;I encourage you in the strongest possible terms to run these programs on your own computer instead of just taking my word. Unlike the previous example, this behavior can vary between machines. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;This is basically a poor man’s constructor. &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:7&quot;&gt;First-fit is a largely arbitrary choice. Best-fit and worst-fit are also good choices. &lt;a href=&quot;#fnref:7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:8&quot;&gt;This is done by compacting garbage collectors in higher level languages. Why can’t we do it here? &lt;a href=&quot;#fnref:8&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Mon, 05 Oct 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/2015/10/05/c-intro/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/2015/10/05/c-intro/</guid>
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>Suggest a Post</title>
+        <description>&lt;p&gt;Now, you can request my opinion on a topic by clicking the
+link in the footer. This will
+create an issue on GitHub, which I will be sure to respond to and
+if necessary write a longer post about. I got the idea for this from
+my friend Sean’s &lt;a href=&quot;www.seanallred.com&quot;&gt;blog&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 14 Sep 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/2015/09/14/suggest-posts/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/2015/09/14/suggest-posts/</guid>
+      </item>
+    
+      <item>
+        <title>Unbeatable Tic Tac Toe</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.joshuasnider.tictactoe&quot;&gt;
+  &lt;img alt=&quot;Get it on Google Play&quot; src=&quot;https://developer.android.com/images/brand/en_generic_rgb_wo_45.png&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;intro&quot;&gt;Intro&lt;/h4&gt;
+
+&lt;p&gt;I’m not a fan of mobile games that allow you to bribe your way to victory,
+even though they are as reliable a business model as advertising is for
+websites. I wanted to learn Android programming and making a parody of this
+type of game seemed like a decent scope for a “My First Android” kind of
+project. Thus, I set out to create a game of tic-tac-toe where the AI plays
+ perfectly (and is therefore unbeatable) unless you pay 99 cents in which
+case it plays randomly and can be beaten 99.4792%&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; of the time.&lt;/p&gt;
+
+&lt;h4 id=&quot;design-overview&quot;&gt;Design overview&lt;/h4&gt;
+
+&lt;p&gt;I needed four classes for this a &lt;code&gt;TicTacToeBoard&lt;/code&gt; which stored a game state,
+calculated the computer’s moves, and provided a variety of library
+functions, a &lt;code&gt;MainActivity&lt;/code&gt; which showed the actual tic tac toe board and
+had a drop down menu, an &lt;code&gt;AboutPage&lt;/code&gt; which was an activity that showed some
+info about me, and a &lt;code&gt;ScorePage&lt;/code&gt; which was an activity that displayed the
+user’s cumulative wins, losses, and draws.&lt;/p&gt;
+
+&lt;p&gt;When the app needed to save &lt;code&gt;MainActivity&lt;/code&gt;’s state it did so by writing the
+board out as 10 strings, 9 to represent the text in each space and one to
+say which person had just moved, we then had two strings to say the
+computer and player’s chars,&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; and a flag to track whether
+we were in easy mode or not.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;In our long-term storage, we currently have a flag to keep track of whether
+we have ever played before and integers for the user’s number of wins,
+losses, and draws.&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;challenges-encountered&quot;&gt;Challenges encountered&lt;/h4&gt;
+
+&lt;p&gt;Making my first Android app was a quick journey, but one beset by challenges.
+Most of them were due to me not yet knowing how to do Android programming,
+but one or two may have been actually difficult. &lt;/p&gt;
+
+&lt;p&gt;There were three bugs that troubled me long enough for me to have made a
+ticket for them. First, when I was trying to set the &lt;code&gt;MainActivity&lt;/code&gt; as an
+&lt;code&gt;onClickListener&lt;/code&gt; for the nine buttons it would crash. The fix for this was
+to call &lt;code&gt;setContentView&lt;/code&gt; before trying to register for those events. Second,
+rotating &lt;code&gt;MainActivity&lt;/code&gt;’s screen would make the tic-tac-toe board disappear.
+I fixed this at first by fixing the orientation of &lt;code&gt;MainActivity&lt;/code&gt;. I then
+fixed it properly by making &lt;code&gt;TicTacToeBoard&lt;/code&gt; implement &lt;code&gt;Parcelable&lt;/code&gt; and overriding
+&lt;code&gt;onSaveInstanceState&lt;/code&gt; and &lt;code&gt;onRestoreInstanceState&lt;/code&gt;. This solution had a bug
+where pressing the Verizon button on my phone would cause it to crash,
+this was just a dumb mistake in my parceling code. Third, it wouldn’t
+preserve anything when I switched screens or logged in or out. This was
+solved by setting &lt;code&gt;android:launchMode=&quot;singleTop&quot;&lt;/code&gt; in the manifest.&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;Something I struggled with generally, but that isn’t technically a bug was
+in app billing. There’s a good tutorial &lt;a href=&quot;http://developer.android.com/google/play/billing/billing_integrate.html&quot;&gt;here&lt;/a&gt;
+which was helpful at the end after I tried everything else. Testing my in-app
+billing was also kinda hard, since Google doesn’t allow developers to buy
+things from themselves&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;. What you’re supposed to do is have a
+spare device with a test account installed on it. Since I currently only
+own one phone, I just reached out to a friend, Kunal, who does mobile
+programming and got them to be a beta tester for me. He also helped by
+telling me the “best” way to fix some of the bugs I encountered in the
+previous paragraph.&lt;/p&gt;
+
+&lt;h4 id=&quot;future-work&quot;&gt;Future work&lt;/h4&gt;
+
+&lt;p&gt;There were a lot of possible enhancements that I would or should put in a
+more commercial app, but which I decided were out-of-scope for this. I should
+have used a namespace for my product ID, I went with &lt;code&gt;&quot;sku_easy_mode&quot;&lt;/code&gt; because
+I saw an example somewhere using SKUs. They may have meant it in a different
+way. I could have used a licensing scheme to validate that the app was
+installed from the official channel, but I wasn’t convinced this would
+benefit me and I ran into time constraints before getting back around to it.
+I could have made some popups to talk with the user, but I felt that toasts
+were sufficient for my purposes. I could have had an Unbeatable TicTacToe logo
+show up, which would change into a Beatable TicTacToe logo when easy mode
+was enabled. &lt;/p&gt;
+
+&lt;p&gt;I might want to take the current app and just make it look prettier. The about
+page could have separate text boxes for the links with thumbnail images next to
+them, the score page could have big text boxes for the actual score and then a
+message at the bottom making a snarky comment about the user either being bad
+at the game (if they lose a lot), being just as smart as a computer (if they
+mostly draw), or wasting money on tic-tac-toe (if they win a couple times with
+easy mode), the main activity could have stylized text boxes to make the
+tic-tac-toe board prettier and it could resize to fill the screen. I also have
+an idea for a much more serious game than tic-tac-toe, but as a firm believer
+that ideas are worthless and execution is everything I’ll wait to announce it
+until I actually have an alpha.&lt;sup id=&quot;fnref:7&quot;&gt;&lt;a href=&quot;#fn:7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;One thing I really want on Android is a music player that preserves your spot
+when you pause and come back later. The default music player on my Samsung
+doesn’t do that, but if you download a long audio file, say a podcast, as an
+mp3 and try to listen to it in pieces it’s critical that you can find the
+spot you left off easily. I’m going to look around for pre-existing work
+before I do this though.&lt;/p&gt;
+
+&lt;h4 id=&quot;lessons-learned&quot;&gt;Lessons Learned&lt;/h4&gt;
+
+&lt;p&gt;I needed to get a Google Play Developer account and a Google Pay Merchant
+account in order to publish this app. I’m on the very edge of getting my own
+LLC and officially becoming a business, but I’ll most likely delay that
+until I have separate business income. &lt;/p&gt;
+
+&lt;p&gt;I also learned to use a more modern IDE, most of my programming is done in
+gvim, but all of the Android tutorials I read wanted me to use Android Studio
+and my desire to be a rebel just wasn’t strong enough. This worked well for
+me, autocompletion was a nice feature and so was being able to run an app by
+clicking a button. Looking back, this project is a lot like life. I could
+have done it a lot better, but I stand by the work I did.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+	&lt;ol&gt;
+		&lt;li id=&quot;fn:1&quot;&gt;This is an exact number. I know this because Jane Street had a puzzle to find this number in &lt;a href=&quot;https://www.janestreet.com/puzzles/solutions/may-2015-solution/). I have a programmatic solution [here](https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml&quot;&gt;May&lt;/a&gt;, but this can also be calculated by hand. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;Some of that data is redundant. For example, if we know the player’s symbol, we can find the computer’s symbol, if we have the game board we can determine if X just moved by seeing if there are more X’s than O’s. The minimum number of bits needed to store the TicTacToeBoard is 16. One bit tracks whether the player is X or O, we then need &quot;log2(3)&quot; bits to store whether each of the nine spots is an X, O, or free. &quot;log2(3) * 9+1 = 15.2646625065&quot; bits, which rounds up to 16. My choice to store redundant data is solely because I believe that programmer time and the risk of bugs that naturally comes with more complex code is more expensive than disk space. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;Tracking whether the game is currently in “easy mode” was originally done using &quot;SharedPreferences&quot;, but was refactored to be stored in a &quot;Bundle&quot; by &quot;onSaveInstanceState&quot; in version 1.3.2. I then used my Orwellian editor powers to change this blog post accordingly. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;Of course, this means that if someone plays more than two billion times. Parts of their score may start to wrap around to negative two billion. If you plan on playing this game that much, please let me know and I will fix this issue. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;I essentially had &lt;a href=&quot;http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity&quot;&gt;this&lt;/a&gt;. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;As explained in don smolen’s answer &lt;a href=&quot;http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item&quot;&gt;here&lt;/a&gt;. &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:7&quot;&gt;Somewhat relevant reading is &lt;a href=&quot;http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/&quot;&gt;here.&lt;/a&gt;  &lt;a href=&quot;#fnref:7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Mon, 17 Aug 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/android/gaming/2015/08/17/tictactoe/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/android/gaming/2015/08/17/tictactoe/</guid>
+      </item>
+    
+      <item>
+        <title>Esovectors</title>
+        <description>&lt;p&gt;In practical terms, resizable arrays (implemented by &lt;code&gt;std::vector&lt;/code&gt; in
+C++)&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; are a very good data structure and in most respects compare
+favorably to linked lists. They fit better into memory caches, have less
+overhead, and support indexing in constant time. Their actual downsides are that
+inserting and deleting in arbitrary locations takes linear time. This is
+because we need to move up to the entire array when we change the first
+element in it. In addition, we will also need to move the entire array
+when it changes size too much. The reallocation amortizes away to be a
+constant time, but it’s still an occasional&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; &lt;code&gt;O(n)&lt;/code&gt; for
+insertions/deletions within a constant of the end.&lt;/p&gt;
+
+&lt;p&gt;I’ll introduce a variant of the resizable array which allows us to have
+constant &lt;code&gt;O(n)&lt;/code&gt; complexity for insertions and deletions at the end and see
+if it can solve the issue of arbitrary changes taking &lt;code&gt;O(n)&lt;/code&gt; time. I call
+these “esovectors” as they are an esoteric version of a vector.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;The way current resizable arrays work is that when you reach a certain
+point, you allocate an entirely new block of memory, copy everything over
+to it, and then free the block of memory you were previously used. This
+works well, but still means that you’re obliged to copy blocks of unbounded
+size. An alternative approach is to when we reach
+a limit, allocate a second array, copy a constant amount over, and then copy
+another constant of us over. By adjusting the point at which we reallocate
+and the amount that we copy over, we can make sure that our old array is
+empty at the same time our new array becomes full. For indexing operations,
+we just need to check which buffer the nth element would be in and then index
+into that one as normal. Like in normal vectors, indexing continues to take
+&lt;code&gt;O(1)&lt;/code&gt; time.&lt;/p&gt;
+
+&lt;p&gt;The additional space needed by this is &lt;code&gt;O(n)&lt;/code&gt;, which matches the &lt;code&gt;O(n)&lt;/code&gt; used
+by normal vectors, but it’s a worse &lt;code&gt;O(n)&lt;/code&gt; since we need to maintain a new
+array almost twice as big as our old away, whereas vectors are at worst
+half full.&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;However, a critical issue to consider is the cost of memory allocation,
+which greatly exceeds the cost of writing a single element of an array,
+though is also trivially fast. The running time of &lt;code&gt;malloc&lt;/code&gt; is entirely
+dependent on the implementation chosen by the system, but in most cases
+is unrelated to the number of bytes we are requesting. We shall assume
+that our &lt;code&gt;malloc&lt;/code&gt; uses two level segregate fit&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt; which is &lt;code&gt;O(1)&lt;/code&gt;
+time. Therefore, &lt;code&gt;malloc&lt;/code&gt; does not affect our worst case appending performance.&lt;/p&gt;
+
+&lt;p&gt;I’ve shown how to modify dynamic arrays to support appending and removing
+from the end in constant time, not just amortized constant time. Another
+data type that is frequently implemented using dynamic arrays is the
+double ended queue, which in addition to supporting the same operations
+as dynamic arrays in the same time, they support popping and inserting
+at the beginning in amortized constant time. I will leave it as an exercise
+to the reader how to extend esovectors to support this behavior in
+non-amortized constant time.&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+	&lt;ol&gt;
+		&lt;li id=&quot;fn:1&quot;&gt;They have many names: array lists, growable arrays, etc. Wikipedia calls them &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_array&quot;&gt;dynamic arrays.&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;How often this occasional reallocation happens depends on the growth factor &#39;g&#39; which determines how much bigger the array becomes each time it&#39;s reallocated. There is some interesting reading on this topic &lt;a href=&quot;https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md&quot;&gt;here.&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;I have an implementation and test cases &lt;a href=&quot;https://github.com/jsnider3/Workspace/tree/master/Esovector&quot;&gt;here.&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;The worst case for both is when we have &#39;n&#39; elements in an array of size &#39;n&#39; and try to insert an additional element. Traditional vectors allocate a new array of size &#39;2n&#39; and then use it to store &#39;n + 1&#39; elements. For esovectors we allocate a new array of size &#39;2n&#39;, put 2 elements in it, and leave &#39;n - 1&#39; elements in our old array. This assumes a growth factor of 2, which is common but inefficient. See the link in footnote 2. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;Introduced in &lt;a href=&quot;http://www.gii.upv.es/tlsf/files/ecrts04_tlsf.pdf&quot;&gt;this paper&lt;/a&gt;. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;Read this as &quot;I want someone else to do my work for me.&quot; &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 08 Aug 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/data-structures/2015/08/08/esovectors/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/data-structures/2015/08/08/esovectors/</guid>
+      </item>
+    
+      <item>
+        <title>The Most Influential Works, According to TvTropes</title>
+        <description>&lt;p&gt;asdasdasdasdasd&lt;/p&gt;
+</description>
+        <pubDate>Wed, 08 Jul 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/project/2015/07/08/quis-custodiet/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/project/2015/07/08/quis-custodiet/</guid>
+      </item>
+    
+      <item>
+        <title>Recursion and You</title>
+        <description>&lt;p&gt;Recently, I started working on a personal project to crawl TvTropes,
+essentially a casual wiki for discussing pop culture, make a graph of
+those works which reference each other, and then calculate the “impact
+factor” of each work in the same way as Google judges the quality of a
+website by the people that link to it.&lt;/p&gt;
+
+&lt;p&gt;I had this as my first attempt at crawling TvTropes.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;bs4&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sets&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;
+
+    &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;tvtropes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;http://tvtropes.org&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([])&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addLinks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;sd&quot;&gt;&amp;#39;&amp;#39;&amp;#39;Add the links to the set we&amp;#39;ve crawled and return&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;        the new ones.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([])&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;crawl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;sd&quot;&gt;&amp;#39;&amp;#39;&amp;#39;Crawl a website in depth first order and print out every&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;          page we find in it&amp;#39;s domain.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getLinks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cont&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addLinks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cont&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;crawl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cont&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getLinks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;sd&quot;&gt;&amp;#39;&amp;#39;&amp;#39;Use BeautifulSoup to scrape the page and filter the links on it&lt;/span&gt;
+&lt;span class=&quot;sd&quot;&gt;          for certain things we know we don&amp;#39;t want to crawl.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tvtropes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;href&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;mailto&amp;#39;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;javascript&amp;#39;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;?action&amp;#39;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;php&amp;#39;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;pmwiki.php&amp;#39;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tvtropes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;http&amp;#39;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tvtropes&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;links&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;crawl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tvtropes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;It was horribly broken of course, Python doesn’t let you recurse
+more than 1000 levels by default. This is actually a feature, since
+such deep recursion is usually a bug outside of functional programming.
+The reason I was running into it here was because I was essentially
+trying to recursively walk a tree with a node for every page on TvTropes,
+which has about a half million of them by my count. My initial workaround
+was to just do &lt;code&gt;sys.setrecursionlimit(2000000)&lt;/code&gt; and get rid of the limit. 
+This wasn’t the right thing to do and the crawler was missing substantial
+numbers of pages.&lt;/p&gt;
+
+&lt;p&gt;The solution to my problem was to just use the scrapy library. It was
+much faster than my code and wasn’t missing pages. As a general rule,
+if you have a need for some code that does X and you’re not trying to
+learn more about X you should look for a library instead of rolling your
+own. If you have to roll your own, then you should make it an open-source
+project and give back to the community. The way scrapy “walks the tree”
+if it has a queue of webpages to crawl that it pushes webpages onto and
+pops them out of. This gets around the issue of limited stack space, by
+allocating everything on the heap and is the efficient way if your language
+does not automatically optimize tail recursion. Spoiler alert, Python doesn’t.&lt;/p&gt;
+
+&lt;p&gt;In a language that does optimize tail calls, such as Haskell instead of
+allocating more room on the stack every time we call a function, we can
+check if the function call is the final expression in a method and choose
+to reuse the stack space from the function that we’re calling from. This
+works because we know none of the data stored in that part of the stack
+is needed anymore.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 29 Jun 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/stack/recursion/2015/06/29/recursion-and-you/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/stack/recursion/2015/06/29/recursion-and-you/</guid>
+      </item>
+    
+      <item>
+        <title>Running into the Spike: A Retrospective</title>
+        <description>&lt;h4 id=&quot;intro&quot;&gt;Intro&lt;/h4&gt;
+
+&lt;p&gt;I recently made a project to list the languages a GitHub user has in
+all of their repositories. You can find it at
+&lt;a href=&quot;https://joshuasnider3.com/GitHubBOC&quot;&gt;https://www.joshuasnider.com/GitHubBOC&lt;/a&gt;.
+This is just the thoughts I wrote down while making it organized in
+a moderately presentable way. &lt;/p&gt;
+
+&lt;h4 id=&quot;motivations&quot;&gt;Motivations&lt;/h4&gt;
+
+&lt;p&gt;I’ve never been more intimidated in my life than when I try to learn
+something and don’t know where to start. I’ve felt this feeling when
+learning a programming language completely different than one I already
+know, when trying to study quantitative finance, and whenever I try to
+learn web or mobile development.&lt;/p&gt;
+
+&lt;p&gt;I had a couple motivations for learning web development which can be
+separated cleanly into an actual desire to make
+&lt;a href=&quot;https://joshuasnider.com/GitHubBOC&quot;&gt;this code&lt;/a&gt; and inspiration
+I’ve received from the wider community. First among my intrinsic
+motivations, is an actual desire to have a tool to show the language breakdown
+among all of my GitHub repos, so I can use it myself. I tried asking
+&lt;a href=&quot;http://webapps.stackexchange.com/q/75027/&quot;&gt;Stack Exchange&lt;/a&gt;,
+if they knew someone who already did it a couple months ago, but none of
+the similar work out there met my needs so I did it myself. Second, I
+feel I’ve reached the point in my career as a computer scientist where my
+skills need to be broad enough that I am able to do web development when
+called upon and this project was of a good scope for learning AngularJS.
+My third intrinsic motivation came from my interest in comparative
+programming languages, the event-based models common to web programming are
+substantially different from the functional, imperative, and object-oriented
+paradigms I’ve experienced in other languages.&lt;/p&gt;
+
+&lt;p&gt;Extrinsic motivation for this project came from a few sources. I’ve
+recently started showing off my work on Hacker News and think if I had
+some more visually appealing work it would be well received. I was also
+inspired by &lt;a href=&quot;http://genius.com/4126913/Genius-the-genius-isms/Run-into-the-spike&quot;&gt;this passage&lt;/a&gt;
+from a blog about always doing whatever you least like to do which also
+inspired the title. Lastly, I was inspired by &lt;a href=&quot;http://carl.flax.ie/dothingstellpeople.html&quot;&gt;this blog post&lt;/a&gt;.
+The idea of “doing cool things and telling people” isn’t specific to
+web development or even computer science, but it was a good kick to get
+me to actually do it.&lt;/p&gt;
+
+&lt;p&gt;All in all, I had a project idea and sufficient motivation to finally sit
+down and learn some web development. Getting started was a bit of a
+challenge and I lost some internet points by asking noobish questions
+on Stack Overflow, but I feel pretty good now and expect to finish this
+project before New York. I swear that I will not rest until I get a star
+on my JavaScript GitHub repos, because after all worthless internet points
+are the most valuable thing in the universe.&lt;/p&gt;
+
+&lt;h4 id=&quot;obstacles&quot;&gt;Obstacles&lt;/h4&gt;
+
+&lt;p&gt;Like all software projects, this one faced setbacks and delays. I
+originally started working on a node.js app and got everything but the
+pretty pictures done before finding out that you can’t run server-side
+code on GitHub pages. At this point, I decided to switch to a d3js and
+angular app. I knew absolutely nothing about these, but I worked through
+the “Intro to JavaScript” and “AngularJS” tutorials on Codecademy. I’m
+definitely not the target audience for the “Intro to JavaScript” tutorial,
+but it did expand my knowledge of JavaScript’s OOP support. The “AngularJS”
+tutorial was much more interesting. The idea of binding actions directly to
+pieces of html seems extremely powerful and I’d really like to know both
+what kind of black magic is done to actually implement it and what the
+practical limitations of it are. I eventually ended up using uvCharts
+(which is built on d3) for my charts because I saw an example “StackedBar”
+chart that was exactly what I wanted to do. There was one problem with it
+that took some time for me to discover, the dataset needs to have a value
+specified for each category(not actually the category) and they need to be
+in the same order for each category. There’s still one bug in the project
+that is a huge pain, where because we’re not logged into GitHub it will
+throttle our GitHub requests after the third or fourth person. The solution
+to that one is to just have the user log into GitHub when they want to use
+it, this would overcome the throttling issues and we’d be able to show them
+their own repos (instead of mine) by default which would be better. I had
+some difficulty catching the errors that we receive when we’re being
+throttled, but I choose to blame that on inadequate documentation.&lt;/p&gt;
+
+&lt;h4 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h4&gt;
+
+&lt;p&gt;From my previous experience as a teaching assistant, I don’t have a very
+good opinion of people who want to look at working code while writing their
+own similar code. For most of my life, I’ve thought these people are at
+worst plagiarists and at best cargo cultists. Neither option being
+associated with competence, but at least in this project I saw the value
+of having a few working examples from Codecademy which I could reference
+when I didn’t know why something wasn’t working, but couldn’t make that
+confusion isn’t a question worthy of Stack Overflow. I also spent a couple
+hours on Skillport which is a tutorial service provided by my employer,
+but it was nowhere near as helpful as Codecademy and Google. I think the
+value of looking at working code depends on the subject matter, in areas
+like computer vision and AI coming up with the idea behind the code takes
+95% of the thought and reading someone else’s code is less useful than
+picking up a textbook. In something extremely visual like web programming
+the actual implementation of a beautiful website is of much more importance
+than the ability to sketch one out on paper.&lt;/p&gt;
+
+&lt;p&gt;This project also made me install and setup a LAMP server which I use to
+debug JavaScript in the browser and was a learning experience to set it up
+correctly.&lt;/p&gt;
+
+&lt;p&gt;One thing that was also interesting about JavaScript was that there’s a
+lot of asynchronous functions that take callbacks. The reason for this is
+that waiting for a response from a server takes forever compared to running
+any reasonable amount of code and waiting for someone who may be on the
+other side of the globe to respond to you when you could be doing something
+productive is a guaranteed way to kill performance. A language that only
+did asynchronous callbacks would be pretty mind-warping, what are the odds
+Erlang is like that?&lt;/p&gt;
+
+&lt;p&gt;I’d be surprised if there’s anyone actually reading this, but I have a
+message for them: If you learn anything from this blog post, you should
+learn to find whatever challenge you find most intimidating, even,
+especially in fact, if it’s not programming and just tackle it now,
+immediately, and head on. Especially, if it’s commenting on this post.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 22 Jun 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/opinion/web-development/2015/06/22/running-into-the-spike/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/opinion/web-development/2015/06/22/running-into-the-spike/</guid>
+      </item>
+    
+      <item>
+        <title>Compiling Uncool to the JVM with Scala</title>
+        <description>&lt;p&gt;I recently made a compiler in Scala that takes UnCool code and targets
+the JVM. Its source is &lt;a href=&quot;https://github.com/jsnider3/Scales&quot;&gt;here&lt;/a&gt;. I made
+this compiler to gain a deeper understanding of Java development and
+learning how to handwrite JVM code helped me understand James Gosling’s
+mind. Additionally, I wanted to learn one of the functional JVM languages.
+A friend suggested Clojure, but I felt it was too Lispy for me. What
+finally sold me on Scala was seeing a few job ads from companies I want to
+work for that were looking for Scala engineers.&lt;/p&gt;
+
+&lt;p&gt;Writing a compiler might seem like a massive undertaking to many people,
+but it’s a lot easier than many think and I have enough experience
+implementing programming languages that writing a compiler is enough to
+“battle test” my knowledge of a language I’m trying to learn without
+taking an excessive amount of time. I already had an IA32-targeting
+compiler for UnCool written in Java
+&lt;a href=&quot;https://github.com/jsnider3/Uncool&quot;&gt;here&lt;/a&gt;, though it wasn’t much help
+for this project. That was partly because a lot of a compiler is
+architecture dependent and partly because the parsing differs
+substantially between Java’s yacc/JFlex and Scala’s parser combinators.
+The main reason to not reuse work from my old compiler is that I have grown
+as a programmer substantially since I wrote the original program and it
+would have held me back to copy ideas from it.&lt;/p&gt;
+
+&lt;p&gt;While building the compiler, I used a development methodology similar to
+test-driven development, with a Travis build running as quickly as
+possible. I copied the test cases from my old IA32 compiler project and
+iterating from simplest to most complex wrote the code needed to make them
+pass. There was a five-step cycle for adding a feature:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parse the test source code correctly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generate valid jasmin code.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improve the code generation until the java verifier would accept it.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Continue editing until the output from running the code was correct.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nod approvingly and move on to the next test case.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This development cycle allowed me to keep the build running while still
+verifying that I was making forward progress without regression.&lt;/p&gt;
+
+&lt;p&gt;Obviously, the project had challenges which I worked to overcome. Starting
+out, I had some trouble with Scala’s parser combinators which I solved by
+seeking help from the StackOverflow community. Later, when I was close to
+finishing if-statements I ran into an issue with my code putting the java
+stack in an inconsistent state. That is, depending on which branch of the
+if-statement, the quantity and types of variables would differ on the
+stack. This possibility of an inconsistent state is prohibited by the java
+class verifier because it is not type safe. My solution was to track of
+how much each expression  pushes onto the stack and then pop everything
+off that was not going to be used. At one point, when trying to allocate
+local variables, I had a brief panic attack when I thought the number of
+local variables in the JVM was limited to five of each type. This was
+because I saw the instructions &lt;code&gt;iload_3&lt;/code&gt;, &lt;code&gt;aload_0&lt;/code&gt;, and &lt;code&gt;iload_2&lt;/code&gt; and
+tried to extend them out arbitrarily, to say &lt;code&gt;iload_12&lt;/code&gt;. This was a
+misunderstanding on my part: The &lt;code&gt;iload_#&lt;/code&gt; instructions are not a single
+instruction that take a number as an argument but are actually separate
+instructions optimized for the first few locals. The correct instructions
+for working with arbitrary local variables are &lt;code&gt;iload #&lt;/code&gt;, &lt;code&gt;istore #&lt;/code&gt;,
+&lt;code&gt;aload #&lt;/code&gt; and &lt;code&gt;astore #&lt;/code&gt;. I continued my habit of using makefiles for all
+programming languages, instead of taking the time to actually learn how to
+use &lt;code&gt;ocamlbuild&lt;/code&gt; or &lt;code&gt;sbt&lt;/code&gt;. This made me waste an excessive amount of time
+waiting for code to compile, so I should just bite the bullet for my next
+project.&lt;/p&gt;
+
+&lt;p&gt;There are some bugs I know of that aren’t covered by the test cases: it
+will fail on methods with more than 32 local variables and if-else
+expressions where the two branches typecheck to classes related through
+inheritance. Additionally the parser doesn’t take into account operator
+precedence. Even with these bugs, I chose to stop coding now when it
+passes all of the test cases from the previous project, because I wanted
+the experience to be as comparable as possible to writing my old one.&lt;/p&gt;
+
+&lt;p&gt;From my short time of working with Scala, I gained a strong appreciation
+of it. It has the terseness expected of good functional languages, has
+literally every feature I want (notably case classes and enums, which are
+the main thing I find lacking in Python) and has a nice built-in library
+both from the libraries provided by its creators and from being compatible
+with the JVM. I can see why it’s well-liked among its community.&lt;/p&gt;
+
+&lt;p&gt;The JVM itself is also a neat piece of work. The idea of an “assembly”
+language with built in type-safety is a pretty powerful one. Besides the
+large amount of money Sun spent promoting it, the brilliance of the JVM is
+a key component in the popularity of languages that target it.&lt;/p&gt;
+
+&lt;p&gt;In the future, I plan on getting involved with CPython’s development to
+make something useful out of my passion for programming languages and give
+back to the community. Thanks for reading.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 11 Jun 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</guid>
+      </item>
+    
+      <item>
+        <title>Introducing Honey Badger</title>
+        <description>&lt;p&gt;I made a programming language called Honey Badger about a month ago.
+You can read about it at its &lt;a href=&quot;https://www.joshuasnider.com/HoneyBadger&quot;&gt;project page&lt;/a&gt; or at
+the &lt;a href=&quot;https://github.com/jsnider3/HoneyBadger&quot;&gt;repo&lt;/a&gt;, but I’d like to
+take a moment to talk about my motivations for doing it.&lt;/p&gt;
+
+&lt;p&gt;A good chunk of my motivation was to be able to point to the reference
+implementation whenever someone asks for proof that I know OCaml (a
+situation which will only occur if I basically prompt them to). The
+rest of my motivation was to be able to say that I’ve done an entire
+programming language from conception, to specification, to implementation
+all by myself, I’ve done parts of languages before but not the entire thing.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 29 May 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/honeybadger/2015/05/29/introducing-honey-badger/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/honeybadger/2015/05/29/introducing-honey-badger/</guid>
+      </item>
+    
+      <item>
+        <title>Book Review: More Ocaml: Algorithms, Methods, and Diversions</title>
+        <description>&lt;p&gt;My first attempt to learn OCaml was back in January, it largely took the
+form of “write code and then ask Google why it doesn’t work.” You can
+see the results of that process at 
+&lt;a href=&quot;https://github.com/jsnider3/newbie_OCaml&quot;&gt;https://github.com/jsnider3/newbie_OCaml&lt;/a&gt;.  &lt;/p&gt;
+
+&lt;p&gt;This wasn’t the fastest process and instilled in me a deep rage at
+OCaml for repeatedly failing to be Haskell. I decided to be more 
+disciplined with my second attempt to learn OCaml and ordered a dead-tree
+copy of “More OCaml: Algorithms, Methods, and Diversions” by John 
+Whitington.  &lt;/p&gt;
+
+&lt;p&gt;The book starts off assuming the reader knows how to program,
+just like it’s advertised, and shoves all the details of writing a 
+working OCaml into the preface. The first chapter is all about
+learning to appreciate the power of &lt;code&gt;fold&lt;/code&gt; in functional programming and
+the second chapter is showing how to implement lazy lists in OCaml, just 
+in case those snooty Haskellers think their language is more powerful.&lt;/p&gt;
+
+&lt;p&gt;Moving on through the book, experienced programmers learn how to do 
+run-length encoding compression, a limited form of regexes, and
+ playing tic-tac-toe in OCaml and eventually create pdfs programmatically.  &lt;/p&gt;
+
+&lt;p&gt;The book uses an excessive amount of while and for loops, but it’s
+definitely a good book for experienced programmers wishing to learn
+OCaml to work through.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 18 Apr 2015 08:00:00 -0400</pubDate>
+        <link>http://www.joshuasnider.com/update/ocaml/books/2015/04/18/more-ocaml-book/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/ocaml/books/2015/04/18/more-ocaml-book/</guid>
+      </item>
+    
   </channel>
 </rss>
