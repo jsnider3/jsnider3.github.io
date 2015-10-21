@@ -11,7 +11,7 @@
         <description>&lt;p&gt;Updated: 2015-10-06&lt;/p&gt;
 
 &lt;p&gt;I recently had the good fortune of talking to a graduate of a local web
-developer bootcamp&lt;sup&gt;1&lt;/sup&gt; who was interested in learning C. The
+developer bootcamp&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; who was interested in learning C. The
 syntax of C should be familiar to anyone who knows Java, but the real
 barriers are semantic. In my opinion, there are two main barriers for
 people to learning C, the difference between a pointer to a value and a
@@ -19,7 +19,7 @@ value and the difference between memory on the stack and memory on the heap.
 I’m going to address a few errors in those areas, before suggesting a
 project that would be useful for testing yourself.&lt;/p&gt;
 
-&lt;p&gt;The basic idea&lt;sup&gt;2&lt;/sup&gt; of a pointer is that it’s a location in memory,
+&lt;p&gt;The basic idea&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; of a pointer is that it’s a location in memory,
 where a value is stored and that we can give others access to our local
 values by passing around pointers to them. This implies that every value in
 the system must be assigned a location in memory where it is stored.
@@ -55,7 +55,7 @@ value of a pointer with &lt;code&gt;*ptr = value&lt;/code&gt;.&lt;/p&gt;
 	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;val is now %d. result is %d.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The result of compiling and executing this on my computer&lt;sup&gt;3&lt;/sup&gt; is:&lt;/p&gt;
+&lt;p&gt;The result of compiling and executing this on my computer&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; is:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;val is now 5. result is 10.
 val is now 10. result is 10.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -65,7 +65,7 @@ result. &lt;code&gt;add_five&lt;/code&gt; works by taking a pointer to a number,
 what’s stored at that location, and returning what’s stored there.&lt;/p&gt;
 
 &lt;p&gt;The other barrier is the difference between memory on the stack and memory
-on the heap. As a rule of thumb, malloc&lt;sup&gt;4&lt;/sup&gt; is on the heap and
+on the heap. As a rule of thumb, malloc&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; is on the heap and
 everything else, from plain ints to char[]’s, is on the stack. The
 practical difference is that memory on the heap has to be cleaned up by
 calling free when you’re done with it and memory on the stack is cleaned
@@ -100,7 +100,7 @@ in with the numbers 0 through 9, and then prints them out.&lt;/p&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;A naive perspective would expect them to have the same output. However,
-running it on my machine&lt;sup&gt;5&lt;/sup&gt; with &lt;code&gt;gcc test.c -std=c99 &amp;amp;&amp;amp; a.out&lt;/code&gt;
+running it on my machine&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt; with &lt;code&gt;gcc test.c -std=c99 &amp;amp;&amp;amp; a.out&lt;/code&gt;
 gives me the output:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;stack: 0 heap: 0
@@ -117,7 +117,7 @@ stack: 0 heap: 9&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;So, why are they different? The first method, heap_alloc, is completely
 valid and it’s sometimes useful to have a small method that takes a few
 arguments, mallocs a struct, and initializes the struct based on the
-supplied values.&lt;sup&gt;6&lt;/sup&gt; The second method, however, should never be
+supplied values.&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt; The second method, however, should never be
 used and gcc will give you a  “function returns address of local variable”
 warning when you compile it. Here’s what happens under the hood: 40-80
 bytes of memory are allocated for the stuff array on the stack, you take
@@ -147,7 +147,7 @@ values and then create a separate function to walk it. Something like:&lt;/p&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;A little project I would suggest is to implement a simulation of
-first-fit&lt;sup&gt;7&lt;/sup&gt; memory allocation. Consider the following API&lt;/p&gt;
+first-fit&lt;sup id=&quot;fnref:7&quot;&gt;&lt;a href=&quot;#fn:7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt; memory allocation. Consider the following API&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -177,26 +177,18 @@ you’ve gotten this far, there’s one question I’d like you to consider.
 Suppose someone wants to allocate a block that’s bigger than any free space,
 but smaller than the sum amount of free space, what prevents us from moving
 the allocated blocks into one giant block so that all the free blocks are
-in one giant block and allocating from there?&lt;sup&gt;8&lt;/sup&gt;&lt;/p&gt;
+in one giant block and allocating from there?&lt;sup id=&quot;fnref:8&quot;&gt;&lt;a href=&quot;#fn:8&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
-&lt;p&gt;Footnotes:&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;General Assembly and John Master to be specific.&lt;/li&gt;
-  &lt;li&gt;Extremely dumbed down, of course.&lt;/li&gt;
-  &lt;li&gt;And in any compliant implementation of C.&lt;/li&gt;
-  &lt;li&gt;sbrk is another way to get memory from the heap and is what malloc
-uses internally. You shouldn’t use it unless you have really good
-reasons to.&lt;/li&gt;
-  &lt;li&gt;I encourage you in the strongest possible terms to run these programs
-on your own computer instead of just taking my word. Unlike the
-previous example, this behavior can vary between machines.&lt;/li&gt;
-  &lt;li&gt;This is basically a poor man’s constructor.&lt;/li&gt;
-  &lt;li&gt;First-fit is a largely arbitrary choice. Best-fit and worst-fit are
-also good choices.&lt;/li&gt;
-  &lt;li&gt;This is done by compacting garbage collectors in higher level
-languages. Why can’t we do it here?&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+	&lt;ol&gt;
+		&lt;li id=&quot;fn:1&quot;&gt;General Assembly and John Master to be specific. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;Extremely dumbed down, of course. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;And in any compliant implementation of C. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;sbrk is another way to get memory from the heap and is what malloc uses internally. You shouldn’t use it unless you have really good reasons to. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;I encourage you in the strongest possible terms to run these programs on your own computer instead of just taking my word. Unlike the previous example, this behavior can vary between machines. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;This is basically a poor man’s constructor. &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:7&quot;&gt;First-fit is a largely arbitrary choice. Best-fit and worst-fit are also good choices. &lt;a href=&quot;#fnref:7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:8&quot;&gt;This is done by compacting garbage collectors in higher level languages. Why can’t we do it here? &lt;a href=&quot;#fnref:8&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+&lt;/div&gt;
+
 </description>
         <pubDate>Mon, 05 Oct 2015 08:00:00 -0400</pubDate>
         <link>http://www.joshuasnider.com/update/2015/10/05/c-intro/</link>
@@ -230,7 +222,7 @@ websites. I wanted to learn Android programming and making a parody of this
 type of game seemed like a decent scope for a “My First Android” kind of
 project. Thus, I set out to create a game of tic-tac-toe where the AI plays
  perfectly (and is therefore unbeatable) unless you pay 99 cents in which
-case it plays randomly and can be beaten 99.4792%&lt;sup&gt;1&lt;/sup&gt; of the time.&lt;/p&gt;
+case it plays randomly and can be beaten 99.4792%&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; of the time.&lt;/p&gt;
 
 &lt;h4 id=&quot;design-overview&quot;&gt;Design overview&lt;/h4&gt;
 
@@ -244,12 +236,12 @@ user’s cumulative wins, losses, and draws.&lt;/p&gt;
 &lt;p&gt;When the app needed to save &lt;code&gt;MainActivity&lt;/code&gt;’s state it did so by writing the
 board out as 10 strings, 9 to represent the text in each space and one to
 say which person had just moved, we then had two strings to say the
-computer and player’s chars,&lt;sup&gt;2&lt;/sup&gt; and a flag to track whether
-we were in easy mode or not.&lt;sup&gt;3&lt;/sup&gt;&lt;/p&gt;
+computer and player’s chars,&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; and a flag to track whether
+we were in easy mode or not.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;p&gt;In our long-term storage, we currently have a flag to keep track of whether
 we have ever played before and integers for the user’s number of wins,
-losses, and draws.&lt;sup&gt;4&lt;/sup&gt;&lt;/p&gt;
+losses, and draws.&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;challenges-encountered&quot;&gt;Challenges encountered&lt;/h4&gt;
 
@@ -268,13 +260,13 @@ fixed it properly by making &lt;code&gt;TicTacToeBoard&lt;/code&gt; implement &l
 where pressing the Verizon button on my phone would cause it to crash,
 this was just a dumb mistake in my parceling code. Third, it wouldn’t
 preserve anything when I switched screens or logged in or out. This was
-solved by setting &lt;code&gt;android:launchMode=&quot;singleTop&quot;&lt;/code&gt; in the manifest.&lt;sup&gt;5&lt;/sup&gt;&lt;/p&gt;
+solved by setting &lt;code&gt;android:launchMode=&quot;singleTop&quot;&lt;/code&gt; in the manifest.&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;p&gt;Something I struggled with generally, but that isn’t technically a bug was
 in app billing. There’s a good tutorial &lt;a href=&quot;http://developer.android.com/google/play/billing/billing_integrate.html&quot;&gt;here&lt;/a&gt;
 which was helpful at the end after I tried everything else. Testing my in-app
 billing was also kinda hard, since Google doesn’t allow developers to buy
-things from themselves&lt;sup&gt;6&lt;/sup&gt;. What you’re supposed to do is have a
+things from themselves&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;. What you’re supposed to do is have a
 spare device with a test account installed on it. Since I currently only
 own one phone, I just reached out to a friend, Kunal, who does mobile
 programming and got them to be a beta tester for me. He also helped by
@@ -305,7 +297,7 @@ easy mode), the main activity could have stylized text boxes to make the
 tic-tac-toe board prettier and it could resize to fill the screen. I also have
 an idea for a much more serious game than tic-tac-toe, but as a firm believer
 that ideas are worthless and execution is everything I’ll wait to announce it
-until I actually have an alpha.&lt;sup&gt;7&lt;/sup&gt;&lt;/p&gt;
+until I actually have an alpha.&lt;sup id=&quot;fnref:7&quot;&gt;&lt;a href=&quot;#fn:7&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;p&gt;One thing I really want on Android is a music player that preserves your spot
 when you pause and come back later. The default music player on my Samsung
@@ -332,48 +324,12 @@ have done it a lot better, but I stand by the work I did.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;This is an exact number. I know this because Jane Street had a puzzle
-to find this number in &lt;a href=&quot;https://www.janestreet.com/puzzles/solutions/may-2015-solution/&quot;&gt;May&lt;/a&gt;.
-I have a programmatic solution &lt;a href=&quot;https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml&quot;&gt;here&lt;/a&gt;, 
-but this can also be calculated by hand.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Some of that data is redundant. For example, if we know the player’s
-symbol, we can find the computer’s symbol, if we have the game board
-we can determine if X just moved by seeing if there are more X’s than O’s.
-The minimum number of bits needed to store the TicTacToeBoard is 16. One
-bit tracks whether the player is X or O, we then need &lt;code&gt;log2(3)&lt;/code&gt; bits to store
-whether each of the nine spots is an X, O, or free. &lt;code&gt;log2(3) * 9+1 = 15.2646625065&lt;/code&gt;
-bits, which rounds up to 16. My choice to store redundant data is solely
-because I believe that programmer time and the risk of bugs that naturally
-comes with more complex code is more expensive than disk space.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Tracking whether the game is currently in “easy mode” was originally
-done using &lt;code&gt;SharedPreferences&lt;/code&gt;, but was refactored to be stored in
-a &lt;code&gt;Bundle&lt;/code&gt; by &lt;code&gt;onSaveInstanceState&lt;/code&gt; in version 1.3.2. I then used
-my Orwellian editor powers to change this blog post accordingly.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Of course, this means that if someone plays more than two billion times.
-Parts of their score may start to wrap around to negative two billion. If
-you plan on playing this game that much, please let me know and I will
-fix this issue.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;I essentially had
-&lt;a href=&quot;http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity&quot;&gt;this&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;As explained in don smolen’s answer
-&lt;a href=&quot;http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Somewhat relevant reading is &lt;a href=&quot;http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/&quot;&gt;here&lt;/a&gt;. &lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+	&lt;ol&gt;
+		&lt;li id=&quot;fn:1&quot;&gt;This is an exact number. I know this because Jane Street had a puzzle to find this number in &lt;a href=&quot;https://www.janestreet.com/puzzles/solutions/may-2015-solution/). I have a programmatic solution [here](https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml&quot;&gt;May&lt;/a&gt;, but this can also be calculated by hand. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;Some of that data is redundant. For example, if we know the player’s symbol, we can find the computer’s symbol, if we have the game board we can determine if X just moved by seeing if there are more X’s than O’s. The minimum number of bits needed to store the TicTacToeBoard is 16. One bit tracks whether the player is X or O, we then need &quot;log2(3)&quot; bits to store whether each of the nine spots is an X, O, or free. &quot;log2(3) * 9+1 = 15.2646625065&quot; bits, which rounds up to 16. My choice to store redundant data is solely because I believe that programmer time and the risk of bugs that naturally comes with more complex code is more expensive than disk space. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;Tracking whether the game is currently in “easy mode” was originally done using &quot;SharedPreferences&quot;, but was refactored to be stored in a &quot;Bundle&quot; by &quot;onSaveInstanceState&quot; in version 1.3.2. I then used my Orwellian editor powers to change this blog post accordingly. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;Of course, this means that if someone plays more than two billion times. Parts of their score may start to wrap around to negative two billion. If you plan on playing this game that much, please let me know and I will fix this issue. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;I essentially had &lt;a href=&quot;http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity&quot;&gt;this&lt;/a&gt;. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;As explained in don smolen’s answer &lt;a href=&quot;http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item&quot;&gt;here&lt;/a&gt;. &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:7&quot;&gt;Somewhat relevant reading is &lt;a href=&quot;http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/&quot;&gt;here.&lt;/a&gt;  &lt;a href=&quot;#fnref:7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+&lt;/div&gt;
+
 </description>
         <pubDate>Mon, 17 Aug 2015 08:00:00 -0400</pubDate>
         <link>http://www.joshuasnider.com/update/android/gaming/2015/08/17/tictactoe/</link>
@@ -383,20 +339,20 @@ fix this issue.&lt;/p&gt;
       <item>
         <title>Esovectors</title>
         <description>&lt;p&gt;In practical terms, resizable arrays (implemented by &lt;code&gt;std::vector&lt;/code&gt; in
-C++)&lt;sup&gt;1&lt;/sup&gt; are a very good data structure and in most respects compare
+C++)&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; are a very good data structure and in most respects compare
 favorably to linked lists. They fit better into memory caches, have less
 overhead, and support indexing in constant time. Their actual downsides are that
 inserting and deleting in arbitrary locations takes linear time. This is
 because we need to move up to the entire array when we change the first
 element in it. In addition, we will also need to move the entire array
 when it changes size too much. The reallocation amortizes away to be a
-constant time, but it’s still an occasional&lt;sup&gt;2&lt;/sup&gt; &lt;code&gt;O(n)&lt;/code&gt; for
+constant time, but it’s still an occasional&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; &lt;code&gt;O(n)&lt;/code&gt; for
 insertions/deletions within a constant of the end.&lt;/p&gt;
 
 &lt;p&gt;I’ll introduce a variant of the resizable array which allows us to have
 constant &lt;code&gt;O(n)&lt;/code&gt; complexity for insertions and deletions at the end and see
 if it can solve the issue of arbitrary changes taking &lt;code&gt;O(n)&lt;/code&gt; time. I call
-these “esovectors” as they are an esoteric version of a vector.&lt;sup&gt;3&lt;/sup&gt;&lt;/p&gt;
+these “esovectors” as they are an esoteric version of a vector.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;p&gt;The way current resizable arrays work is that when you reach a certain
 point, you allocate an entirely new block of memory, copy everything over
@@ -414,14 +370,14 @@ into that one as normal. Like in normal vectors, indexing continues to take
 &lt;p&gt;The additional space needed by this is &lt;code&gt;O(n)&lt;/code&gt;, which matches the &lt;code&gt;O(n)&lt;/code&gt; used
 by normal vectors, but it’s a worse &lt;code&gt;O(n)&lt;/code&gt; since we need to maintain a new
 array almost twice as big as our old away, whereas vectors are at worst
-half full.&lt;sup&gt;4&lt;/sup&gt;&lt;/p&gt;
+half full.&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;p&gt;However, a critical issue to consider is the cost of memory allocation,
 which greatly exceeds the cost of writing a single element of an array,
 though is also trivially fast. The running time of &lt;code&gt;malloc&lt;/code&gt; is entirely
 dependent on the implementation chosen by the system, but in most cases
 is unrelated to the number of bytes we are requesting. We shall assume
-that our &lt;code&gt;malloc&lt;/code&gt; uses two level segregate fit&lt;sup&gt;5&lt;/sup&gt; which is &lt;code&gt;O(1)&lt;/code&gt;
+that our &lt;code&gt;malloc&lt;/code&gt; uses two level segregate fit&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt; which is &lt;code&gt;O(1)&lt;/code&gt;
 time. Therefore, &lt;code&gt;malloc&lt;/code&gt; does not affect our worst case appending performance.&lt;/p&gt;
 
 &lt;p&gt;I’ve shown how to modify dynamic arrays to support appending and removing
@@ -431,45 +387,18 @@ double ended queue, which in addition to supporting the same operations
 as dynamic arrays in the same time, they support popping and inserting
 at the beginning in amortized constant time. I will leave it as an exercise
 to the reader how to extend esovectors to support this behavior in
-non-amortized constant time.&lt;sup&gt;6&lt;/sup&gt;&lt;/p&gt;
+non-amortized constant time.&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
 &lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;They have many names: array lists, growable arrays, etc. Wikipedia calls
-  them &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_array&quot;&gt;dynamic arrays.&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;How often this occasional reallocation happens depends on the growth factor
-  &lt;code&gt;g&lt;/code&gt; which determines how much bigger the array becomes each time it’s
-  reallocated. There is some interesting reading on this topic
-  &lt;a href=&quot;https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;I have an implementation and test cases 
-  &lt;a href=&quot;https://github.com/jsnider3/Workspace/tree/master/Esovector&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The worst case for both is when we have &lt;code&gt;n&lt;/code&gt; elements in an array of size &lt;code&gt;n&lt;/code&gt;
-  and try to insert an additional element. Traditional vectors allocate
-  a new array of size &lt;code&gt;2n&lt;/code&gt; and then use it to store &lt;code&gt;n + 1&lt;/code&gt; elements.
-  For esovectors we allocate a new array of size &lt;code&gt;2n&lt;/code&gt;, put 2 elements
-  in it, and leave &lt;code&gt;n - 1&lt;/code&gt; elements in our old array.&lt;sup&gt;7&lt;/sup&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Introduced in &lt;a href=&quot;http://www.gii.upv.es/tlsf/files/ecrts04_tlsf.pdf&quot;&gt;this paper.&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Read this as “I want someone else to do my work for me.”&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;This assumes a growth factor of 2, which is common but inefficient.
-  See the link in footnote 2.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+	&lt;ol&gt;
+		&lt;li id=&quot;fn:1&quot;&gt;They have many names: array lists, growable arrays, etc. Wikipedia calls them &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_array&quot;&gt;dynamic arrays.&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;How often this occasional reallocation happens depends on the growth factor &#39;g&#39; which determines how much bigger the array becomes each time it&#39;s reallocated. There is some interesting reading on this topic &lt;a href=&quot;https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md&quot;&gt;here.&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;I have an implementation and test cases &lt;a href=&quot;https://github.com/jsnider3/Workspace/tree/master/Esovector&quot;&gt;here.&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;The worst case for both is when we have &#39;n&#39; elements in an array of size &#39;n&#39; and try to insert an additional element. Traditional vectors allocate a new array of size &#39;2n&#39; and then use it to store &#39;n + 1&#39; elements. For esovectors we allocate a new array of size &#39;2n&#39;, put 2 elements in it, and leave &#39;n - 1&#39; elements in our old array. This assumes a growth factor of 2, which is common but inefficient. See the link in footnote 2. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;Introduced in &lt;a href=&quot;http://www.gii.upv.es/tlsf/files/ecrts04_tlsf.pdf&quot;&gt;this paper&lt;/a&gt;. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;Read this as &quot;I want someone else to do my work for me.&quot; &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+	&lt;/ol&gt;
+&lt;/div&gt;
+
 </description>
         <pubDate>Sat, 08 Aug 2015 08:00:00 -0400</pubDate>
         <link>http://www.joshuasnider.com/update/data-structures/2015/08/08/esovectors/</link>

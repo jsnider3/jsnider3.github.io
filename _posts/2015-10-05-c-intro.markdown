@@ -9,7 +9,7 @@ categories: update
 Updated: 2015-10-06
 
 I recently had the good fortune of talking to a graduate of a local web
-developer bootcamp<sup>1</sup> who was interested in learning C. The
+developer bootcamp{% fn_ref 1 %} who was interested in learning C. The
 syntax of C should be familiar to anyone who knows Java, but the real
 barriers are semantic. In my opinion, there are two main barriers for
 people to learning C, the difference between a pointer to a value and a
@@ -17,7 +17,7 @@ value and the difference between memory on the stack and memory on the heap.
 I’m going to address a few errors in those areas, before suggesting a
 project that would be useful for testing yourself.
 
-The basic idea<sup>2</sup> of a pointer is that it’s a location in memory,
+The basic idea{% fn_ref 2 %} of a pointer is that it’s a location in memory,
 where a value is stored and that we can give others access to our local
 values by passing around pointers to them. This implies that every value in
 the system must be assigned a location in memory where it is stored.
@@ -55,7 +55,7 @@ int main() {
 }
 {% endhighlight %}
 
-The result of compiling and executing this on my computer<sup>3</sup> is:
+The result of compiling and executing this on my computer{% fn_ref 3 %} is:
 
 {% highlight text %}
 val is now 5. result is 10.
@@ -67,7 +67,7 @@ result. `add_five` works by taking a pointer to a number, adding five to
 what’s stored at that location, and returning what’s stored there.
 
 The other barrier is the difference between memory on the stack and memory
-on the heap. As a rule of thumb, malloc<sup>4</sup> is on the heap and
+on the heap. As a rule of thumb, malloc{% fn_ref 4 %} is on the heap and
 everything else, from plain ints to char[]’s, is on the stack. The
 practical difference is that memory on the heap has to be cleaned up by
 calling free when you’re done with it and memory on the stack is cleaned
@@ -104,7 +104,7 @@ int main() {
 {% endhighlight %}
 
 A naive perspective would expect them to have the same output. However,
-running it on my machine<sup>5</sup> with `gcc test.c -std=c99 && a.out`
+running it on my machine{% fn_ref 5 %} with `gcc test.c -std=c99 && a.out`
 gives me the output:
 
 {% highlight text %}
@@ -123,7 +123,7 @@ stack: 0 heap: 9
 So, why are they different? The first method, heap_alloc, is completely
 valid and it’s sometimes useful to have a small method that takes a few
 arguments, mallocs a struct, and initializes the struct based on the
-supplied values.<sup>6</sup> The second method, however, should never be
+supplied values.{% fn_ref 6 %} The second method, however, should never be
 used and gcc will give you a  "function returns address of local variable"
 warning when you compile it. Here’s what happens under the hood: 40-80
 bytes of memory are allocated for the stuff array on the stack, you take
@@ -155,7 +155,7 @@ int list_print(struct list_node *start) {
 {% endhighlight %}
 
 A little project I would suggest is to implement a simulation of
-first-fit<sup>7</sup> memory allocation. Consider the following API
+first-fit{% fn_ref 7 %} memory allocation. Consider the following API
 
 * `void* my_malloc(int size)`: Walk through the list of free spaces, when you
   find a spot that can fit a block of the requested size allocate the block
@@ -179,21 +179,20 @@ you’ve gotten this far, there’s one question I’d like you to consider.
 Suppose someone wants to allocate a block that’s bigger than any free space,
 but smaller than the sum amount of free space, what prevents us from moving
 the allocated blocks into one giant block so that all the free blocks are
-in one giant block and allocating from there?<sup>8</sup>
+in one giant block and allocating from there?{% fn_ref 8 %}
 
-Footnotes:
+--------
 
-1.  General Assembly and John Master to be specific.
-2.  Extremely dumbed down, of course.
-3.  And in any compliant implementation of C.
-4.  sbrk is another way to get memory from the heap and is what malloc
-    uses internally. You shouldn’t use it unless you have really good
-    reasons to.
-5.  I encourage you in the strongest possible terms to run these programs
-    on your own computer instead of just taking my word. Unlike the
-    previous example, this behavior can vary between machines.
-6.  This is basically a poor man’s constructor.
-7.  First-fit is a largely arbitrary choice. Best-fit and worst-fit are
-    also good choices.
-8.  This is done by compacting garbage collectors in higher level
-    languages. Why can’t we do it here?
+**Footnotes:**
+
+{% footnotes %}
+
+  {% fn  General Assembly and John Master to be specific. %}
+  {% fn  Extremely dumbed down, of course. %}
+  {% fn  And in any compliant implementation of C. %}
+  {% fn  sbrk is another way to get memory from the heap and is what malloc uses internally. You shouldn’t use it unless you have really good reasons to. %}
+  {% fn  I encourage you in the strongest possible terms to run these programs on your own computer instead of just taking my word. Unlike the previous example, this behavior can vary between machines. %}
+  {% fn  This is basically a poor man’s constructor. %}
+  {% fn  First-fit is a largely arbitrary choice. Best-fit and worst-fit are also good choices. %}
+  {% fn  This is done by compacting garbage collectors in higher level languages. Why can’t we do it here? %}
+{% endfootnotes %}

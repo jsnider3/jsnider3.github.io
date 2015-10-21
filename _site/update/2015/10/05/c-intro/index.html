@@ -86,7 +86,7 @@
   <p>Updated: 2015-10-06</p>
 
 <p>I recently had the good fortune of talking to a graduate of a local web
-developer bootcamp<sup>1</sup> who was interested in learning C. The
+developer bootcamp<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> who was interested in learning C. The
 syntax of C should be familiar to anyone who knows Java, but the real
 barriers are semantic. In my opinion, there are two main barriers for
 people to learning C, the difference between a pointer to a value and a
@@ -94,7 +94,7 @@ value and the difference between memory on the stack and memory on the heap.
 I’m going to address a few errors in those areas, before suggesting a
 project that would be useful for testing yourself.</p>
 
-<p>The basic idea<sup>2</sup> of a pointer is that it’s a location in memory,
+<p>The basic idea<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> of a pointer is that it’s a location in memory,
 where a value is stored and that we can give others access to our local
 values by passing around pointers to them. This implies that every value in
 the system must be assigned a location in memory where it is stored.
@@ -130,7 +130,7 @@ value of a pointer with <code>*ptr = value</code>.</p>
 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;val is now %d. result is %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span> 
 <span class="p">}</span></code></pre></div>
 
-<p>The result of compiling and executing this on my computer<sup>3</sup> is:</p>
+<p>The result of compiling and executing this on my computer<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup> is:</p>
 
 <div class="highlight"><pre><code class="language-text" data-lang="text">val is now 5. result is 10.
 val is now 10. result is 10.</code></pre></div>
@@ -140,7 +140,7 @@ result. <code>add_five</code> works by taking a pointer to a number, adding five
 what’s stored at that location, and returning what’s stored there.</p>
 
 <p>The other barrier is the difference between memory on the stack and memory
-on the heap. As a rule of thumb, malloc<sup>4</sup> is on the heap and
+on the heap. As a rule of thumb, malloc<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup> is on the heap and
 everything else, from plain ints to char[]’s, is on the stack. The
 practical difference is that memory on the heap has to be cleaned up by
 calling free when you’re done with it and memory on the stack is cleaned
@@ -175,7 +175,7 @@ in with the numbers 0 through 9, and then prints them out.</p>
 <span class="p">}</span></code></pre></div>
 
 <p>A naive perspective would expect them to have the same output. However,
-running it on my machine<sup>5</sup> with <code>gcc test.c -std=c99 &amp;&amp; a.out</code>
+running it on my machine<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup> with <code>gcc test.c -std=c99 &amp;&amp; a.out</code>
 gives me the output:</p>
 
 <div class="highlight"><pre><code class="language-text" data-lang="text">stack: 0 heap: 0
@@ -192,7 +192,7 @@ stack: 0 heap: 9</code></pre></div>
 <p>So, why are they different? The first method, heap_alloc, is completely
 valid and it’s sometimes useful to have a small method that takes a few
 arguments, mallocs a struct, and initializes the struct based on the
-supplied values.<sup>6</sup> The second method, however, should never be
+supplied values.<sup id="fnref:6"><a href="#fn:6" rel="footnote">6</a></sup> The second method, however, should never be
 used and gcc will give you a  “function returns address of local variable”
 warning when you compile it. Here’s what happens under the hood: 40-80
 bytes of memory are allocated for the stuff array on the stack, you take
@@ -222,7 +222,7 @@ values and then create a separate function to walk it. Something like:</p>
 <span class="p">}</span></code></pre></div>
 
 <p>A little project I would suggest is to implement a simulation of
-first-fit<sup>7</sup> memory allocation. Consider the following API</p>
+first-fit<sup id="fnref:7"><a href="#fn:7" rel="footnote">7</a></sup> memory allocation. Consider the following API</p>
 
 <ul>
   <li>
@@ -252,26 +252,18 @@ you’ve gotten this far, there’s one question I’d like you to consider.
 Suppose someone wants to allocate a block that’s bigger than any free space,
 but smaller than the sum amount of free space, what prevents us from moving
 the allocated blocks into one giant block so that all the free blocks are
-in one giant block and allocating from there?<sup>8</sup></p>
+in one giant block and allocating from there?<sup id="fnref:8"><a href="#fn:8" rel="footnote">8</a></sup></p>
 
-<p>Footnotes:</p>
+<hr />
 
-<ol>
-  <li>General Assembly and John Master to be specific.</li>
-  <li>Extremely dumbed down, of course.</li>
-  <li>And in any compliant implementation of C.</li>
-  <li>sbrk is another way to get memory from the heap and is what malloc
-uses internally. You shouldn’t use it unless you have really good
-reasons to.</li>
-  <li>I encourage you in the strongest possible terms to run these programs
-on your own computer instead of just taking my word. Unlike the
-previous example, this behavior can vary between machines.</li>
-  <li>This is basically a poor man’s constructor.</li>
-  <li>First-fit is a largely arbitrary choice. Best-fit and worst-fit are
-also good choices.</li>
-  <li>This is done by compacting garbage collectors in higher level
-languages. Why can’t we do it here?</li>
-</ol>
+<p><strong>Footnotes:</strong></p>
+
+<div class="footnotes">
+	<ol>
+		<li id="fn:1">General Assembly and John Master to be specific. <a href="#fnref:1" rev="footnote">↩</a></li><li id="fn:2">Extremely dumbed down, of course. <a href="#fnref:2" rev="footnote">↩</a></li><li id="fn:3">And in any compliant implementation of C. <a href="#fnref:3" rev="footnote">↩</a></li><li id="fn:4">sbrk is another way to get memory from the heap and is what malloc uses internally. You shouldn’t use it unless you have really good reasons to. <a href="#fnref:4" rev="footnote">↩</a></li><li id="fn:5">I encourage you in the strongest possible terms to run these programs on your own computer instead of just taking my word. Unlike the previous example, this behavior can vary between machines. <a href="#fnref:5" rev="footnote">↩</a></li><li id="fn:6">This is basically a poor man’s constructor. <a href="#fnref:6" rev="footnote">↩</a></li><li id="fn:7">First-fit is a largely arbitrary choice. Best-fit and worst-fit are also good choices. <a href="#fnref:7" rev="footnote">↩</a></li><li id="fn:8">This is done by compacting garbage collectors in higher level languages. Why can’t we do it here? <a href="#fnref:8" rev="footnote">↩</a></li>
+	</ol>
+</div>
+
 
   <footer><small>Click <a href="https://github.com/jsnider3/jsnider3.github.io/issues/new">here</a>
   to suggest a topic through GitHub. If you don't have a GitHub feel free to 

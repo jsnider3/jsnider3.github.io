@@ -19,7 +19,7 @@ websites. I wanted to learn Android programming and making a parody of this
 type of game seemed like a decent scope for a “My First Android” kind of
 project. Thus, I set out to create a game of tic-tac-toe where the AI plays
  perfectly (and is therefore unbeatable) unless you pay 99 cents in which
-case it plays randomly and can be beaten 99.4792%<sup>1</sup> of the time.
+case it plays randomly and can be beaten 99.4792%{% fn_ref 1 %} of the time.
 
 #### Design overview
 
@@ -33,12 +33,12 @@ user’s cumulative wins, losses, and draws.
 When the app needed to save `MainActivity`’s state it did so by writing the
 board out as 10 strings, 9 to represent the text in each space and one to
 say which person had just moved, we then had two strings to say the
-computer and player’s chars,<sup>2</sup> and a flag to track whether
-we were in easy mode or not.<sup>3</sup>
+computer and player’s chars,{% fn_ref 2 %} and a flag to track whether
+we were in easy mode or not.{% fn_ref 3 %}
 
 In our long-term storage, we currently have a flag to keep track of whether
 we have ever played before and integers for the user's number of wins,
-losses, and draws.<sup>4</sup>
+losses, and draws.{% fn_ref 4 %}
 
 #### Challenges encountered
 
@@ -57,14 +57,14 @@ fixed it properly by making `TicTacToeBoard` implement `Parcelable` and overridi
 where pressing the Verizon button on my phone would cause it to crash,
 this was just a dumb mistake in my parceling code. Third, it wouldn’t
 preserve anything when I switched screens or logged in or out. This was
-solved by setting `android:launchMode="singleTop"` in the manifest.<sup>5</sup>
+solved by setting `android:launchMode="singleTop"` in the manifest.{% fn_ref 5 %}
 
 
 Something I struggled with generally, but that isn’t technically a bug was
 in app billing. There's a good tutorial [here](http://developer.android.com/google/play/billing/billing_integrate.html)
 which was helpful at the end after I tried everything else. Testing my in-app
 billing was also kinda hard, since Google doesn’t allow developers to buy
-things from themselves<sup>6</sup>. What you’re supposed to do is have a
+things from themselves{% fn_ref 6 %}. What you’re supposed to do is have a
 spare device with a test account installed on it. Since I currently only
 own one phone, I just reached out to a friend, Kunal, who does mobile
 programming and got them to be a beta tester for me. He also helped by
@@ -95,7 +95,7 @@ easy mode), the main activity could have stylized text boxes to make the
 tic-tac-toe board prettier and it could resize to fill the screen. I also have
 an idea for a much more serious game than tic-tac-toe, but as a firm believer
 that ideas are worthless and execution is everything I’ll wait to announce it
-until I actually have an alpha.<sup>7</sup>
+until I actually have an alpha.{% fn_ref 7 %}
 
 One thing I really want on Android is a music player that preserves your spot
 when you pause and come back later. The default music player on my Samsung
@@ -123,35 +123,18 @@ have done it a lot better, but I stand by the work I did.
 
 **Footnotes:**
 
-1. This is an exact number. I know this because Jane Street had a puzzle
-   to find this number in [May](https://www.janestreet.com/puzzles/solutions/may-2015-solution/).
-   I have a programmatic solution [here](https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml), 
-   but this can also be calculated by hand.
+{% footnotes %}
+{% fn This is an exact number. I know this because Jane Street had a puzzle to find this number in <a href="https://www.janestreet.com/puzzles/solutions/may-2015-solution/). I have a programmatic solution [here](https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml">May</a>, but this can also be calculated by hand. %}
 
-2. Some of that data is redundant. For example, if we know the player’s
-   symbol, we can find the computer’s symbol, if we have the game board
-   we can determine if X just moved by seeing if there are more X’s than O’s.
-   The minimum number of bits needed to store the TicTacToeBoard is 16. One
-   bit tracks whether the player is X or O, we then need `log2(3)` bits to store
-   whether each of the nine spots is an X, O, or free. `log2(3) * 9+1 = 15.2646625065`
-   bits, which rounds up to 16. My choice to store redundant data is solely
-   because I believe that programmer time and the risk of bugs that naturally
-   comes with more complex code is more expensive than disk space.
+{% fn Some of that data is redundant. For example, if we know the player’s symbol, we can find the computer’s symbol, if we have the game board we can determine if X just moved by seeing if there are more X’s than O’s. The minimum number of bits needed to store the TicTacToeBoard is 16. One bit tracks whether the player is X or O, we then need "log2(3)" bits to store whether each of the nine spots is an X, O, or free. "log2(3) * 9+1 = 15.2646625065" bits, which rounds up to 16. My choice to store redundant data is solely because I believe that programmer time and the risk of bugs that naturally comes with more complex code is more expensive than disk space. %}
 
-3. Tracking whether the game is currently in “easy mode” was originally
-   done using `SharedPreferences`, but was refactored to be stored in
-   a `Bundle` by `onSaveInstanceState` in version 1.3.2. I then used
-   my Orwellian editor powers to change this blog post accordingly.
+{% fn Tracking whether the game is currently in “easy mode” was originally done using "SharedPreferences", but was refactored to be stored in a "Bundle" by "onSaveInstanceState" in version 1.3.2. I then used my Orwellian editor powers to change this blog post accordingly. %}
 
-4. Of course, this means that if someone plays more than two billion times.
-   Parts of their score may start to wrap around to negative two billion. If
-   you plan on playing this game that much, please let me know and I will
-   fix this issue.
+{% fn Of course, this means that if someone plays more than two billion times. Parts of their score may start to wrap around to negative two billion. If you plan on playing this game that much, please let me know and I will fix this issue. %}
 
-5. I essentially had
-   [this](http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity).
+{% fn I essentially had <a href="http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity">this</a>. %}
 
-6. As explained in don smolen’s answer
-   [here](http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item).
+{% fn As explained in don smolen’s answer <a href="http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item">here</a>. %}
 
-7. Somewhat relevant reading is [here](http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/). 
+{% fn Somewhat relevant reading is <a href="http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/">here.</a>  %}
+{% endfootnotes %}
