@@ -183,12 +183,6 @@ in one giant block and allocating from there?&lt;sup id=&quot;fnref:8&quot;&gt;&
 
 &lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;div class=&quot;footnotes&quot;&gt;
-	&lt;ol&gt;
-		&lt;li id=&quot;fn:1&quot;&gt;General Assembly and John Master to be specific. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;Extremely dumbed down, of course. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;And in any compliant implementation of C. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;sbrk is another way to get memory from the heap and is what malloc uses internally. You shouldn’t use it unless you have really good reasons to. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;I encourage you in the strongest possible terms to run these programs on your own computer instead of just taking my word. Unlike the previous example, this behavior can vary between machines. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;This is basically a poor man’s constructor. &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:7&quot;&gt;First-fit is a largely arbitrary choice. Best-fit and worst-fit are also good choices. &lt;a href=&quot;#fnref:7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:8&quot;&gt;This is done by compacting garbage collectors in higher level languages. Why can’t we do it here? &lt;a href=&quot;#fnref:8&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
-	&lt;/ol&gt;
-&lt;/div&gt;
-
 </description>
         <pubDate>Mon, 05 Oct 2015 08:00:00 -0400</pubDate>
         <link>http://www.joshuasnider.com/update/2015/10/05/c-intro/</link>
@@ -247,7 +241,7 @@ losses, and draws.&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot;
 
 &lt;p&gt;Making my first Android app was a quick journey, but one beset by challenges.
 Most of them were due to me not yet knowing how to do Android programming,
-but one or two may have been actually difficult. &lt;/p&gt;
+but one or two may have been actually difficult.&lt;/p&gt;
 
 &lt;p&gt;There were three bugs that troubled me long enough for me to have made a
 ticket for them. First, when I was trying to set the &lt;code&gt;MainActivity&lt;/code&gt; as an
@@ -285,7 +279,7 @@ benefit me and I ran into time constraints before getting back around to it.
 I could have made some popups to talk with the user, but I felt that toasts
 were sufficient for my purposes. I could have had an Unbeatable TicTacToe logo
 show up, which would change into a Beatable TicTacToe logo when easy mode
-was enabled. &lt;/p&gt;
+was enabled.&lt;/p&gt;
 
 &lt;p&gt;I might want to take the current app and just make it look prettier. The about
 page could have separate text boxes for the links with thumbnail images next to
@@ -311,7 +305,7 @@ before I do this though.&lt;/p&gt;
 &lt;p&gt;I needed to get a Google Play Developer account and a Google Pay Merchant
 account in order to publish this app. I’m on the very edge of getting my own
 LLC and officially becoming a business, but I’ll most likely delay that
-until I have separate business income. &lt;/p&gt;
+until I have separate business income.&lt;/p&gt;
 
 &lt;p&gt;I also learned to use a more modern IDE, most of my programming is done in
 gvim, but all of the Android tutorials I read wanted me to use Android Studio
@@ -323,12 +317,6 @@ have done it a lot better, but I stand by the work I did.&lt;/p&gt;
 &lt;hr /&gt;
 
 &lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-	&lt;ol&gt;
-		&lt;li id=&quot;fn:1&quot;&gt;This is an exact number. I know this because Jane Street had a puzzle to find this number in &lt;a href=&quot;https://www.janestreet.com/puzzles/solutions/may-2015-solution/). I have a programmatic solution [here](https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml&quot;&gt;May&lt;/a&gt;, but this can also be calculated by hand. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;Some of that data is redundant. For example, if we know the player’s symbol, we can find the computer’s symbol, if we have the game board we can determine if X just moved by seeing if there are more X’s than O’s. The minimum number of bits needed to store the TicTacToeBoard is 16. One bit tracks whether the player is X or O, we then need &quot;log2(3)&quot; bits to store whether each of the nine spots is an X, O, or free. &quot;log2(3) * 9+1 = 15.2646625065&quot; bits, which rounds up to 16. My choice to store redundant data is solely because I believe that programmer time and the risk of bugs that naturally comes with more complex code is more expensive than disk space. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;Tracking whether the game is currently in “easy mode” was originally done using &quot;SharedPreferences&quot;, but was refactored to be stored in a &quot;Bundle&quot; by &quot;onSaveInstanceState&quot; in version 1.3.2. I then used my Orwellian editor powers to change this blog post accordingly. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;Of course, this means that if someone plays more than two billion times. Parts of their score may start to wrap around to negative two billion. If you plan on playing this game that much, please let me know and I will fix this issue. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;I essentially had &lt;a href=&quot;http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity&quot;&gt;this&lt;/a&gt;. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;As explained in don smolen’s answer &lt;a href=&quot;http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item&quot;&gt;here&lt;/a&gt;. &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:7&quot;&gt;Somewhat relevant reading is &lt;a href=&quot;http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/&quot;&gt;here.&lt;/a&gt;  &lt;a href=&quot;#fnref:7&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
-	&lt;/ol&gt;
-&lt;/div&gt;
 
 </description>
         <pubDate>Mon, 17 Aug 2015 08:00:00 -0400</pubDate>
@@ -392,12 +380,6 @@ non-amortized constant time.&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#
 &lt;hr /&gt;
 
 &lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-	&lt;ol&gt;
-		&lt;li id=&quot;fn:1&quot;&gt;They have many names: array lists, growable arrays, etc. Wikipedia calls them &lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_array&quot;&gt;dynamic arrays.&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;How often this occasional reallocation happens depends on the growth factor &#39;g&#39; which determines how much bigger the array becomes each time it&#39;s reallocated. There is some interesting reading on this topic &lt;a href=&quot;https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md&quot;&gt;here.&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;I have an implementation and test cases &lt;a href=&quot;https://github.com/jsnider3/Workspace/tree/master/Esovector&quot;&gt;here.&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;The worst case for both is when we have &#39;n&#39; elements in an array of size &#39;n&#39; and try to insert an additional element. Traditional vectors allocate a new array of size &#39;2n&#39; and then use it to store &#39;n + 1&#39; elements. For esovectors we allocate a new array of size &#39;2n&#39;, put 2 elements in it, and leave &#39;n - 1&#39; elements in our old array. This assumes a growth factor of 2, which is common but inefficient. See the link in footnote 2. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;Introduced in &lt;a href=&quot;http://www.gii.upv.es/tlsf/files/ecrts04_tlsf.pdf&quot;&gt;this paper&lt;/a&gt;. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:6&quot;&gt;Read this as &quot;I want someone else to do my work for me.&quot; &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
-	&lt;/ol&gt;
-&lt;/div&gt;
 
 </description>
         <pubDate>Sat, 08 Aug 2015 08:00:00 -0400</pubDate>
@@ -515,7 +497,7 @@ is needed anymore.&lt;/p&gt;
 all of their repositories. You can find it at
 &lt;a href=&quot;https://joshuasnider3.com/GitHubBOC&quot;&gt;https://www.joshuasnider.com/GitHubBOC&lt;/a&gt;.
 This is just the thoughts I wrote down while making it organized in
-a moderately presentable way. &lt;/p&gt;
+a moderately presentable way.&lt;/p&gt;
 
 &lt;h4 id=&quot;motivations&quot;&gt;Motivations&lt;/h4&gt;
 
@@ -761,14 +743,14 @@ all by myself, I’ve done parts of languages before but not the entire thing.&l
         <title>Book Review: More Ocaml: Algorithms, Methods, and Diversions</title>
         <description>&lt;p&gt;My first attempt to learn OCaml was back in January, it largely took the
 form of “write code and then ask Google why it doesn’t work.” You can
-see the results of that process at 
-&lt;a href=&quot;https://github.com/jsnider3/newbie_OCaml&quot;&gt;https://github.com/jsnider3/newbie_OCaml&lt;/a&gt;.  &lt;/p&gt;
+see the results of that process at
+&lt;a href=&quot;https://github.com/jsnider3/newbie_OCaml&quot;&gt;https://github.com/jsnider3/newbie_OCaml&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This wasn’t the fastest process and instilled in me a deep rage at
 OCaml for repeatedly failing to be Haskell. I decided to be more 
 disciplined with my second attempt to learn OCaml and ordered a dead-tree
 copy of “More OCaml: Algorithms, Methods, and Diversions” by John 
-Whitington.  &lt;/p&gt;
+Whitington.&lt;/p&gt;
 
 &lt;p&gt;The book starts off assuming the reader knows how to program,
 just like it’s advertised, and shoves all the details of writing a 
@@ -779,7 +761,7 @@ in case those snooty Haskellers think their language is more powerful.&lt;/p&gt;
 
 &lt;p&gt;Moving on through the book, experienced programmers learn how to do 
 run-length encoding compression, a limited form of regexes, and
- playing tic-tac-toe in OCaml and eventually create pdfs programmatically.  &lt;/p&gt;
+ playing tic-tac-toe in OCaml and eventually create pdfs programmatically.&lt;/p&gt;
 
 &lt;p&gt;The book uses an excessive amount of while and for loops, but it’s
 definitely a good book for experienced programmers wishing to learn

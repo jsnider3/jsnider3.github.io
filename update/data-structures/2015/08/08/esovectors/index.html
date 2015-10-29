@@ -138,12 +138,6 @@ non-amortized constant time.<sup id="fnref:6"><a href="#fn:6" rel="footnote">6</
 
 <p><strong>Footnotes:</strong></p>
 
-<div class="footnotes">
-	<ol>
-		<li id="fn:1">They have many names: array lists, growable arrays, etc. Wikipedia calls them <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic arrays.</a> <a href="#fnref:1" rev="footnote">↩</a></li><li id="fn:2">How often this occasional reallocation happens depends on the growth factor 'g' which determines how much bigger the array becomes each time it's reallocated. There is some interesting reading on this topic <a href="https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md">here.</a> <a href="#fnref:2" rev="footnote">↩</a></li><li id="fn:3">I have an implementation and test cases <a href="https://github.com/jsnider3/Workspace/tree/master/Esovector">here.</a> <a href="#fnref:3" rev="footnote">↩</a></li><li id="fn:4">The worst case for both is when we have 'n' elements in an array of size 'n' and try to insert an additional element. Traditional vectors allocate a new array of size '2n' and then use it to store 'n + 1' elements. For esovectors we allocate a new array of size '2n', put 2 elements in it, and leave 'n - 1' elements in our old array. This assumes a growth factor of 2, which is common but inefficient. See the link in footnote 2. <a href="#fnref:4" rev="footnote">↩</a></li><li id="fn:5">Introduced in <a href="http://www.gii.upv.es/tlsf/files/ecrts04_tlsf.pdf">this paper</a>. <a href="#fnref:5" rev="footnote">↩</a></li><li id="fn:6">Read this as "I want someone else to do my work for me." <a href="#fnref:6" rev="footnote">↩</a></li>
-	</ol>
-</div>
-
 
   <footer><small>Click <a href="https://github.com/jsnider3/jsnider3.github.io/issues/new">here</a>
   to suggest a topic through GitHub. If you don't have a GitHub feel free to 
