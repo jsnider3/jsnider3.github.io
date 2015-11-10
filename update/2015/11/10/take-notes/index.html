@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Esovectors</title>
+    <title>You're not Taking Enough Notes</title>
     <meta name="viewport" content="width=device-width initial-scale=1">
     <meta name="description" content="An attempt at a blog by someone who thinks Haskell is cool.">
-    <link rel="canonical" href="http://www.joshuasnider.com/update/data-structures/2015/08/08/esovectors/">
+    <link rel="canonical" href="http://www.joshuasnider.com/update/2015/11/10/take-notes/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/main.css">
@@ -78,61 +78,55 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>Esovectors</h1>
-    <p class="meta">Aug 8, 2015</p>
+    <h1>You're not Taking Enough Notes</h1>
+    <p class="meta">Nov 10, 2015</p>
   </header>
 
   <article class="post-content">
-  <p>In practical terms, resizable arrays (implemented by <code>std::vector</code> in
-C++)<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> are a very good data structure and in most respects compare
-favorably to linked lists. They fit better into memory caches, have less
-overhead, and support indexing in constant time. Their actual downsides are that
-inserting and deleting in arbitrary locations takes linear time. This is
-because we need to move up to the entire array when we change the first
-element in it. In addition, we will also need to move the entire array
-when it changes size too much. The reallocation amortizes away to be a
-constant time, but it’s still an occasional<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> <code>O(n)</code> for
-insertions/deletions within a constant of the end.</p>
+  <p>One of the skills I developed since starting this blog was note taking.
+I got through college largely on the slides and my natural talent for
+programming, but this was me unwittingly taking the hard route. Nowadays,
+I take notes for everything. Every bug I work on at work has a folder
+containing all the notes I took while working on it, every talk I listen
+to at a meetup results in a few hundred words of notes<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>, and my class
+notes are 20-30 page long LaTeX pdfs. It’s good because it forces you to
+pay attention, organize your thoughts for others, and lets you review them
+when you start to forget.</p>
 
-<p>I’ll introduce a variant of the resizable array which allows us to have
-constant <code>O(n)</code> complexity for insertions and deletions at the end and see
-if it can solve the issue of arbitrary changes taking <code>O(n)</code> time. I call
-these “esovectors” as they are an esoteric version of a vector.<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></p>
+<p>Sitting in a room and listening to someone talk can be done mindlessly,
+so can flipping through a pdf or a PowerPoint, but you can’t say the same
+thing for taking some words, paraphrasing them, and typing as much of the
+most relevant parts as you can in real-time. For those more prone to
+fidgeting, you can keep your hands busy being useful. For those prone to
+daydreaming, you can keep your brain stimulated thinking about what you
+should be thinking about.</p>
 
-<p>The way current resizable arrays work is that when you reach a certain
-point, you allocate an entirely new block of memory, copy everything over
-to it, and then free the block of memory you were previously used. This
-works well, but still means that you’re obliged to copy blocks of unbounded
-size. An alternative approach is to when we reach
-a limit, allocate a second array, copy a constant amount over, and then copy
-another constant of us over. By adjusting the point at which we reallocate
-and the amount that we copy over, we can make sure that our old array is
-empty at the same time our new array becomes full. For indexing operations,
-we just need to check which buffer the nth element would be in and then index
-into that one as normal. Like in normal vectors, indexing continues to take
-<code>O(1)</code> time.</p>
+<p>Note taking disciplines your thoughts by taking them outside the jumbled
+mess within your brain and putting them in the structure of a common
+language. If you get in the habit of formatting your notes neatly, they
+can be used as a rough draft for say a presentation or a blog post or
+anything where you need to present your thoughts to others<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>. It can
+also get you in the habit of writing a rough draft quickly and coming back
+later for editing, which I feel strengthens your general writing ability<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup>.
+These behaviors start a positive feedback loop, where you think
+about what questions other people would have on a topic and make sure your
+notes address them. For some of my bug fix notes, I’ve distributed them to
+engineers working on similar or even the same problem. This saved them the
+hassle of either rediscovering my work or hoping I still remember the
+particulars when they ask me in person.</p>
 
-<p>The additional space needed by this is <code>O(n)</code>, which matches the <code>O(n)</code> used
-by normal vectors, but it’s a worse <code>O(n)</code> since we need to maintain a new
-array almost twice as big as our old away, whereas vectors are at worst
-half full.<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup></p>
+<p>The human brain is of course not as good at remembering as the cloud<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup>.
+Instead of having an endless torrent of ideas cycle through my
+brain and out into oblivion, I can keep a record. I’m sure we’ve all faced
+the situation where we know we used to know something, but can’t remember
+it. As my set notes grow in volume, I know I will have a deep source of
+reference material for anything my future self will want to know<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup>.</p>
 
-<p>However, a critical issue to consider is the cost of memory allocation,
-which greatly exceeds the cost of writing a single element of an array,
-though is also trivially fast. The running time of <code>malloc</code> is entirely
-dependent on the implementation chosen by the system, but in most cases
-is unrelated to the number of bytes we are requesting. We shall assume
-that our <code>malloc</code> uses two level segregate fit<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup> which is <code>O(1)</code>
-time. Therefore, <code>malloc</code> does not affect our worst case appending performance.</p>
-
-<p>I’ve shown how to modify dynamic arrays to support appending and removing
-from the end in constant time, not just amortized constant time. Another
-data type that is frequently implemented using dynamic arrays is the
-double ended queue, which in addition to supporting the same operations
-as dynamic arrays in the same time, they support popping and inserting
-at the beginning in amortized constant time. I will leave it as an exercise
-to the reader how to extend esovectors to support this behavior in
-non-amortized constant time.<sup id="fnref:6"><a href="#fn:6" rel="footnote">6</a></sup></p>
+<p>There’s plenty of knowledge just a Google search away, but I have a source
+which is inherently relevant to what I want to know and which has made me
+a better writer and listener by making it. I hope you all will take this
+as inspiration to store information you want to remember in a durable,
+universal format: text.</p>
 
 <hr />
 
@@ -140,12 +134,11 @@ non-amortized constant time.<sup id="fnref:6"><a href="#fn:6" rel="footnote">6</
 
 <div class="footnotes">
   <ol>
-  <li id="fn:1">They have many names: array lists, growable arrays, etc. Wikipedia calls them <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic arrays.</a><a href="#fnref:1" rev="footnote">↩</a></li>
-  <li id="fn:2">How often this occasional reallocation happens depends on the growth factor 'g' which determines how much bigger the array becomes each time it's reallocated. There is some interesting reading on this topic <a href="https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md">here.</a><a href="#fnref:2" rev="footnote">↩</a></li>
-  <li id="fn:3">I have an implementation and test cases <a href="https://github.com/jsnider3/Workspace/tree/master/Esovector">here.</a><a href="#fnref:3" rev="footnote">↩</a></li>
-  <li id="fn:4">The worst case for both is when we have 'n' elements in an array of size 'n' and try to insert an additional element. Traditional vectors allocate a new array of size '2n' and then use it to store 'n + 1' elements. For esovectors we allocate a new array of size '2n', put 2 elements in it, and leave 'n - 1' elements in our old array. This assumes a growth factor of 2, which is common but inefficient. See the link in footnote 2.<a href="#fnref:4" rev="footnote">↩</a></li> 
-  <li id="fn:5">Introduced in <a href="http://www.gii.upv.es/tlsf/files/ecrts04_tlsf.pdf">this paper</a>.<a href="#fnref:5" rev="footnote">↩</a></li>
-  <li id="fn:6">Read this as "I want someone else to do my work for me."<a href="#fnref:6" rev="footnote">↩</a></li>
+  <li id="fn:1">A lot of my notes are confidential and either in my private notes repo or on corporate hardware, but there’s a good example <a href="https://github.com/jsnider3/StudyNotes/blob/master/GoogleDistributedComputing/GDC.pdf.">here.</a><a href="#fnref:1" rev="footnote">↩</a></li>
+  <li id="fn:2">Several of my blog posts are either prettified design documents I wrote for myself or my thoughts on a conversation I was a part of.<a href="#fnref:2" rev="footnote">↩</a></li>
+  <li id="fn:3">I had a rough draft of this within a half hour of having the idea to get out of bed and write it.<a href="#fnref:3" rev="footnote">↩</a></li>
+  <li id="fn:4">Or dead trees, but as a software engineer I’m firmly on team keyboard.<a href="#fnref:4" rev="footnote">↩</a></li>
+  <li id="fn:5">This assumes that my future self’s interests are correlated with my past and current self’s interests. This has worked out so far in life.<a href="#fnref:5" rev="footnote">↩</a></li>
   </ol>
 </div>
 
@@ -157,13 +150,9 @@ non-amortized constant time.<sup id="fnref:6"><a href="#fn:6" rel="footnote">6</
 
   
     <div align="left">
-    <a class="prev" href="/project/2015/07/08/quis-custodiet/">&laquo; The Most Influential Works, According to TvTropes</a>
+    <a class="prev" href="/update/2015/10/05/c-intro/">&laquo; Barriers to Learning C</a>
     </div>
   
-  
-    <div align="right">
-    <a class="next" href="/update/android/gaming/2015/08/17/tictactoe/">Unbeatable Tic Tac Toe &raquo;</a>
-    </div>
   
 
 </div>

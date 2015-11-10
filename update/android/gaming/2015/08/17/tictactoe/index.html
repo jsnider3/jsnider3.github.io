@@ -197,6 +197,17 @@ have done it a lot better, but I stand by the work I did.</p>
 
 <p><strong>Footnotes:</strong></p>
 
+<div class="footnotes">
+  <ol>
+  <li id="fn:1">This is an exact number. I know this because Jane Street had a puzzle to find this number in <a href="https://www.janestreet.com/puzzles/solutions/may-2015-solution/). I have a programmatic solution [here](https://github.com/jsnider3/Workspace/blob/master/Competitive/OCaml/tictacs.ml">May</a>, but this can also be calculated by hand.<a href="#fnref:1" rev="footnote">↩</a></li>
+  <li id="fn:2">Some of that data is redundant. For example, if we know the player’s symbol, we can find the computer’s symbol, if we have the game board we can determine if X just moved by seeing if there are more X’s than O’s. The minimum number of bits needed to store the TicTacToeBoard is 16. One bit tracks whether the player is X or O, we then need "log2(3)" bits to store whether each of the nine spots is an X, O, or free. "log2(3) * 9+1 = 15.2646625065" bits, which rounds up to 16. My choice to store redundant data is solely because I believe that programmer time and the risk of bugs that naturally comes with more complex code is more expensive than disk space.<a href="#fnref:2" rev="footnote">↩</a></li>
+  <li id="fn:3">Tracking whether the game is currently in “easy mode” was originally done using "SharedPreferences", but was refactored to be stored in a "Bundle" by "onSaveInstanceState" in version 1.3.2. I then used my Orwellian editor powers to change this blog post accordingly.<a href="#fnref:3" rev="footnote">↩</a></li>
+  <li id="fn:4">Of course, this means that if someone plays more than two billion times. Parts of their score may start to wrap around to negative two billion. If you plan on playing this game that much, please let me know and I will fix this issue.<a href="#fnref:4" rev="footnote">↩</a></li>
+  <li id="fn:5">I essentially had <a href="http://stackoverflow.com/q/20819019/why-is-ondestroy-always-called-when-returning-to-parent-activity">this</a>.<a href="#fnref:5" rev="footnote">↩</a></li>
+  <li id="fn:6">As explained in don smolen’s answer <a href="http://stackoverflow.com/q/14139034/testing-in-app-billing-the-publisher-cannot-purchase-this-item">here</a>.<a href="#fnref:6" rev="footnote">↩</a></li>
+  <li id="fn:7">Somewhat relevant reading is <a href="http://blog.jpl-consulting.com/2012/04/why-i-wont-sign-your-nda/">here.</a><a href="#fnref:7" rev="footnote">↩</a></li>
+  </ol>
+</div>
 
   <footer><small>Click <a href="https://github.com/jsnider3/jsnider3.github.io/issues/new">here</a>
   to suggest a topic through GitHub. If you don't have a GitHub feel free to 
