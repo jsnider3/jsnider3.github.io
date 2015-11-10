@@ -85,17 +85,30 @@
   <article class="post-content">
   <script>
   (function() {
-    var cx = '000507326790310908171:jw2zbk4meqw';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
+    var params = window.location.search;
+    console.log("params", params);
+    if (!params) {
+      console.log("line 6");
+      var dest = window.location.href;
+      dest = dest.replace('?','');
+      var searchterm = (window.location.pathname.substring(1));
+      console.log('dest', dest);
+      window.location.replace(dest + "?q=" + searchterm);
+    } else {
+      var cx = '000507326790310908171:jw2zbk4meqw';
+      var gcse = document.createElement('script');
+      gcse.type = 'text/javascript';
+      gcse.async = true;
+      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+          '//cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(gcse, s);
+    }
   })();
 </script>
 <gcse:search></gcse:search>
+<!--<script>
+  document.getElementsByTagName('gcse')[0]. -->
 
 
   <footer><small>Click <a href="https://github.com/jsnider3/jsnider3.github.io/issues/new">here</a>
