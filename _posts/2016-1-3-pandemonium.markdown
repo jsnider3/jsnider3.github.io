@@ -15,7 +15,7 @@ The placement of these research centers is an important aspect of
 the game's strategy and I'll introduce a set of placements which are
 arguably optimal.
 
-<img src="/pictures/pandemicMap.jpg" alt="Base map" height="200px" width="400px"/>
+<img src="/pictures/pandemicMap.jpg" alt="Base map" height="250px" width="500px"/>
 
 I would be remiss if I didn't mention Matt Wigway's
 [prior work](http://www.indicatrix.org/2014/03/26/overanalyzing-board-games-network-analysis-and-pandemic/).
@@ -24,7 +24,7 @@ and use NetworkX to find the centrality of each node. In layman's terms,
 a city's centrality is how close it is to being the center of the universe.
 With no other information, this is a good measure for determining which of
 two cities would be better to put a research center in. My replicated
-results{% fn_ref 2 %} are as follows (from least to most central). As you
+results{% fn_ref 2 %} are listed below from least to most central. As you
 can see, there's a very strong correlation between a node's degree and
 centrality. The correlation is 0.583671004341 with a very strong
 p-value of 1.33442315419e-05.
@@ -80,11 +80,12 @@ Chennai | 0.28519763084 | 5
 Bangkok | 0.313436248643 | 5
 Hong Kong | 0.327022542843 | 6
 
-However, what we're interested in is a set of n cities, not the best city
-to put a research center. As our constraints, we only care about sets of
+However, what we're interested in is a set of n cities that together
+are the best places to put research centers, not a single best city.
+As our constraints, we only care about sets of
 size greater or equal to one and less than or equal to six as we don't have
 enough pieces to have more than six research centers and we are given a
-mandatory free one in Atlanta. 
+mandatory free one in Atlanta.
 
 How can we compare two proposed placements? The most intuitive measure for
 me is the average distance from each city in the world to the nearest
@@ -101,18 +102,18 @@ Atlanta which is therefore optimal.
 With two research centers the optimal solution is to pair Atlanta with
 either Baghdad or Cairo.
 
-<img src="/pictures/pandemicMap2.jpg" alt="Two centers" height="200px" width="400px"/>
+<img src="/pictures/pandemicMap2.jpg" alt="Two centers" height="250px" width="500px"/>
 
 With three research centers there's one optimal solution with the mandatory
 Atlanta, Hong Kong covering East Asia, and Cairo providing fast travel to Africa, Europe, and the Mideast.
 
-<img src="/pictures/pandemicMap3.jpg" alt="Three centers" height="200px" width="400px"/>
+<img src="/pictures/pandemicMap3.jpg" alt="Three centers" height="250px" width="500px"/>
 
 With four research centers, we take the optimal solution for three, move
 our Mideast center to Istanbul and put our fourth in Sao Paulo to cover
 the southwest side of the globe.
 
-<img src="/pictures/pandemicMap4.jpg" alt="Four centers" height="200px" width="400px"/>
+<img src="/pictures/pandemicMap4.jpg" alt="Four centers" height="250px" width="500px"/>
 
 With five research centers, we have seven equally good choices.
 Each involves placing one in Atlanta, one in Europe, one in
@@ -129,12 +130,12 @@ Atlanta       | Paris  | Hong Kong | Cairo    | Bogota
 Atlanta       | Essen  | Hong Kong | Cairo    | Bogota
 Atlanta       | London | Hong Kong | Cairo    | Bogota
 
-<img src="/pictures/pandemicMap5.jpg" alt="Five center example" height="200px" width="400px"/>
+<img src="/pictures/pandemicMap5.jpg" alt="Five center example" height="250px" width="500px"/>
 
 Finally, with six research centers we can cover all corners of the
 globe with Atlanta, Paris, Khartoum, Hong Kong, Karachi, Bogota.
 
-<img src="/pictures/pandemicMap6.jpg" alt="Six centers" height="200px" width="400px"/>
+<img src="/pictures/pandemicMap6.jpg" alt="Six centers" height="250px" width="500px"/>
 
 Of course, it's not possible for us to build a research center in
 Cairo and then move it to Istanbul when that's better for us. In fact,
