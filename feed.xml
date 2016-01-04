@@ -7,6 +7,525 @@
     <atom:link href="http://www.joshuasnider.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Optimal Placement of Research Centers in Pandemic</title>
+        <description>&lt;p&gt;Pandemic&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; is a great board game, where the players represent
+agents of the Center for Disease Control and must work together
+to stop four epidemics from growing out of control. Players
+can build research centers which allow you to make cures for the
+disease as well as allowing them to travel around the world faster.
+The placement of these research centers is an important aspect of
+the game’s strategy and I’ll introduce a set of placements which are
+arguably optimal.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap.jpg&quot; alt=&quot;Base map&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I would be remiss if I didn’t mention Matt Wigway’s
+&lt;a href=&quot;http://www.indicatrix.org/2014/03/26/overanalyzing-board-games-network-analysis-and-pandemic/&quot;&gt;prior work&lt;/a&gt;.
+What he did was make a graph out of the cities and connections in Pandemic
+and use NetworkX to find the centrality of each node. In layman’s terms,
+a city’s centrality is how close it is to being the center of the universe.
+With no other information, this is a good measure for determining which of
+two cities would be better to put a research center in. My replicated
+results&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; are listed below from least to most central. As you
+can see, there’s a very strong correlation between a node’s degree and
+centrality. The correlation is 0.583671004341 with a very strong
+p-value of 1.33442315419e-05.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;City&lt;/th&gt;
+      &lt;th&gt;Centrality&lt;/th&gt;
+      &lt;th&gt;Number of neighbors&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Santiago&lt;/td&gt;
+      &lt;td&gt;0.00617591510206&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Johannesburg&lt;/td&gt;
+      &lt;td&gt;0.0154561777473&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Buenos Aires&lt;/td&gt;
+      &lt;td&gt;0.0196818864023&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Kinshasa&lt;/td&gt;
+      &lt;td&gt;0.0200914664916&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Lagos&lt;/td&gt;
+      &lt;td&gt;0.024766083641&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Lima&lt;/td&gt;
+      &lt;td&gt;0.0268220512166&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;0.0376927493913&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Montreal&lt;/td&gt;
+      &lt;td&gt;0.0403328663271&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sao Paulo&lt;/td&gt;
+      &lt;td&gt;0.0404324206688&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Washington&lt;/td&gt;
+      &lt;td&gt;0.040605310228&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Miami&lt;/td&gt;
+      &lt;td&gt;0.0434286084369&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Bogota&lt;/td&gt;
+      &lt;td&gt;0.0450454304557&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Khartoum&lt;/td&gt;
+      &lt;td&gt;0.0470339007238&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;New York&lt;/td&gt;
+      &lt;td&gt;0.054893868982&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Beijing&lt;/td&gt;
+      &lt;td&gt;0.0562359233579&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Osaka&lt;/td&gt;
+      &lt;td&gt;0.0643883117632&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Mexico City&lt;/td&gt;
+      &lt;td&gt;0.0652670776334&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;London&lt;/td&gt;
+      &lt;td&gt;0.0713602782106&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Essen&lt;/td&gt;
+      &lt;td&gt;0.0729454518182&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;St. Petersburg&lt;/td&gt;
+      &lt;td&gt;0.0743611538763&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Seoul&lt;/td&gt;
+      &lt;td&gt;0.0744572557682&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Milan&lt;/td&gt;
+      &lt;td&gt;0.0751050249634&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chicago&lt;/td&gt;
+      &lt;td&gt;0.0796660803023&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Madrid&lt;/td&gt;
+      &lt;td&gt;0.0861026173003&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Los Angeles&lt;/td&gt;
+      &lt;td&gt;0.0884941819147&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Moscow&lt;/td&gt;
+      &lt;td&gt;0.0927410165533&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Paris&lt;/td&gt;
+      &lt;td&gt;0.0959706851301&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Tokyo&lt;/td&gt;
+      &lt;td&gt;0.097357620102&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Algiers&lt;/td&gt;
+      &lt;td&gt;0.111280721025&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;San Francisco&lt;/td&gt;
+      &lt;td&gt;0.114205406407&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Riyadh&lt;/td&gt;
+      &lt;td&gt;0.12406948652&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sydney&lt;/td&gt;
+      &lt;td&gt;0.125195372161&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Cairo&lt;/td&gt;
+      &lt;td&gt;0.143952359177&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Istanbul&lt;/td&gt;
+      &lt;td&gt;0.157260443095&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Shanghai&lt;/td&gt;
+      &lt;td&gt;0.169778595896&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Tehran&lt;/td&gt;
+      &lt;td&gt;0.171149983787&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Mumbai&lt;/td&gt;
+      &lt;td&gt;0.172742688198&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Taipei&lt;/td&gt;
+      &lt;td&gt;0.182284451256&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Baghdad&lt;/td&gt;
+      &lt;td&gt;0.185535295048&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Karachi&lt;/td&gt;
+      &lt;td&gt;0.209343941172&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jakarta&lt;/td&gt;
+      &lt;td&gt;0.224753744083&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Manila&lt;/td&gt;
+      &lt;td&gt;0.230481804184&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ho Chi Minh&lt;/td&gt;
+      &lt;td&gt;0.252286801422&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Delhi&lt;/td&gt;
+      &lt;td&gt;0.255684010981&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Kolkata&lt;/td&gt;
+      &lt;td&gt;0.272007607474&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chennai&lt;/td&gt;
+      &lt;td&gt;0.28519763084&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Bangkok&lt;/td&gt;
+      &lt;td&gt;0.313436248643&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;0.327022542843&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;However, what we’re interested in is a set of n cities that together
+are the best places to put research centers, not a single best city.
+As our constraints, we only care about sets of
+size greater or equal to one and less than or equal to six as we don’t have
+enough pieces to have more than six research centers and we are given a
+mandatory free one in Atlanta.&lt;/p&gt;
+
+&lt;p&gt;How can we compare two proposed placements? The most intuitive measure for
+me is the average distance from each city in the world to the nearest
+research center. According to
+&lt;a href=&quot;http://math.stackexchange.com/q/1309646/&quot;&gt;Stack Exchange&lt;/a&gt;, this is
+reducible to the problem of finding a dominating set which is known to
+be NP-Hard. Fortunately, this problem (despite being NP-Complete) is
+solvable in reasonable time for a problem as small as ours. Especially
+when you cache the all-pairs shortest paths matrix.&lt;/p&gt;
+
+&lt;p&gt;Obviously, with only one research center the only possible placement is
+Atlanta which is therefore optimal.&lt;/p&gt;
+
+&lt;p&gt;With two research centers the optimal solution is to pair Atlanta with
+either Baghdad or Cairo.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap2.jpg&quot; alt=&quot;Two centers&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With three research centers there’s one optimal solution with the mandatory
+Atlanta, Hong Kong covering East Asia, and Cairo providing fast travel to Africa, Europe, and the Mideast.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap3.jpg&quot; alt=&quot;Three centers&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With four research centers, we take the optimal solution for three, move
+our Mideast center to Istanbul and put our fourth in Sao Paulo to cover
+the southwest side of the globe.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap4.jpg&quot; alt=&quot;Four centers&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With five research centers, we have seven equally good choices.
+Each involves placing one in Atlanta, one in Europe, one in
+South America, one in East Asia, and one in either the Middle East
+or South Asia.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;North America&lt;/th&gt;
+      &lt;th&gt;Europe&lt;/th&gt;
+      &lt;th&gt;East Asia&lt;/th&gt;
+      &lt;th&gt;Mid east&lt;/th&gt;
+      &lt;th&gt;South America&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;Istanbul&lt;/td&gt;
+      &lt;td&gt;Shanghai&lt;/td&gt;
+      &lt;td&gt;Chennai&lt;/td&gt;
+      &lt;td&gt;Sao Paulo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;Istanbul&lt;/td&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;Delhi&lt;/td&gt;
+      &lt;td&gt;Sao Paulo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;Istanbul&lt;/td&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;Karachi&lt;/td&gt;
+      &lt;td&gt;Sao Paulo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;Paris&lt;/td&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;Baghdad&lt;/td&gt;
+      &lt;td&gt;Bogota&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;Paris&lt;/td&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;Cairo&lt;/td&gt;
+      &lt;td&gt;Bogota&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;Essen&lt;/td&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;Cairo&lt;/td&gt;
+      &lt;td&gt;Bogota&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;London&lt;/td&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;Cairo&lt;/td&gt;
+      &lt;td&gt;Bogota&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap5.jpg&quot; alt=&quot;Five center example&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, with six research centers we can cover all corners of the
+globe with Atlanta, Paris, Khartoum, Hong Kong, Karachi, Bogota.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap6.jpg&quot; alt=&quot;Six centers&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Of course, it’s not possible for us to build a research center in
+Cairo and then move it to Istanbul when that’s better for us. In fact,
+unless one of the players is the operations expert it’s unlikely we
+can build research stations in the optimal locations at will.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;
+What we want now is a ranking of which cities are the best for research
+centers and a separation of them into regions where we understand that
+it’s never a good deal to put two research centers in the same region.&lt;/p&gt;
+
+&lt;p&gt;The centrality measure previously discussed is a good judge of how good
+building a research center in a city is, but let’s check our work by
+counting how many times each city appears in the optimal placements.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;City&lt;/th&gt;
+      &lt;th&gt;Occurences&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Shanghai&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chennai&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Delhi&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Khartoum&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;London&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Essen&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Baghdad&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Karachi&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Paris&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Istanbul&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sao Paulo&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Bogota&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Cairo&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The correlation between the number of occurences and the centrality
+measure depends a lot on whether we include Atlanta. With it the
+correlation rounds to 0.10 and is not statistically significant. Without
+it the correlation jumps to 0.27 with a p-value of 0.07. The likely 
+reason these measures aren’t better correlated is because a lot of the
+most central cities are clustered together in Asia while optimal
+placement is based on spreading out.&lt;/p&gt;
+
+&lt;p&gt;One way we can separate the world into regions is with a Voronoi
+diagram where each research center in the optimal six center layout
+is the center of a zone.&lt;br /&gt;
+&lt;strong&gt;Central Asia&lt;/strong&gt;: Moscow, Delhi, Baghdad, Tehran, Karachi, Riyadh, Mumbai&lt;br /&gt;
+&lt;strong&gt;Europes&lt;/strong&gt;: Istanbul, Paris, St. Petersburg, London, Algiers, Milan, Madrid,
+  Essen&lt;br /&gt;
+&lt;strong&gt;Africa&lt;/strong&gt;: Kinshasa, Johannesburg, Khartoum, Lagos, Cairo&lt;br /&gt;
+&lt;strong&gt;Latin America&lt;/strong&gt;: Mexico City, Sao Paulo, Santiago, Buenos Aires, Lima,
+  Bogota&lt;br /&gt;
+&lt;strong&gt;North America&lt;/strong&gt;: Chicago, San Francisco, Los Angeles, Atlanta, Miami,
+  Montreal, Washington, New York&lt;br /&gt;
+&lt;strong&gt;East Asia&lt;/strong&gt;: Manila, Shanghai, Sydney, Kolkata, Chennai, Seoul, Bangkok,
+  Taipei, Hong Kong, Ho Chi Minh, Tokyo, Jakarta, Beijing, Osaka&lt;/p&gt;
+
+&lt;p&gt;Of course, we’ve artificially constricted ourselves by always having
+a research center in Atlanta. Is it possible to come to a better solution
+by relaxing that requirement? What if we’ve already been forced to put
+a research center in Santiago? Where should we put the rest of our
+stations if we’ve already made suboptimal moves? These are the kinds of
+questions that might be covered in the future. A useful app to make based
+off this work would be a REST API that tells you the average distance
+for the globe to the nearest research center of a given placement and then
+a pretty web frontend that uses it.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+  &lt;li id=&quot;fn:1&quot;&gt; The Pandemic board game is copyright by Z-Man Games. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;fn:2&quot;&gt; I was actually planning to do the analysis he did, but after seeing he already did it, I expanded it to this. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;fn:3&quot;&gt; It&#39;s also common to have scenarios where you want to build a research center somewhere so that you can cure a disease as soon as possible. For example, on the day I decided to write this blog post we had our medic fly down to Lima and build a research station there because another player went down to Santiago to cure some disease and happened to draw the cards needed to make a cure. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 03 Jan 2016 07:00:00 -0500</pubDate>
+        <link>http://www.joshuasnider.com/update/2016/01/03/pandemonium/</link>
+        <guid isPermaLink="true">http://www.joshuasnider.com/update/2016/01/03/pandemonium/</guid>
+      </item>
+    
+      <item>
         <title>You&#39;re not Taking Enough Notes</title>
         <description>&lt;p&gt;One of the skills I developed since starting this blog was note taking.
 I got through college largely on the slides and my natural talent for
@@ -815,27 +1334,6 @@ back to the community. Thanks for reading.&lt;/p&gt;
         <pubDate>Thu, 11 Jun 2015 08:00:00 -0400</pubDate>
         <link>http://www.joshuasnider.com/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</link>
         <guid isPermaLink="true">http://www.joshuasnider.com/update/scala/uncool/compiler/2015/06/11/uncool-in-scala/</guid>
-      </item>
-    
-      <item>
-        <title>Introducing Honey Badger</title>
-        <description>&lt;p&gt;I made a programming language called Honey Badger about a month ago.
-You can read about it at its &lt;a href=&quot;https://www.joshuasnider.com/HoneyBadger&quot;&gt;project page&lt;/a&gt; or at
-the &lt;a href=&quot;https://github.com/jsnider3/HoneyBadger&quot;&gt;repo&lt;/a&gt;, but I’d like to
-take a moment to talk about my motivations for doing it.&lt;/p&gt;
-
-&lt;p&gt;A good chunk of my motivation was to be able to point to the reference
-implementation whenever someone asks for proof that I know OCaml (a
-situation which will only occur if I basically prompt them to). The
-rest of my motivation was to be able to say that I’ve done an entire
-programming language from conception, to specification, to implementation
-all by myself, I’ve done parts of languages before but not the entire thing.&lt;/p&gt;
-
-&lt;p&gt;Thanks for reading.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 29 May 2015 08:00:00 -0400</pubDate>
-        <link>http://www.joshuasnider.com/update/honeybadger/2015/05/29/introducing-honey-badger/</link>
-        <guid isPermaLink="true">http://www.joshuasnider.com/update/honeybadger/2015/05/29/introducing-honey-badger/</guid>
       </item>
     
   </channel>
