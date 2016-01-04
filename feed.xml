@@ -8,7 +8,9 @@
     
       <item>
         <title>Optimal Placement of Research Centers in Pandemic</title>
-        <description>&lt;p&gt;Pandemic&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; is a great board game, where the players represent
+        <description>&lt;iframe src=&quot;https://ghbtns.com/github-btn.html?user=jsnider3&amp;amp;repo=pandemonium&amp;amp;type=star&amp;amp;count=true&quot; frameborder=&quot;0&quot; scrolling=&quot;0&quot; width=&quot;170px&quot; height=&quot;20px&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Pandemic&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; is a great board game, where the players represent
 agents of the Center for Disease Control and must work together
 to stop four epidemics from growing out of control. Players
 can build research centers which allow you to make cures for the
@@ -28,8 +30,8 @@ With no other information, this is a good measure for determining which of
 two cities would be better to put a research center in. My replicated
 results&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; are listed below from least to most central. As you
 can see, there’s a very strong correlation between a node’s degree and
-centrality. The correlation is 0.583671004341 with a very strong
-p-value of 1.33442315419e-05.&lt;/p&gt;
+centrality. The correlation is 0.58 with a very strong
+p-value of 1.33e-05.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -42,242 +44,242 @@ p-value of 1.33442315419e-05.&lt;/p&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;Santiago&lt;/td&gt;
-      &lt;td&gt;0.00617591510206&lt;/td&gt;
+      &lt;td&gt;0.0062&lt;/td&gt;
       &lt;td&gt;1&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Johannesburg&lt;/td&gt;
-      &lt;td&gt;0.0154561777473&lt;/td&gt;
+      &lt;td&gt;0.015&lt;/td&gt;
       &lt;td&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Buenos Aires&lt;/td&gt;
-      &lt;td&gt;0.0196818864023&lt;/td&gt;
+      &lt;td&gt;0.020&lt;/td&gt;
       &lt;td&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Kinshasa&lt;/td&gt;
-      &lt;td&gt;0.0200914664916&lt;/td&gt;
+      &lt;td&gt;0.020&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Lagos&lt;/td&gt;
-      &lt;td&gt;0.024766083641&lt;/td&gt;
+      &lt;td&gt;0.025&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Lima&lt;/td&gt;
-      &lt;td&gt;0.0268220512166&lt;/td&gt;
+      &lt;td&gt;0.027&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Atlanta&lt;/td&gt;
-      &lt;td&gt;0.0376927493913&lt;/td&gt;
+      &lt;td&gt;0.038&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Montreal&lt;/td&gt;
-      &lt;td&gt;0.0403328663271&lt;/td&gt;
+      &lt;td&gt;0.040&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Sao Paulo&lt;/td&gt;
-      &lt;td&gt;0.0404324206688&lt;/td&gt;
+      &lt;td&gt;0.040&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Washington&lt;/td&gt;
-      &lt;td&gt;0.040605310228&lt;/td&gt;
+      &lt;td&gt;0.041&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Miami&lt;/td&gt;
-      &lt;td&gt;0.0434286084369&lt;/td&gt;
+      &lt;td&gt;0.043&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Bogota&lt;/td&gt;
-      &lt;td&gt;0.0450454304557&lt;/td&gt;
+      &lt;td&gt;0.045&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Khartoum&lt;/td&gt;
-      &lt;td&gt;0.0470339007238&lt;/td&gt;
+      &lt;td&gt;0.047&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;New York&lt;/td&gt;
-      &lt;td&gt;0.054893868982&lt;/td&gt;
+      &lt;td&gt;0.055&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Beijing&lt;/td&gt;
-      &lt;td&gt;0.0562359233579&lt;/td&gt;
+      &lt;td&gt;0.056&lt;/td&gt;
       &lt;td&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Osaka&lt;/td&gt;
-      &lt;td&gt;0.0643883117632&lt;/td&gt;
+      &lt;td&gt;0.064&lt;/td&gt;
       &lt;td&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Mexico City&lt;/td&gt;
-      &lt;td&gt;0.0652670776334&lt;/td&gt;
+      &lt;td&gt;0.065&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;London&lt;/td&gt;
-      &lt;td&gt;0.0713602782106&lt;/td&gt;
+      &lt;td&gt;0.071&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Essen&lt;/td&gt;
-      &lt;td&gt;0.0729454518182&lt;/td&gt;
+      &lt;td&gt;0.073&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;St. Petersburg&lt;/td&gt;
-      &lt;td&gt;0.0743611538763&lt;/td&gt;
+      &lt;td&gt;0.074&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Seoul&lt;/td&gt;
-      &lt;td&gt;0.0744572557682&lt;/td&gt;
+      &lt;td&gt;0.074&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Milan&lt;/td&gt;
-      &lt;td&gt;0.0751050249634&lt;/td&gt;
+      &lt;td&gt;0.075&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Chicago&lt;/td&gt;
-      &lt;td&gt;0.0796660803023&lt;/td&gt;
+      &lt;td&gt;0.080&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Madrid&lt;/td&gt;
-      &lt;td&gt;0.0861026173003&lt;/td&gt;
+      &lt;td&gt;0.086&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Los Angeles&lt;/td&gt;
-      &lt;td&gt;0.0884941819147&lt;/td&gt;
+      &lt;td&gt;0.088&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Moscow&lt;/td&gt;
-      &lt;td&gt;0.0927410165533&lt;/td&gt;
+      &lt;td&gt;0.093&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Paris&lt;/td&gt;
-      &lt;td&gt;0.0959706851301&lt;/td&gt;
+      &lt;td&gt;0.096&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Tokyo&lt;/td&gt;
-      &lt;td&gt;0.097357620102&lt;/td&gt;
+      &lt;td&gt;0.097&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Algiers&lt;/td&gt;
-      &lt;td&gt;0.111280721025&lt;/td&gt;
+      &lt;td&gt;0.11&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;San Francisco&lt;/td&gt;
-      &lt;td&gt;0.114205406407&lt;/td&gt;
+      &lt;td&gt;0.11&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Riyadh&lt;/td&gt;
-      &lt;td&gt;0.12406948652&lt;/td&gt;
+      &lt;td&gt;0.12&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Sydney&lt;/td&gt;
-      &lt;td&gt;0.125195372161&lt;/td&gt;
+      &lt;td&gt;0.13&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Cairo&lt;/td&gt;
-      &lt;td&gt;0.143952359177&lt;/td&gt;
+      &lt;td&gt;0.14&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Istanbul&lt;/td&gt;
-      &lt;td&gt;0.157260443095&lt;/td&gt;
+      &lt;td&gt;0.16&lt;/td&gt;
       &lt;td&gt;6&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Shanghai&lt;/td&gt;
-      &lt;td&gt;0.169778595896&lt;/td&gt;
+      &lt;td&gt;0.17&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Tehran&lt;/td&gt;
-      &lt;td&gt;0.171149983787&lt;/td&gt;
+      &lt;td&gt;0.17&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Mumbai&lt;/td&gt;
-      &lt;td&gt;0.172742688198&lt;/td&gt;
+      &lt;td&gt;0.17&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Taipei&lt;/td&gt;
-      &lt;td&gt;0.182284451256&lt;/td&gt;
+      &lt;td&gt;0.18&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Baghdad&lt;/td&gt;
-      &lt;td&gt;0.185535295048&lt;/td&gt;
+      &lt;td&gt;0.19&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Karachi&lt;/td&gt;
-      &lt;td&gt;0.209343941172&lt;/td&gt;
+      &lt;td&gt;0.21&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Jakarta&lt;/td&gt;
-      &lt;td&gt;0.224753744083&lt;/td&gt;
+      &lt;td&gt;0.22&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Manila&lt;/td&gt;
-      &lt;td&gt;0.230481804184&lt;/td&gt;
+      &lt;td&gt;0.23&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Ho Chi Minh&lt;/td&gt;
-      &lt;td&gt;0.252286801422&lt;/td&gt;
+      &lt;td&gt;0.25&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Delhi&lt;/td&gt;
-      &lt;td&gt;0.255684010981&lt;/td&gt;
+      &lt;td&gt;0.26&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Kolkata&lt;/td&gt;
-      &lt;td&gt;0.272007607474&lt;/td&gt;
+      &lt;td&gt;0.27&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Chennai&lt;/td&gt;
-      &lt;td&gt;0.28519763084&lt;/td&gt;
+      &lt;td&gt;0.29&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Bangkok&lt;/td&gt;
-      &lt;td&gt;0.313436248643&lt;/td&gt;
+      &lt;td&gt;0.31&lt;/td&gt;
       &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Hong Kong&lt;/td&gt;
-      &lt;td&gt;0.327022542843&lt;/td&gt;
+      &lt;td&gt;0.33&lt;/td&gt;
       &lt;td&gt;6&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -303,12 +305,20 @@ when you cache the all-pairs shortest paths matrix.&lt;/p&gt;
 Atlanta which is therefore optimal.&lt;/p&gt;
 
 &lt;p&gt;With two research centers the optimal solution is to pair Atlanta with
-either Baghdad or Cairo.&lt;/p&gt;
+either Baghdad or Cairo. Looking at the solution for two centers, one might
+think it would be better to do Atlanta and Karachi instead since that is
+seven away from Atlanta traveling both East and West, whereas Atlanta is
+five away from Cairo one way and nine away from Cairo the other way. This is
+a good intuition, but unfortunately the average distance for Atlanta and
+Karachi is 1% higher. Moving to Karachi makes you slightly closer to places
+like Jakarta, but it also makes you slightly farther away from places like
+Kinshasa and Essen and the trade off is just barely not worth it.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap2.jpg&quot; alt=&quot;Two centers&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;With three research centers there’s one optimal solution with the mandatory
-Atlanta, Hong Kong covering East Asia, and Cairo providing fast travel to Africa, Europe, and the Mideast.&lt;/p&gt;
+Atlanta, Hong Kong covering East Asia, and Cairo providing fast travel to
+Africa, Europe, and the Mideast.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap3.jpg&quot; alt=&quot;Three centers&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
@@ -389,14 +399,19 @@ or South Asia.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap5.jpg&quot; alt=&quot;Five center example&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Finally, with six research centers we can cover all corners of the
-globe with Atlanta, Paris, Khartoum, Hong Kong, Karachi, Bogota.&lt;/p&gt;
+globe with Atlanta, Paris, Khartoum, Hong Kong, Karachi, Bogota.
+As per the rules,&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; you can only have six research centers, so when you
+try to build a seventh you have to get rid of one of your existing
+stations. There’s a slight advantage to removing your Atlanta station
+and replacing it with one in Chicago.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/pictures/pandemicMap6.jpg&quot; alt=&quot;Six centers&quot; height=&quot;250px&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Of course, it’s not possible for us to build a research center in
-Cairo and then move it to Istanbul when that’s better for us. In fact,
+&lt;p&gt;Of course, if we build a research center in Cairo we can’t move it
+to Istanbul until we’ve built six of them, which means it’s impossible
+to solely go through the optimal layouts. Furthermore,
 unless one of the players is the operations expert it’s unlikely we
-can build research stations in the optimal locations at will.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;
+can build research stations in the optimal locations at will.&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;
 What we want now is a ranking of which cities are the best for research
 centers and a separation of them into regions where we understand that
 it’s never a good deal to put two research centers in the same region.&lt;/p&gt;
@@ -516,7 +531,9 @@ a pretty web frontend that uses it.&lt;/p&gt;
   &lt;ol&gt;
   &lt;li id=&quot;fn:1&quot;&gt; The Pandemic board game is copyright by Z-Man Games. &lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
   &lt;li id=&quot;fn:2&quot;&gt; I was actually planning to do the analysis he did, but after seeing he already did it, I expanded it to this. &lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
-  &lt;li id=&quot;fn:3&quot;&gt; It&#39;s also common to have scenarios where you want to build a research center somewhere so that you can cure a disease as soon as possible. For example, on the day I decided to write this blog post we had our medic fly down to Lima and build a research station there because another player went down to Santiago to cure some disease and happened to draw the cards needed to make a cure. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;fn:3&quot;&gt; This was suggested by u/Robinetski on Reddit. It&#39;s a good suggestion. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;fn:4&quot;&gt; I was initially unaware of this rule and was corrected by u/Erdomas on Reddit. The Reddit discussion can be found &lt;a href=&quot;https://www.reddit.com/r/boardgames/comments/3zeay6/optimal_placement_of_research_centers_in_pandemic/&quot;&gt;here&lt;/a&gt;. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;fn:5&quot;&gt; It&#39;s also common to have scenarios where you want to build a research center somewhere so that you can cure a disease as soon as possible. For example, on the day I decided to write this blog post we had our medic fly down to Lima and build a research station there because another player went down to Santiago to cure some disease and happened to draw the cards needed to make a cure. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
 </description>
