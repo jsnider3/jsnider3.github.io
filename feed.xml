@@ -10,6 +10,8 @@
         <title>Optimal Placement of Research Centers in Pandemic</title>
         <description>&lt;iframe src=&quot;https://ghbtns.com/github-btn.html?user=jsnider3&amp;amp;repo=pandemonium&amp;amp;type=star&amp;amp;count=true&quot; frameborder=&quot;0&quot; scrolling=&quot;0&quot; width=&quot;170px&quot; height=&quot;20px&quot;&gt;&lt;/iframe&gt;
 
+&lt;h3 id=&quot;updated-201517&quot;&gt;Updated: 2015/1/7&lt;/h3&gt;
+
 &lt;p&gt;Pandemic&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; is a great board game, where the players represent
 agents of the Center for Disease Control and must work together
 to stop four epidemics from growing out of control. Players
@@ -523,6 +525,95 @@ off this work would be a REST API that tells you the average distance
 for the globe to the nearest research center of a given placement and then
 a pretty web frontend that uses it.&lt;/p&gt;
 
+&lt;h3 id=&quot;update-201517&quot;&gt;Update: 2015/1/7&lt;/h3&gt;
+
+&lt;p&gt;In the base game, the above analysis isn’t as useful
+as it could be since you will most likely be busy
+dealing with one or two diseases more than the rest.
+However, in Pandemic Legacy this kind of analysis is much
+more useful as it’s possible to preserve a research station
+across playthroughs. It also has a slightly different map,
+but fortunately https://github.com/gracegallis gave that
+to me through a pull request.&lt;/p&gt;
+
+&lt;p&gt;For Pandemic Legacy, the first four solutions are largely the
+same as for the classic board. Your first station should be in Atlanta,
+your second should be in Cairo, and your third should be in Hong Kong.&lt;/p&gt;
+
+&lt;p&gt;For four stations they should be in Atlanta, Istanbul, Sao Paulo, and
+Hong Kong. The fifth when built should be in either Delhi or Karachi.&lt;/p&gt;
+
+&lt;p&gt;After the first five, the amount of good options you have rapidly
+explodes, so I’ll provide a list of cities and how often they appear
+in optimal solutions.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;City&lt;/th&gt;
+      &lt;th&gt;Occurences&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Cairo&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chicago&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;New York&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Shanghai&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Washington&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;London&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Karachi&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sao Paulo&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Atlanta&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Delhi&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Buenos Aires&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Los Angeles&lt;/td&gt;
+      &lt;td&gt;15&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hong Kong&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Istanbul&lt;/td&gt;
+      &lt;td&gt;23&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
 &lt;hr /&gt;
 
 &lt;p&gt;&lt;strong&gt;Footnotes:&lt;/strong&gt;&lt;/p&gt;
@@ -534,6 +625,7 @@ a pretty web frontend that uses it.&lt;/p&gt;
   &lt;li id=&quot;fn:3&quot;&gt; This was suggested by u/Robinetski on Reddit. It&#39;s a good suggestion. &lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
   &lt;li id=&quot;fn:4&quot;&gt; I was initially unaware of this rule and was corrected by u/Erdomas on Reddit. The Reddit discussion can be found &lt;a href=&quot;https://www.reddit.com/r/boardgames/comments/3zeay6/optimal_placement_of_research_centers_in_pandemic/&quot;&gt;here&lt;/a&gt;. &lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
   &lt;li id=&quot;fn:5&quot;&gt; It&#39;s also common to have scenarios where you want to build a research center somewhere so that you can cure a disease as soon as possible. For example, on the day I decided to write this blog post we had our medic fly down to Lima and build a research station there because another player went down to Santiago to cure some disease and happened to draw the cards needed to make a cure. &lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;fn:6&quot;&gt; Mostly as a replacement to Atlanta. &lt;a href=&quot;#fnref:6&quot; rev=&quot;footnote&quot;&gt;↩&lt;/a&gt;&lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
 </description>
