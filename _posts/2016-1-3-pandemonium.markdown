@@ -8,6 +8,8 @@ categories: update
 
 <iframe src="https://ghbtns.com/github-btn.html?user=jsnider3&repo=pandemonium&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
 
+###Updated: 2015/1/7
+
 Pandemic{% fn_ref 1 %} is a great board game, where the players represent
 agents of the Center for Disease Control and must work together
 to stop four epidemics from growing out of control. Players
@@ -214,6 +216,45 @@ off this work would be a REST API that tells you the average distance
 for the globe to the nearest research center of a given placement and then
 a pretty web frontend that uses it.
 
+###Update: 2015/1/7
+
+In the base game, the above analysis isn't as useful
+as it could be since you will most likely be busy
+dealing with one or two diseases more than the rest.
+However, in Pandemic Legacy this kind of analysis is much
+more useful as it's possible to preserve a research station
+across playthroughs. It also has a slightly different map,
+but fortunately https://github.com/gracegallis gave that
+to me through a pull request.
+
+For Pandemic Legacy, the first four solutions are largely the
+same as for the classic board. Your first station should be in Atlanta,
+your second should be in Cairo, and your third should be in Hong Kong.
+
+For four stations they should be in Atlanta, Istanbul, Sao Paulo, and
+Hong Kong. The fifth when built should be in either Delhi or Karachi.
+
+After the first five, the amount of good options you have rapidly
+explodes, so I'll provide a list of cities and how often they appear
+in optimal solutions.
+
+City | Occurences
+---- | ------
+Cairo | 2
+Chicago | 3
+New York | 3
+Shanghai | 6
+Washington | 6
+London | 8
+Karachi | 8
+Sao Paulo | 9
+Atlanta | 11
+Delhi | 14
+Buenos Aires | 14
+Los Angeles | 15{% fn_ref 6 %}
+Hong Kong | 18
+Istanbul | 23
+
 --------
 
 **Footnotes:**
@@ -225,5 +266,6 @@ a pretty web frontend that uses it.
   <li id="fn:3"> This was suggested by u/Robinetski on Reddit. It's a good suggestion. <a href="#fnref:3" rev="footnote">↩</a></li>
   <li id="fn:4"> I was initially unaware of this rule and was corrected by u/Erdomas on Reddit. The Reddit discussion can be found <a href="https://www.reddit.com/r/boardgames/comments/3zeay6/optimal_placement_of_research_centers_in_pandemic/">here</a>. <a href="#fnref:4" rev="footnote">↩</a></li>
   <li id="fn:5"> It's also common to have scenarios where you want to build a research center somewhere so that you can cure a disease as soon as possible. For example, on the day I decided to write this blog post we had our medic fly down to Lima and build a research station there because another player went down to Santiago to cure some disease and happened to draw the cards needed to make a cure. <a href="#fnref:5" rev="footnote">↩</a></li>
+  <li id="fn:6"> Mostly as a replacement to Atlanta. <a href="#fnref:6" rev="footnote">↩</a></li>
   </ol>
 </div>
