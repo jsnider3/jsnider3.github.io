@@ -3,6 +3,8 @@ layout: post
 title:  "Recursion and You"
 date:   2015-06-29 12:00:00
 comments: True
+forcenext: "//joshuasnider.com/QuisCustodiet/"
+forcenexttitle: "The Most Influential Works, According to TvTropes"
 categories: update stack recursion
 ---
 

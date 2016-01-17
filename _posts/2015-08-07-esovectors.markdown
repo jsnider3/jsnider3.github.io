@@ -3,6 +3,8 @@ layout: post
 title:  "Esovectors"
 date:   2015-08-08 12:00:00
 comments: True
+forceprevious: "//joshuasnider.com/QuisCustodiet/"
+forceprevioustitle: "The Most Influential Works, According to TvTropes"
 categories: update data-structures
 ---
 
