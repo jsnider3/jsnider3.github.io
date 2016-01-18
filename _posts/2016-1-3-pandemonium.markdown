@@ -2,6 +2,8 @@
 layout: post
 title:  "Optimal Placement of Research Centers in Pandemic"
 date:   2016-1-3 12:00:00
+forcenext: "//america.joshuasnider.com/blog/"
+forcenexttitle: "The World's Countries Sorted by Americanness"
 comments: True
 categories: update
 ---
