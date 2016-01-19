@@ -12,7 +12,7 @@ categories: update
 
 ###Updated: 2015/1/7
 
-Pandemic{% fn_ref 1 %} is a great board game, where the players represent
+Pandemic[^1] is a great board game, where the players represent
 agents of the Center for Disease Control and must work together
 to stop four epidemics from growing out of control. Players
 can build research centers which allow you to make cures for the
@@ -30,7 +30,7 @@ and use NetworkX to find the centrality of each node. In layman's terms,
 a city's centrality is how close it is to being the center of the universe.
 With no other information, this is a good measure for determining which of
 two cities would be better to put a research center in. My replicated
-results{% fn_ref 2 %} are listed below from least to most central. As you
+results[^2] are listed below from least to most central. As you
 can see, there's a very strong correlation between a node's degree and
 centrality. The correlation is 0.58 with a very strong
 p-value of 1.33e-05.
@@ -113,7 +113,7 @@ five away from Cairo one way and nine away from Cairo the other way. This is
 a good intuition, but unfortunately the average distance for Atlanta and
 Karachi is 1% higher. Moving to Karachi makes you slightly closer to places
 like Jakarta, but it also makes you slightly farther away from places like
-Kinshasa and Essen and the trade off is just barely not worth it.{% fn_ref 3 %}
+Kinshasa and Essen and the trade off is just barely not worth it.[^3]
 
 <img src="/pictures/pandemicMap2.jpg" alt="Two centers" height="250px" width="500px"/>
 
@@ -148,7 +148,7 @@ Atlanta       | London | Hong Kong | Cairo    | Bogota
 
 Finally, with six research centers we can cover all corners of the
 globe with Atlanta, Paris, Khartoum, Hong Kong, Karachi, Bogota.
-As per the rules,{% fn_ref 4 %} you can only have six research centers, so when you
+As per the rules,[^4] you can only have six research centers, so when you
 try to build a seventh you have to get rid of one of your existing
 stations. There's a slight advantage to removing your Atlanta station
 and replacing it with one in Chicago.
@@ -159,7 +159,7 @@ Of course, if we build a research center in Cairo we can't move it
 to Istanbul until we've built six of them, which means it's impossible
 to solely go through the optimal layouts. Furthermore,
 unless one of the players is the operations expert it's unlikely we
-can build research stations in the optimal locations at will.{% fn_ref 5 %}
+can build research stations in the optimal locations at will.[^5]
 What we want now is a ranking of which cities are the best for research
 centers and a separation of them into regions where we understand that
 it's never a good deal to put two research centers in the same region.
@@ -253,7 +253,7 @@ Sao Paulo | 9
 Atlanta | 11
 Delhi | 14
 Buenos Aires | 14
-Los Angeles | 15{% fn_ref 6 %}
+Los Angeles | 15[^6]
 Hong Kong | 18
 Istanbul | 23
 
@@ -261,13 +261,9 @@ Istanbul | 23
 
 **Footnotes:**
 
-<div class="footnotes">
-  <ol>
-  <li id="fn:1"> The Pandemic board game is copyright by Z-Man Games. <a href="#fnref:1" rev="footnote">↩</a></li>
-  <li id="fn:2"> I was actually planning to do the analysis he did, but after seeing he already did it, I expanded it to this. <a href="#fnref:2" rev="footnote">↩</a></li>
-  <li id="fn:3"> This was suggested by u/Robinetski on Reddit. It's a good suggestion. <a href="#fnref:3" rev="footnote">↩</a></li>
-  <li id="fn:4"> I was initially unaware of this rule and was corrected by u/Erdomas on Reddit. The Reddit discussion can be found <a href="https://www.reddit.com/r/boardgames/comments/3zeay6/optimal_placement_of_research_centers_in_pandemic/">here</a>. <a href="#fnref:4" rev="footnote">↩</a></li>
-  <li id="fn:5"> It's also common to have scenarios where you want to build a research center somewhere so that you can cure a disease as soon as possible. For example, on the day I decided to write this blog post we had our medic fly down to Lima and build a research station there because another player went down to Santiago to cure some disease and happened to draw the cards needed to make a cure. <a href="#fnref:5" rev="footnote">↩</a></li>
-  <li id="fn:6"> Mostly as a replacement to Atlanta. <a href="#fnref:6" rev="footnote">↩</a></li>
-  </ol>
-</div>
+[^1]: The Pandemic board game is copyright by Z-Man Games.
+[^2]: I was actually planning to do the analysis he did, but after seeing he already did it, I expanded it to this.
+[^3]: This was suggested by u/Robinetski on Reddit. It's a good suggestion.
+[^4]: I was initially unaware of this rule and was corrected by u/Erdomas on Reddit. The Reddit discussion can be found <a href="https://www.reddit.com/r/boardgames/comments/3zeay6/optimal_placement_of_research_centers_in_pandemic/">here</a>.
+[^5]: It's also common to have scenarios where you want to build a research center somewhere so that you can cure a disease as soon as possible. For example, on the day I decided to write this blog post we had our medic fly down to Lima and build a research station there because another player went down to Santiago to cure some disease and happened to draw the cards needed to make a cure.
+[^6]: Mostly as a replacement to Atlanta.
