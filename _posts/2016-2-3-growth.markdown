@@ -1,0 +1,307 @@
+---
+layout: post
+title:  "Early Mistakes I Made as a Programmer"
+date:   2016-2-7 12:00:00
+forceprevious: "//america.joshuasnider.com/blog/"
+forceprevioustitle: "The World's Countries Sorted by Americanness"
+comments: True
+categories: update
+---
+
+#### Intro
+
+I wasn't born a gifted programmer, I'm not sure I'm even one now,
+but I have grown a lot since I started. In this post I'm going to take
+code that I wrote years ago, tear it to pieces with criticism, and show how
+I've refactored it[^0]. While doing this, I will point out what I did wrong.
+Hopefully, some of my readers who still use these bad practices will take
+heed and grow as I did.
+
+I'm a fan of webcomics, they tell stories on an infinite canvas[^1].
+During freshman year of college, I studied abroad in England over winter
+break. It was fun, I got to be a tourist in a foreign country while seeing
+plays for college credit.[^2] The only downside was the shortage of free
+internet. When I got back to America, I decided I should write a program
+to download the entirety of my favorite webcomics onto my computer, so that
+if I was separated from the internet for too long, I could binge read their
+old story lines.
+
+I ended up writing comic downloaders[^3] for
+[Schlock Mercenary](https://www.schlockmercenary.com/), [XKCD](https://www.xkcd.com),
+[The Last Days of FOXHOUND](http://www.doctorshrugs.com/foxhound/comic.php),
+and [Girl Genius](http://www.girlgeniusonline.com/). Each of them is a good
+webcomic that I guarantee you will enjoy[^4]. The original classes can be found
+[here](https://raw.githubusercontent.com/jsnider3/Workspace/5d744260f0979526082a79b68d67734c88ce6b64/InternetIO/XKCDImageGetter.java),
+[here](https://raw.githubusercontent.com/jsnider3/Workspace/5d744260f0979526082a79b68d67734c88ce6b64/InternetIO/FoxhoundGetter.java),
+[here](https://raw.githubusercontent.com/jsnider3/Workspace/5d744260f0979526082a79b68d67734c88ce6b64/InternetIO/GirlGeniusImageGetter.java),
+and [here](https://raw.githubusercontent.com/jsnider3/Workspace/5d744260f0979526082a79b68d67734c88ce6b64/InternetIO/SchlockGetter.java).
+Permalinks to the new heavily refactored versions can be found at [here](https://raw.githubusercontent.com/jsnider3/Workspace/cb7faad7c10274b2eb5343943e1d8a5fc339458d/src/main/java/com/joshuasnider/workspace/ComicGetter/XKCDImageGetter.java),
+[here](https://raw.githubusercontent.com/jsnider3/Workspace/cb7faad7c10274b2eb5343943e1d8a5fc339458d/src/main/java/com/joshuasnider/workspace/ComicGetter/FoxhoundGetter.java),
+[here](https://raw.githubusercontent.com/jsnider3/Workspace/cb7faad7c10274b2eb5343943e1d8a5fc339458d/src/main/java/com/joshuasnider/workspace/ComicGetter/GirlGeniusImageGetter.java),
+and [here](https://raw.githubusercontent.com/jsnider3/Workspace/cb7faad7c10274b2eb5343943e1d8a5fc339458d/src/main/java/com/joshuasnider/workspace/ComicGetter/SchlockGetter.java).
+The old functions adequately, but it's riddled with problems that I will
+present in list format[^5]:
+
+#### No Backup, no Version Control.
+
+  It's easy when you're first starting out to just have a folder
+  on your computer full of code that you edit and run, to not make any
+  backups except for copying a file and putting ".bak" on the end of its
+  name, but you really shouldn't do that. Hard drives are known to fail,
+  laptops are a tempting target for thieves, and electronics don't react
+  well to the floods and fires that happen often enough that banks require
+  people who get mortgages to be insured against them. It's a miracle that
+  this code survived on a desktop for two years, got transferred to my
+  laptop over a USB, was put on an external hard drive, and was still intact
+  years later when I decided to add all of my early coding to a GitHub repo.
+  Nowadays, it's stored on two of my laptops, an external hard drive, and
+  an unknown number of GitHub servers. Any scenario that destroys it
+  permanently borders on the apocalyptic. As an added benefit of putting
+  your code on GitHub, you can edit code with more confidence
+  knowing you can roll back any change that doesn't work. You can also
+  refactor your old code and then make a blog post highlighting everything
+  that was wrong with the original.
+
+#### Not in a Package.
+
+  This is a minor quibble, but is important when a project starts to grow
+  beyond a certain point. It allows you to bring multiple components together
+  without worrying about two classes having the same name.
+
+#### Compiling with `javac *.java`, not `mvn test`.
+
+  This is another minor quibble, that only affects scalability. If you're
+  using javac *.java to compile a project, you necessarily have to put them
+  in the same directory. This doesn't play nice with the package system you
+  should be using and makes your project a disorganized mess.
+
+#### Using a Hard-to-Read Coding Style.
+
+  Here's an excerpt from a
+  [helper class](https://raw.githubusercontent.com/jsnider3/Workspace/388106b1d03fcf2bb520fdb88fa7fb86f4efbfcb/InternetIO/ComicImageGetter.java)
+  which fortunately does not exist anymore.
+
+{% highlight java %}
+	public static void getXKCD() throws Exception{
+		int NewestComic =getNewestXKCDComic();
+		webpage="http://www.xkcd.com/";
+		System.out.println(NewestComic);
+		for(int x=1;x<NewestComic+1;x++){
+			if(x==404)x=405;
+			String fileLoc=getXKCDFileLoc(getHTML(webpage+x));
+        	saveImage(fileLoc,"XKCD",x);
+        	//System.out.println(x);
+        	//System.out.println(fileLoc);
+        }
+	}
+{% endhighlight %}
+
+  If the lines bounce around on your screen, it's because this code
+  mixes spaces and tabs willy-nilly. In addition it leaves in commented
+  out code, which should never be left in code when you're done writing.
+  As a third thing, it deliberately avoids using the spacebar in an
+  attempt to make the code as compact as possible.
+
+  I don't want to attract a tabs vs. spaces flame war, but mixing them
+  upsets everyone. Many languages have official coding styles, Python
+  has PEP-8, Golang has `gofmt` to do it for you, and Java has its official
+  coding style [right here](http://www.oracle.com/technetwork/java/codeconventions-150003.pdf).
+  If you're on a project, make sure to match the rest of the project, but
+  otherwise think of the children and write legible code. Code which is
+  formatted to reduce the number of lines it takes out, isn't formatted at
+  all, or is formatted inconsistently is a crime against our people.
+
+#### Writing my own Code Instead of Using a Library.
+
+  I'm going to show you some code and I want you to take 20 seconds
+  look over it and guess what you think it does.
+
+  {% highlight java linenos %}
+
+public static int dateAlgorithm(String date){
+  //TODO Figure out how this works and add comments.
+  int year =Integer.parseInt(date.substring(0,4));
+  int month=Integer.parseInt(date.substring(4,6));
+  int day  =Integer.parseInt(date.substring(6));
+  int Y=year;
+  if(month==1||month==2){
+    Y=year-1;
+  }
+  int d=day;
+  int m=((month+9)%12)+1;
+  int y=Integer.parseInt(Integer.toString(year).substring(2));
+  int c=Integer.parseInt(Integer.toString(year).substring(0,2));
+  return (int) ((d+(2.6*m-0.2)+(5*y/4)-(7*c/4))%7);
+}
+
+  {% endhighlight %}
+
+  How was that? What if I told you it was the same as this one line.
+
+  {% highlight java %}
+  cal.get(Calendar.DAY_OF_WEEK)
+  {% endhighlight %}
+
+  That TODO that says "Figure out how this works and add comments" was
+  in the original source, not something I added for your benefit.[^6]
+
+  Replacing all of my date logic with functions from the standard library,
+  not only made my code more readable, it also made my code shorter and
+  more reliable. There's also some manual processing of XKCD's HTML in
+  getNewestComic and getHTML which would be much more rugged if done with
+  Jsoup, but that part is small enough that it would be overkill to port it.
+
+  In certain scenarios, implementing the inner workings of a function or
+  library by yourself can be useful. These situations are either when
+  you're first trying to learn something or when you're experienced enough
+  that your code is on the cutting edge of implementations. The first
+  scenario will happen a lot during your school's actual classwork, but
+  shouldn't be brought into your personal projects. The second scenario
+  will happen if you either go for a PhD or if you're one of the first people
+  to get your hands on an interesting piece of technology.
+
+#### Not Using an Interface.
+
+  The broad overview of how to archive a webcomic is the
+  same for all comics. You get the first comic, save it to a file, and then
+  iterate to the next page until you get to the most recent one. Instead of
+  each class implementing its own micro-optimized version of that, we can have
+  a shared main method and then rely the individual classes only need to implement
+  iterating of the comics and doing the precise name resolution.
+
+#### No Unit Tests.
+
+  When I first made some changes to the XKCD downloader and tried testing it by
+  rerunning it, I noticed something important. It didn't work. Not at all.
+  Turns out some changes had been made to the website, so that my method
+  of parsing the html manually to find the img src's didn't work. Now that
+  I have unit tests, any time I run `mvn test` it will take a millisecond or
+  two and validate that my code still works. Next time my code stops working,
+  I will know about it *very* quickly.
+
+#### Poor Commenting.
+
+  My comic downloader code didn't have this problem, but some code I wrote
+  to implement a violation heap[^7] did and I've copied it below.
+
+  {% highlight java %}
+
+  public ViolationNode deleteMin(){
+    /*
+    //Edge cases:
+    //root has no children.
+    */
+    //Make each of its subtrees a tree in h and remove from h the first root
+    final ViolationNode oldRoot=root;
+    root=promoteRootsChildren();
+    if(root!=null){
+      //DESTRUCTIVELY, Create an array containing all nodes of the root list.
+      ArrayList<ViolationNode> allNodes = new ArrayList<ViolationNode>();
+      ViolationNode temp;
+      for (ViolationNode walk = root; walk != root || allNodes.isEmpty();
+          walk = temp) {
+        allNodes.add(walk);
+        temp=walk.right;//This is the most likely node to have a nullPointerException.
+        walk.right = null;
+      }
+      //Repeatedly 3-way-join trees of equal rank until no three trees of
+      //the same rank remain.
+      List<List<ViolationNode>> list = new ArrayList<List<ViolationNode>>();
+      for(ViolationNode node:allNodes){
+        insertIntoJoinList(list,node);
+      }
+      //Get the nodes back out of the datastructure.
+      root=extractNodes(list);
+      /*Finally, the root with the new minimum value is moved to the first position in the root list.*/
+      root=findNewMin();
+    }
+    return oldRoot;
+  }
+
+  {% endhighlight %}
+
+  Given that a violation heap is a fancier version of a Fibonacci heap and
+  a Fibonacci heap is already a tricky data structure, there's no way to
+  do a "straightforward" implementation of it. Instead of having long methods
+  and trying to explain the method with in-line comments. We can break it
+  down into pieces, each of which can be a method with a suitably descriptive
+  name that the reader gets the gist. If they want to know more about a
+  helper method they can go find it and read the javadoc comment on it.
+  This is a much terser, yet much more readable refactoring.
+
+
+  {% highlight java %}
+
+  /**
+   * Delete the minimum of the heap.
+   * @return The deleted minimum.
+   */
+  public ViolationNode deleteMin() {
+    ViolationNode oldRoot = root;
+    root = promoteRootsChildren();
+    if (!isEmpty()) {
+      List<ViolationNode> allNodes = splitRootList();
+      RankList rankedList = new RankList(allNodes);
+      root = rankedList.mergeIntoHeap();
+      root = findNewMin();
+    }
+    return oldRoot;
+  }
+
+  {% endhighlight %}
+
+  Another bad practice for commenting is to simply describe what the code
+  does line-by-line in English, without any explanation of why they are
+  doing that. For example:
+
+  {% highlight java %}
+    public void decreaseKey(int n, ViolationNode x) {
+      ...
+      x.key -= n;//Subtract n from the key of x.
+      if (x.onRootList()) {
+        //If x is a root
+        if (x.key < root.key) {
+          //and its new value is smaller than the minimum, make it the root and stop.
+          root = x;
+        }
+      } else if (!x.isActive() || x.key < x.getParent().key) {
+        //If x is an active node whose new value is not smaller than its parent, stop.
+        ...
+   }
+  {% endhighlight %}
+
+  As an early programmer it can be tempting to write out a description of what your
+  methods should do in a high-level version of pseudocode, go back and write actual
+  code for your pseudocode, and leave the pseudocode as your "comments". This speaks
+  to a poor understanding of what good comments are useful for. Someone coming back
+  later doesn't need to know that `this.flag & UPDATED_MASK` computes the bitwise and
+  of two numbers, they want to know why you're checking if an object was recently
+  updated. They'd prefer to figure that out without having to read the source for
+  your methods, so they'd also like you to put that info in a format that javadoc
+  can automatically extract.
+
+#### Conclusion
+
+So, if you're a younger developer, perhaps one who started programming just a
+few years ago, these are the kinds of habits you should get out of to grow
+to the next level.
+
+--------
+
+**Footnotes:**
+
+[^0]: In other words, a self-inflicted code-bashing.
+
+[^1]: As an art term, the infinite canvas refers to the fact that webcomics can theoretically take up an infinite amount of space. A good and spoiler-heavy example is [this Order of the Stick comic](http://www.giantitp.com/comics/oots0443.html). They can also use code to be interactive or surprise the viewer with animation. 
+
+[^2]: Of course, we were expected to write a page on each of the plays we saw.
+
+[^3]: As a legal side note, making private copies of copyrighted material for personal use is protected by fair use. Just don't try selling your archives.
+
+[^4]: Guarantee subject to the condition that you enjoy the kind of thing that I enjoy.
+
+[^5]: I'd rather not describe this post as a listicle.
+
+[^6]: For the record it was an implementation of [this](https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week#Disparate_variation).
+
+[^7]: Essentially, a fancy version of a Fibonacci heap.
