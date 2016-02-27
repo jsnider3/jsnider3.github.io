@@ -1,3 +1,4 @@
 _site
+static
 src/_site
 *.pyc

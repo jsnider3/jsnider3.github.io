@@ -1,5 +1,6 @@
 runtime: python27
 api_version: 1
+version: 1
 threadsafe: yes
 
 handlers:
@@ -8,16 +9,16 @@ handlers:
   script: main.app
 
 - url: /
-  static_files: src/_site/index.html
-  upload: src/_site/index.html
+  static_files: static/index.html
+  upload: static/index.html
 
 - url: /(.*)/
-  static_files: src/_site/\1/index.html
-  upload: src/_site/*.*
+  static_files: static/\1/index.html
+  upload: static/*.*
 
 - url: /(.*)
-  static_files: src/_site/\1
-  upload: src/_site/(.*)
+  static_files: static/\1
+  upload: static/(.*)
 
 error_handlers:
-- file: src/_site/404.html
+- file: static/404.html
