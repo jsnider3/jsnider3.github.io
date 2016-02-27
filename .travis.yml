@@ -10,6 +10,9 @@ before_install:
 install:
 - gem install jekyll
 
+notifications:
+  email: false
+
 script: cd src && jekyll build
 
 deploy:
