@@ -2,3 +2,4 @@ _site
 static
 src/_site
 *.pyc
+client-secret.json
