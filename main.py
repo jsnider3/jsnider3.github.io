@@ -15,7 +15,6 @@ def get_tagline():
 @app.errorhandler(404)
 def page_not_found(e):
   """Custom 404 error."""
-  print("HELLO from 404")
   return render_template('404.html')
 
 @app.errorhandler(500)
