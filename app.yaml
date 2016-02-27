@@ -20,10 +20,6 @@ handlers:
   static_files: src/_site/css/\1
   upload: src/_site/*.*
 
-- url: /css/(.*)
-  static_files: src/_site/css/\1
-  upload: src/_site/*.*
-
 - url: /js/(.*)
   static_files: src/_site/js/\1
   upload: src/_site/*.*
