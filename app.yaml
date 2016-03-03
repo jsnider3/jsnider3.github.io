@@ -1,10 +1,15 @@
 runtime: python27
 api_version: 1
+version: 5
 threadsafe: yes
 
 handlers:
 
 - url: /
+  static_files: src/_site/index.html
+  upload: src/_site/index.html
+
+- url: /index.html
   static_files: src/_site/index.html
   upload: src/_site/index.html
 
