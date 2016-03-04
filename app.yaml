@@ -21,6 +21,10 @@ handlers:
   static_files: src/_site/update/\1/index.html
   upload: src/_site/*.*
 
+- url: /pictures/(.*)
+  static_files: src/_site/pictures/\1
+  upload: src/_site/*.*
+
 - url: /css/(.*)
   static_files: src/_site/css/\1
   upload: src/_site/*.*

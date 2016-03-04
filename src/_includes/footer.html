@@ -40,8 +40,18 @@
     </div>
 
     <div class="footer-col-3 column">
-      <p class="text">{{ site.description }}</p>
+      <p id="footer-text" class="text">{{ site.description }}</p>
     </div>
+    <script type="text/javascript">
+      var url = document.URL;
+      url = url.substring(url.indexOf('//') + 2);
+      url = url.substring(url.indexOf('/') + 1);
+      $.get( "/api/tagline?page=" + url, function( data ) {
+        $('#footer-text').html(data);
+      });
+    </script>
+
+
 
   </div>
 

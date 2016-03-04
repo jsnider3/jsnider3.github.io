@@ -7,7 +7,6 @@ customlink: /QuisCustodiet/
 comments: True
 ---
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <div class="home">
 
 <iframe src="https://ghbtns.com/github-btn.html?user=jsnider3&repo=QuisCustodiet&type=star&count=true"
