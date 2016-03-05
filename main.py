@@ -19,6 +19,10 @@ def get_tagline():
   ind = hash(request.args.get('page', '')) - hash('')
   return taglines[ind % len(taglines)]
 
+@app.route('/.well-known/acme-challenge/CLubHhYvkZj2ndjHNsETwDNvj6KriherBtAPhDNUTqw')
+def letsencrypt_challenge():
+  return "CLubHhYvkZj2ndjHNsETwDNvj6KriherBtAPhDNUTqw.RJszauNUxRavajsIJkOIl7hqRX-t5gk6J0vd7-RyIf8"
+
 @app.errorhandler(404)
 def page_not_found(e):
   """Custom 404 error."""
