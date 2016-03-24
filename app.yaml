@@ -41,6 +41,30 @@ handlers:
   static_files: src/_site/about/index.html
   upload: src/_site/(.*)
 
+- url: /android-icon-(.*)
+  static_files: src/_site/android-icon-\1
+  upload: src/_site/(.*)
+
+- url: /android-icon-(.*)
+  static_files: src/_site/android-icon-\1
+  upload: src/_site/(.*)
+
+- url: /browserconfig.xml
+  static_files: src/_site/browserconfig.xml
+  upload: src/_site/(.*)
+
+- url: /manifest.json
+  static_files: src/_site/manifest.json
+  upload: src/_site/(.*)
+
+- url: /favicon(.*)
+  static_files: src/_site/favicon\1
+  upload: src/_site/(.*)
+
+- url: /ms-icon-(.*)
+  static_files: src/_site/ms-icon-\1
+  upload: src/_site/(.*)
+
 - url: /.*
   script: main.app
 

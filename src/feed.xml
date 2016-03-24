@@ -13,8 +13,16 @@ layout: none
         <title>{{ post.title | xml_escape }}</title>
         <description>{{ post.content | xml_escape }}</description>
         <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+        {% if post.customlink %}
+        <link>{{ post.customlink }}</link>
+        {% else %}
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
+        {% endif %}
+        {% if post.customlink %}
+        <guid isPermaLink="true">{{ post.customlink }}</guid>
+        {% else %}
         <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
+        {% endif %}
       </item>
     {% endfor %}
   </channel>
