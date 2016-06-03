@@ -1,5 +1,7 @@
 runtime: python27
 api_version: 1
+version: 10
+application: joshuasnidercom
 threadsafe: yes
 
 handlers:
