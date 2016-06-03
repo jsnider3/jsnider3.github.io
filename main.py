@@ -47,6 +47,8 @@ def letsencrypt_challenge(challenge):
                 "6tSRS4N9-8uC2lnh8MdmpbCtMVTteE22LtgTNaSVJmM.qmY1wTTHo_ar0hB2Nw-6lovfLHRSG0AQjy_5KR7piDI",
                 'cQZJOUSdGqf1O2Md3wjP0VIp4qT3VFtgZqs2cbtGa_o' :
                 "cQZJOUSdGqf1O2Md3wjP0VIp4qT3VFtgZqs2cbtGa_o.qmY1wTTHo_ar0hB2Nw-6lovfLHRSG0AQjy_5KR7piDI",
+                'eECsjEGAR2cSVM-n6y53nI15HGmz-sJa8FW7IQk2_78' :
+                "eECsjEGAR2cSVM-n6y53nI15HGmz-sJa8FW7IQk2_78.qmY1wTTHo_ar0hB2Nw-6lovfLHRSG0AQjy_5KR7piDI",
                 'gqfq8DC9iaLftcGGyMr4k0xExSWMmZKs5Gyg3wPm0HA' :
                 "gqfq8DC9iaLftcGGyMr4k0xExSWMmZKs5Gyg3wPm0HA.RJszauNUxRavajsIJkOIl7hqRX-t5gk6J0vd7-RyIf8"}
   return challenges[challenge]
