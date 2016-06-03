@@ -3,14 +3,26 @@
   @author Josh Snider
 """
 
+import datetime
 from flask import Flask
 from flask import render_template
 from flask import request
 import os
 app = Flask(__name__)
 
+def get_date_specific_tagline():
+  today = datetime.datetime.now()
+  if today.month == 3 and today.day == 14:
+    return "Happy Pi Day!"
+  elif today.month == 6 and today.day == 28:
+    return "Happy Tau Day!"
+  return None
+
 @app.route('/api/tagline/')
 def get_tagline():
+  tag = get_date_specific_tagline()
+  if tag != None:
+    return tag
   taglines = [
     "An attempt at a blog by someone who thinks Haskell is cool.",
     "Contains 20% of your daily recommended dose of HTML.",
