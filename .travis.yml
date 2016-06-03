@@ -13,7 +13,7 @@ install:
 notifications:
   email: false
 
-script: cd src && jekyll build && cd ..
+script: cd src && jekyll build && cd .. && ls src/_site
 
 deploy:
   provider: gae
