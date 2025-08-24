@@ -1,0 +1,39 @@
+# Site settings
+title: (\x -> "Blog")
+email: josh@joshuasnider.com
+description: "An attempt at a blog by someone who thinks Haskell is cool."
+baseurl: ""
+url: "https://www.joshuasnider.com"
+username: "jsnider3"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# GitHub Pages settings
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - lib/
+  - requirements.txt
+  - main.py
+  - app.yaml
+  - appengine_config.py
+  - client-secret.json.enc
+  - templates/
+  - README.md
+  - src/
+  - DEPLOY.md
+  - serve.sh
+  - .travis.yml

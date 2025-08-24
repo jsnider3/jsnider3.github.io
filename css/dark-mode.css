@@ -1,0 +1,201 @@
+/* Dark Mode Support */
+/* Automatically switches based on system preferences */
+
+:root {
+  /* Light mode colors (defaults) */
+  --bg-color: #fdfdfd;
+  --bg-header: white;
+  --text-color: #333;
+  --text-light: #727272;
+  --link-color: #2a7ae2;
+  --link-visited: #205caa;
+  --link-hover: #000;
+  --border-color: #e8e8e8;
+  --border-dark: #333;
+  --code-bg: #eef;
+  --code-border: #d5d5e9;
+  --terminal-bg: #333;
+  --terminal-color: #fff;
+  --highlight-bg: #ffffff;
+  --comment-color: #999988;
+  --error-bg: #e3d2d2;
+  --error-color: #a61717;
+  --string-color: #d14;
+  --number-color: #009999;
+  --keyword-color: #445588;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode colors */
+    --bg-color: #1a1a1a;
+    --bg-header: #242424;
+    --text-color: #e8e8e8;
+    --text-light: #b0b0b0;
+    --link-color: #5a9aff;
+    --link-visited: #8a7aff;
+    --link-hover: #7ab4ff;
+    --border-color: #404040;
+    --border-dark: #666;
+    --code-bg: #2d2d2d;
+    --code-border: #444;
+    --terminal-bg: #0d0d0d;
+    --terminal-color: #0f0;
+    --highlight-bg: #1e1e1e;
+    --comment-color: #7c7c7c;
+    --error-bg: #4a2020;
+    --error-color: #ff6b6b;
+    --string-color: #98c379;
+    --number-color: #56b6c2;
+    --keyword-color: #c678dd;
+  }
+
+  /* Adjust images for dark mode */
+  img {
+    opacity: 0.9;
+  }
+  
+  img:hover {
+    opacity: 1;
+  }
+
+  /* Invert GitHub icon in footer */
+  .github-icon-svg path {
+    fill: #e8e8e8;
+  }
+}
+
+/* Apply CSS variables throughout the site */
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.site-header {
+  background-color: var(--bg-header) !important;
+  border-top-color: var(--border-dark);
+  border-bottom-color: var(--border-color);
+  transition: background-color 0.3s ease;
+}
+
+.page-content {
+  background-color: var(--bg-color) !important;
+}
+
+.site-title,
+.site-title:hover,
+.site-title:visited {
+  color: var(--text-color);
+}
+
+.site-nav .page-link {
+  color: var(--text-light);
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+.site-footer {
+  border-top-color: var(--border-color);
+}
+
+.post h1, .post h2, .post h3, 
+.post h4, .post h5, .post h6 {
+  color: var(--text-color);
+}
+
+.post-header .meta {
+  color: var(--text-light);
+}
+
+.post-content blockquote {
+  border-left-color: var(--border-color);
+  color: var(--text-light);
+}
+
+.post pre,
+.post code {
+  border-color: var(--code-border);
+  background-color: var(--code-bg);
+  color: var(--text-color);
+}
+
+.post pre.terminal {
+  background-color: var(--terminal-bg);
+  color: var(--terminal-color);
+  border-color: var(--border-dark);
+}
+
+.post pre.terminal code {
+  background-color: var(--terminal-bg);
+}
+
+/* Syntax highlighting for dark mode */
+@media (prefers-color-scheme: dark) {
+  .highlight { background: var(--highlight-bg); }
+  .highlight .c { color: var(--comment-color); }
+  .highlight .err { color: var(--error-color); background-color: var(--error-bg); }
+  .highlight .k { color: var(--keyword-color); }
+  .highlight .cm { color: var(--comment-color); }
+  .highlight .cp { color: #7c7c7c; }
+  .highlight .c1 { color: var(--comment-color); }
+  .highlight .cs { color: #7c7c7c; }
+  .highlight .gd { background-color: #3a2020; }
+  .highlight .gi { background-color: #203a20; }
+  .highlight .gh { color: #999; }
+  .highlight .go { color: #888; }
+  .highlight .gp { color: #666; }
+  .highlight .gu { color: #aaa; }
+  .highlight .gt { color: #ff6b6b; }
+  .highlight .kt { color: var(--keyword-color); }
+  .highlight .m { color: var(--number-color); }
+  .highlight .s { color: var(--string-color); }
+  .highlight .na { color: #56b6c2; }
+  .highlight .nb { color: #61afef; }
+  .highlight .nc { color: var(--keyword-color); }
+  .highlight .no { color: #56b6c2; }
+  .highlight .ni { color: #c678dd; }
+  .highlight .ne { color: #ff6b6b; }
+  .highlight .nf { color: #ff6b6b; }
+  .highlight .nn { color: #777; }
+  .highlight .nt { color: #5a9aff; }
+  .highlight .nv { color: #56b6c2; }
+  .highlight .w { color: #e8e8e8; }
+  .highlight .mf { color: var(--number-color); }
+  .highlight .mh { color: var(--number-color); }
+  .highlight .mi { color: var(--number-color); }
+  .highlight .mo { color: var(--number-color); }
+  .highlight .sb { color: var(--string-color); }
+  .highlight .sc { color: var(--string-color); }
+  .highlight .sd { color: var(--string-color); }
+  .highlight .s2 { color: var(--string-color); }
+  .highlight .se { color: var(--number-color); }
+  .highlight .sh { color: var(--string-color); }
+  .highlight .si { color: var(--string-color); }
+  .highlight .sx { color: var(--string-color); }
+  .highlight .sr { color: #98c379; }
+  .highlight .s1 { color: var(--string-color); }
+  .highlight .ss { color: #56b6c2; }
+  .highlight .bp { color: #61afef; }
+  .highlight .vc { color: #56b6c2; }
+  .highlight .vg { color: #56b6c2; }
+  .highlight .vi { color: #56b6c2; }
+  .highlight .il { color: var(--number-color); }
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease;
+}

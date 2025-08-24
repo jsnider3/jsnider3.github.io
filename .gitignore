@@ -1,5 +1,22 @@
-_site
-static
-src/_site
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Old GAE files (to be removed)
+lib/
+templates/
 *.pyc
 client-secret.json
+client-secret.json.enc
+
+# Ruby
+Gemfile.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Old src directory
+src/
