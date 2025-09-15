@@ -10,6 +10,10 @@ username: "jsnider3"
 markdown: kramdown
 permalink: pretty
 
+# Enable GitHub Flavored Markdown (tables, etc.)
+kramdown:
+  input: GFM
+
 # GitHub Pages settings
 plugins:
   - jekyll-feed

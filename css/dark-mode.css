@@ -51,12 +51,14 @@
   }
 
   /* Adjust images for dark mode */
-  img {
-    opacity: 0.9;
-  }
-  
-  img:hover {
-    opacity: 1;
+  img { opacity: 0.9; }
+  img:hover { opacity: 1; }
+
+  /* Keep SVGs crisp and readable in dark mode */
+  img[src$=".svg"] {
+    opacity: 1;                /* don’t dim diagrams */
+    background-color: #ffffff; /* ensure contrast for dark strokes */
+    border-radius: 4px;
   }
 
   /* Invert GitHub icon in footer */

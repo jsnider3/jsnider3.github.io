@@ -430,3 +430,26 @@ table.tableSection th, table.tableSection td {
   text-align: left;
 }
 
+/* Collapsible appendix (spoiler) */
+details.spoiler {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: #fafafa;
+  padding: 0 12px 8px 12px;
+  margin: 16px 0;
+}
+details.spoiler > summary {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 10px 0;
+  list-style: none;
+}
+details.spoiler > summary::-webkit-details-marker { display: none; }
+details.spoiler[open] {
+  background: #fefefe;
+}
+.appendix-skip {
+  font-size: 0.95em;
+  color: #666;
+}
+.appendix-skip a { text-decoration: underline; }
