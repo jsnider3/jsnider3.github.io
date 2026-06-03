@@ -243,6 +243,11 @@ a:visited { color: #205caa; }
 
 .post pre code { border: none; }
 
+.post pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
 /* terminal */
 .post pre.terminal {
   border: 1px solid #000;
@@ -428,6 +433,30 @@ table.tableSection tr {
 table.tableSection th, table.tableSection td {
   width: 33%;
   text-align: left;
+}
+
+/* Markdown content tables */
+.post table {
+  border-collapse: collapse;
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.post table th,
+.post table td {
+  border: 1px solid rgba(127, 127, 127, 0.45);
+  padding: 6px 10px;
+  text-align: left;
+}
+.post table thead th {
+  background-color: var(--code-bg, #eef);
+  border-bottom-width: 2px;
+}
+.post table tbody tr:nth-child(even) td {
+  background-color: rgba(127, 127, 127, 0.08);
 }
 
 /* Collapsible appendix (spoiler) */
