@@ -20,3 +20,12 @@ Thumbs.db
 
 # Old src directory
 src/
+
+# Private notes (not part of the site)
+archive/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key

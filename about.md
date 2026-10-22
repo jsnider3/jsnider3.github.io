@@ -11,6 +11,9 @@ Both of them are from George Mason.
 My current interests as a computer scientist are full-stack development,
 the cloud, comparative programming languages, and compilers/interpreters.
 
+I also have a [YouTube channel](https://www.youtube.com/@joshuasnidercom)
+where I mostly get LLMs to write albums and make them into music videos.
+
 I can be reached either through the email at the bottom
 of the page, my [LinkedIn](https://www.linkedin.com/pub/josh-snider/5a/482/6ba) page, or leaving a comment.
 

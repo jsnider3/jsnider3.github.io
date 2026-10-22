@@ -4,15 +4,19 @@ Your blog has been modernized and is ready for GitHub Pages! Follow these steps 
 
 ## 1. Commit and Push Changes
 
+Stage files by name rather than with `git add .`, so drafts and private notes
+in the working tree don't get published by accident:
+
 ```bash
-git add .
-git commit -m "Migrate from Google App Engine to GitHub Pages"
+git status
+git add _posts/YYYY-MM-DD-your-post.markdown
+git commit -m "Add post \"Your Post\""
 git push origin master
 ```
 
 ## 2. Enable GitHub Pages
 
-1. Go to your repository on GitHub: https://github.com/jsnider3/www.joshuasnider.com (or whatever your repo is named)
+1. Go to your repository on GitHub: https://github.com/jsnider3/jsnider3.github.io
 2. Click on **Settings** (in the repo navigation)
 3. Scroll down to **Pages** section (in the left sidebar)
 4. Under **Source**, select:
@@ -55,16 +59,12 @@ Update your domain's DNS settings with your domain registrar:
 - ✅ Free hosting with no maintenance
 - ✅ Automatic builds on push
 
-### Files You Can Delete (after confirming everything works):
-- `app.yaml` - GAE configuration
-- `main.py` - Flask backend
-- `requirements.txt` - Python dependencies
-- `appengine_config.py` - GAE config
-- `client-secret.json.enc` - Old secrets
-- `lib/` directory - Python libraries
-- `templates/` directory - Flask templates
-- `src/` directory - Old Jekyll location
-- `.travis.yml` - Old CI configuration
+### Old GAE Deployment
+
+The GAE files (`app.yaml`, `main.py`, `lib/`, `.travis.yml`, `client-secret.json.enc`, etc.)
+were removed from the repo in August 2025, but removing them doesn't undeploy the app.
+Disable the App Engine app in GCP project `joshuasnidercom` and delete its old
+service-account keys.
 
 ### To Run Locally (Optional):
 
