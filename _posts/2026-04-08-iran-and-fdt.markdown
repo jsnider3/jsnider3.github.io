@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "Iran and FDT"
+date:   2026-04-08 06:00:00
+categories: rationality
+---
+
+*Originally posted on [LessWrong](https://www.lesswrong.com/posts/GkseARQ9WLFzSrsaC/iran-and-fdt).*
+
+Functional Decision Theory was a major step forward in decision-making. It provides good and well-reasoned answers to many tricky questions such as Newcomb's Problem and Parfit's Hitchhiker. FDT is also the decision theory that provides one of the strongest formalized arguments that you should never give in to blackmail or threats. The argument for this is pretty straightforward, in that if you never give in to blackmail, people will know not to blackmail you. However, what really matters is how it works in the real world. The closest real-world example of a state following this advice is Iran, yet Iran's position is actually very bad and much worse than it could be. Why is this? The FDT anti-blackmail logic is very clean in theory. If you're the kind of person that never capitulates, rational opponents never bother to threaten you, but Iran illustrates several ways this breaks down in practice.
+
+First, the "never give in" posture only deters if the other side is a rational unitary actor calculating expected value. That's not how the White House works. It's a rotating cast of administrations with different preferences, domestic political incentives and little expertise about or interest in Iran. A new administration may delude itself into thinking Iran will fold, so the deterrence value of past stubbornness is partially lost every 4 to 8 years. And when deterrence fails to prevent the threats, you're just absorbing punishment. Decades of sanctions and bombing have devastated Iran's economy, driven waves of emigration among its richest and smartest citizens, and left it dependent on allies that resemble organized crime networks more than functioning states.
+
+Second, Iran's posture isn't a deliberate precommitment, it's a political constraint. Iran didn't adopt this posture from reading Yudkowsky or even the game theorists of the 1970s. It emerged from revolutionary ideology, legitimacy dynamics, and the specific trauma of the 1953 coup. The regime can't easily concede even when it could be strategically rational to do so, because the domestic political costs of appearing to submit to the Great Satan are existential for the ruling faction. So it's not really "following FDT" so much as being locked into a strategy by internal constraints, which is a very different thing from the deliberate precommitment FDT envisions. The sense that Iran's intransigence is an irrational political choice makes Iran appear more threatening while at the same time inviting people to try to "fix" it by interfering in Iran's domestic politics.
+
+Third, and maybe most damning for the FDT framing: Iran's adversaries aren't just "blackmailers" making threats. They have genuine, substantive interests in Iran's nuclear program, regional proxies, etc. The clean blackmail frame, where the threat is purely exploitative and the threatener has no legitimate stake, doesn't map well onto most geopolitical conflicts. When both sides have real interests at stake, negotiated compromise often dominates mutual defection, which is more Coasean than FDT. The "never concede" equilibrium can be strictly worse than selective concession when the game isn't pure blackmail but a genuine clash of interests with room for trades.
+
+There's a decent chance Trump just surrenders in the current war, but I wouldn't bet on it, and even if that happens, Iran will still be decades in the hole compared to an alternate timeline where it hired a bunch of lobbyists and followed the Deng Xiaoping playbook of appearing non-threatening until you build decisive power.
